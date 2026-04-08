@@ -1,22 +1,62 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Upload, RefreshCw, Sparkles, GitBranch, ArrowRight } from 'lucide-react';
 
 const OnboardingSection = () => {
-  const { t } = useLanguage();
+  const { language } = useLanguage();
+  const [activeStep, setActiveStep] = useState(0);
 
-  const features = [
-    { key: 'import', icon: Upload },
-    { key: 'sync', icon: RefreshCw },
-    { key: 'enrich', icon: Sparkles },
-    { key: 'mapping', icon: GitBranch },
+  const steps = [
+    { 
+      key: 'import', 
+      icon: Upload,
+      name: { fr: 'Import', en: 'Import' },
+      title: { fr: 'Importez vos données', en: 'Import your data' },
+      desc: { fr: 'CSV, Excel, API, connexions directes', en: 'CSV, Excel, API, direct connections' }
+    },
+    { 
+      key: 'sync', 
+      icon: RefreshCw,
+      name: { fr: 'Synchronisation', en: 'Sync' },
+      title: { fr: 'Synchronisez vos outils', en: 'Sync your tools' },
+      desc: { fr: 'Email, calendrier, CRM existant', en: 'Email, calendar, existing CRM' }
+    },
+    { 
+      key: 'enrich', 
+      icon: Sparkles,
+      name: { fr: 'Enrichissement', en: 'Enrichment' },
+      title: { fr: 'Enrichissement IA', en: 'AI Enrichment' },
+      desc: { fr: 'Données complétées automatiquement', en: 'Data completed automatically' }
+    },
+    { 
+      key: 'mapping', 
+      icon: GitBranch,
+      name: { fr: 'Mapping IA', en: 'AI Mapping' },
+      title: { fr: 'Structure intelligente', en: 'Smart structure' },
+      desc: { fr: 'Organisation détectée par l\'IA', en: 'Organization detected by AI' }
+    },
   ];
 
+  // Auto-rotate carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % steps.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [steps.length]);
+
+  const handleDemoClick = () => {
+    window.open('https://calendly.com/saksae-sales', '_blank');
+  };
+
+  const activeStepData = steps[activeStep];
+  const ActiveIcon = activeStepData.icon;
+
   return (
-    <section id="onboarding" className="py-24 md:py-32 bg-[#FAFAFA] dotted-pattern">
+    <section id="onboarding" className="py-16 md:py-20 bg-[#FAFAFA]">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left - Content */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -24,121 +64,172 @@ const OnboardingSection = () => {
             viewport={{ once: true }}
           >
             <span className="section-tag block mb-4">
-              {t('onboarding.tag')}
+              {language === 'fr' ? '[02] Onboarding IA' : '[02] AI Onboarding'}
             </span>
             <h2 className="text-section-title text-[#0A0A0A] mb-4">
-              {t('onboarding.title')}
+              {language === 'fr' 
+                ? 'Démarrez rapidement et générez vos premières actions en quelques clics.'
+                : 'Get started quickly and generate your first actions in a few clicks.'}
             </h2>
             <p className="text-lg text-[#6B7280] mb-8">
-              {t('onboarding.desc')}
+              {language === 'fr'
+                ? 'SAKSAE importe vos données et se connecte à vos outils existants pour construire votre plateforme.'
+                : 'SAKSAE imports your data and connects to your existing tools to build your platform.'}
             </p>
 
-            {/* Features */}
-            <div className="space-y-4 mb-8">
-              {features.map((feature, index) => {
-                const Icon = feature.icon;
-                const featureData = t(`onboarding.features.${feature.key}`);
+            {/* Step indicators */}
+            <div className="flex gap-2 mb-6">
+              {steps.map((step, index) => (
+                <button
+                  key={step.key}
+                  onClick={() => setActiveStep(index)}
+                  className={`flex-1 h-1 rounded-full transition-all ${
+                    index === activeStep ? 'bg-[#0A0A0A]' : 'bg-[#E5E7EB]'
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* Step labels */}
+            <div className="flex gap-4 mb-8">
+              {steps.map((step, index) => {
+                const Icon = step.icon;
                 return (
-                  <motion.div
-                    key={feature.key}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-start gap-4"
+                  <button
+                    key={step.key}
+                    onClick={() => setActiveStep(index)}
+                    className={`flex items-center gap-2 text-sm transition-colors ${
+                      index === activeStep ? 'text-[#0A0A0A] font-medium' : 'text-[#9CA3AF]'
+                    }`}
                   >
-                    <div className="w-10 h-10 rounded-lg border border-[#E5E7EB] flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-4 h-4 text-[#6B7280]" strokeWidth={1.5} />
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-[#0A0A0A] mb-0.5">
-                        {featureData?.name}
-                      </h4>
-                      <p className="text-sm text-[#6B7280]">
-                        {featureData?.desc}
-                      </p>
-                    </div>
-                  </motion.div>
+                    <Icon className="w-4 h-4" strokeWidth={1.5} />
+                    <span className="hidden sm:inline">{step.name[language]}</span>
+                  </button>
                 );
               })}
             </div>
 
-            <button className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium bg-[#0A0A0A] text-white rounded-lg hover:bg-[#1F2937] transition-colors">
-              {t('onboarding.cta')}
+            <button 
+              onClick={handleDemoClick}
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium bg-[#0A0A0A] text-white rounded-lg hover:bg-[#1F2937] transition-colors"
+            >
+              {language === 'fr' ? 'Demander une démo' : 'Request a demo'}
               <ArrowRight className="w-4 h-4" />
             </button>
           </motion.div>
 
-          {/* Right - Visual */}
+          {/* Right - Animated Carousel Visual */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="bg-white rounded-xl border border-[#E5E7EB] p-6 shadow-sm">
-              {/* Import header */}
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="font-medium text-[#0A0A0A]">Import your data</h3>
-                <span className="text-xs text-[#6B7280]">Step 1 of 3</span>
-              </div>
-
-              {/* Data sources */}
-              <div className="grid grid-cols-2 gap-3 mb-6">
-                {['Email & Calendar', 'Google Sheets', 'Salesforce', 'HubSpot'].map((source, i) => (
-                  <div
-                    key={source}
-                    className={`p-4 rounded-lg border ${i === 0 ? 'border-[#0A0A0A] bg-[#F9FAFB]' : 'border-[#E5E7EB]'} cursor-pointer hover:border-[#0A0A0A] transition-colors`}
-                  >
-                    <div className="w-8 h-8 rounded bg-[#F3F4F6] mb-2" />
-                    <span className="text-sm text-[#0A0A0A]">{source}</span>
+            <div className="bg-white rounded-xl border border-[#E5E7EB] p-6 shadow-sm min-h-[280px]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeStep}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* Header */}
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-[#F3F4F6] flex items-center justify-center">
+                        <ActiveIcon className="w-5 h-5 text-[#0A0A0A]" strokeWidth={1.5} />
+                      </div>
+                      <div>
+                        <h3 className="font-medium text-[#0A0A0A]">{activeStepData.title[language]}</h3>
+                        <p className="text-xs text-[#6B7280]">{activeStepData.desc[language]}</p>
+                      </div>
+                    </div>
+                    <span className="text-xs text-[#9CA3AF]">
+                      {language === 'fr' ? `Étape ${activeStep + 1} sur ${steps.length}` : `Step ${activeStep + 1} of ${steps.length}`}
+                    </span>
                   </div>
-                ))}
-              </div>
 
-              {/* Progress */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-[#6B7280]">Importing contacts...</span>
-                  <span className="text-[#0A0A0A] font-medium">2,847 records</span>
-                </div>
-                <div className="h-1.5 bg-[#F3F4F6] rounded-full overflow-hidden">
-                  <div className="h-full w-3/4 bg-[#0A0A0A] rounded-full" />
-                </div>
-              </div>
+                  {/* Visual content based on step */}
+                  {activeStep === 0 && (
+                    <div className="space-y-3">
+                      <div className="grid grid-cols-2 gap-3">
+                        {['Email & Calendar', 'Google Sheets', 'Salesforce', 'HubSpot'].map((source, i) => (
+                          <div
+                            key={source}
+                            className={`p-3 rounded-lg border text-sm ${i === 0 ? 'border-[#0A0A0A] bg-[#F9FAFB]' : 'border-[#E5E7EB]'}`}
+                          >
+                            <div className="w-6 h-6 rounded bg-[#F3F4F6] mb-2" />
+                            {source}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="h-1.5 bg-[#F3F4F6] rounded-full overflow-hidden">
+                        <motion.div 
+                          className="h-full bg-[#0A0A0A] rounded-full"
+                          initial={{ width: 0 }}
+                          animate={{ width: '75%' }}
+                          transition={{ duration: 2 }}
+                        />
+                      </div>
+                    </div>
+                  )}
 
-              {/* AI processing indicator */}
-              <div className="mt-6 pt-6 border-t border-[#E5E7EB]">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-[#F3F4F6] flex items-center justify-center">
-                    <Sparkles className="w-4 h-4 text-[#6B7280]" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-[#0A0A0A]">AI is enriching your data</p>
-                    <p className="text-xs text-[#6B7280]">Adding company info, social profiles...</p>
-                  </div>
-                </div>
-              </div>
+                  {activeStep === 1 && (
+                    <div className="space-y-3">
+                      {['Gmail connecté', 'Google Calendar synced', 'Contacts importés'].map((item, i) => (
+                        <div key={item} className="flex items-center gap-3 p-3 bg-[#F9FAFB] rounded-lg">
+                          <div className="w-6 h-6 rounded-full bg-[#D1FAE5] flex items-center justify-center">
+                            <span className="text-[#059669] text-xs">✓</span>
+                          </div>
+                          <span className="text-sm text-[#0A0A0A]">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {activeStep === 2 && (
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3 p-3 bg-[#F9FAFB] rounded-lg">
+                        <Sparkles className="w-5 h-5 text-[#6B7280]" />
+                        <div>
+                          <p className="text-sm text-[#0A0A0A]">{language === 'fr' ? 'IA en cours...' : 'AI processing...'}</p>
+                          <p className="text-xs text-[#6B7280]">{language === 'fr' ? 'Enrichissement des données' : 'Enriching data'}</p>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-3 gap-2 text-center">
+                        {[
+                          { label: 'Contacts', value: '2,847' },
+                          { label: 'Companies', value: '423' },
+                          { label: 'Enriched', value: '89%' },
+                        ].map((stat) => (
+                          <div key={stat.label} className="p-2 bg-[#F3F4F6] rounded-lg">
+                            <p className="text-lg font-semibold text-[#0A0A0A]">{stat.value}</p>
+                            <p className="text-xs text-[#6B7280]">{stat.label}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {activeStep === 3 && (
+                    <div className="space-y-3">
+                      <div className="p-3 bg-[#D1FAE5] border border-[#BBF7D0] rounded-lg">
+                        <p className="text-sm font-medium text-[#059669]">{language === 'fr' ? 'Structure détectée ✓' : 'Structure detected ✓'}</p>
+                      </div>
+                      <div className="space-y-2">
+                        {['Leads → Pipeline', 'Clients → CRM', 'Projets → Boards', 'Factures → Finance'].map((mapping) => (
+                          <div key={mapping} className="flex items-center gap-2 text-sm text-[#6B7280]">
+                            <GitBranch className="w-4 h-4" />
+                            {mapping}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
             </div>
-
-            {/* Floating card */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="absolute -bottom-4 -right-4 bg-white rounded-lg border border-[#E5E7EB] p-4 shadow-lg"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-[#D1FAE5] flex items-center justify-center">
-                  <span className="text-[#059669] text-sm">✓</span>
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-[#0A0A0A]">Import complete</p>
-                  <p className="text-xs text-[#6B7280]">Ready to use</p>
-                </div>
-              </div>
-            </motion.div>
           </motion.div>
         </div>
       </div>
