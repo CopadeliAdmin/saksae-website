@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
-import { Check, ArrowRight } from 'lucide-react';
+import { ArrowRight, Minus, Plus } from 'lucide-react';
 
 const PricingSection = () => {
   const { language } = useLanguage();
+  const [tpeUsers, setTpeUsers] = useState(3);
+  const [pmeUsers, setPmeUsers] = useState(15);
 
   const handleTrialClick = () => {
     window.location.href = '/register';
@@ -14,36 +16,28 @@ const PricingSection = () => {
     window.open('https://calendly.com/saksae-sales', '_blank');
   };
 
-  const plans = [
-    {
-      key: 'independant',
-      name: { fr: 'Indépendant', en: 'Freelancer' },
-      price: '79',
-      desc: { fr: '1 utilisateur', en: '1 user' },
-    },
-    {
-      key: 'tpe',
-      name: { fr: 'TPE', en: 'Small Business' },
-      price: '59',
-      desc: { fr: "Jusqu'à 9 utilisateurs", en: 'Up to 9 users' },
-      popular: true,
-    },
-    {
-      key: 'pme',
-      name: { fr: 'PME', en: 'Medium Business' },
-      price: '49',
-      desc: { fr: 'De 10 à 49 utilisateurs', en: '10 to 49 users' },
-    },
-  ];
+  // Pricing calculation
+  const monthlyPrices = {
+    independant: 79,
+    tpe: 59,
+    pme: 49
+  };
+
+  // 20% annual discount
+  const annualDiscount = 0.20;
+
+  const calculateAnnual = (monthly) => {
+    return Math.round(monthly * 12 * (1 - annualDiscount));
+  };
 
   const features = {
     fr: {
-      operations: ['CRM', 'Management', 'Finances', 'Approvisionnements', 'RH', 'Produits'],
-      tools: ['Réunions IA', 'Mémo IA', 'Signatures', 'Calendrier', 'Projets', 'Playbooks']
+      operations: ['CRM', 'Management', 'Finances', 'Appro'],
+      tools: ['Réunions IA', 'Mémo IA', 'Signatures', 'Calendrier']
     },
     en: {
-      operations: ['CRM', 'Management', 'Finance', 'Supply Chain', 'HR', 'Products'],
-      tools: ['AI Meetings', 'AI Memos', 'Signatures', 'Calendar', 'Projects', 'Playbooks']
+      operations: ['CRM', 'Management', 'Finance', 'Supply'],
+      tools: ['AI Meetings', 'AI Memos', 'Signatures', 'Calendar']
     }
   };
 
@@ -65,86 +59,208 @@ const PricingSection = () => {
           </h2>
           <p className="text-lg text-[#6B7280]">
             {language === 'fr' 
-              ? 'Tous les modules. Tous les outils IA. Un prix unique par utilisateur.'
-              : 'All modules. All AI tools. One price per user.'}
+              ? 'Facturation annuelle. 20% d\'économie par rapport au mensuel.'
+              : 'Annual billing. Save 20% compared to monthly.'}
           </p>
         </motion.div>
 
         {/* Pricing Cards */}
         <div className="grid md:grid-cols-3 gap-4 mb-8">
-          {plans.map((plan, index) => {
-            const isPopular = plan.popular;
+          
+          {/* Indépendant */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative p-6 rounded-xl border border-[#E5E7EB] bg-white"
+            data-testid="pricing-independant"
+          >
+            <h3 className="text-lg font-semibold text-[#0A0A0A] mb-1">
+              {language === 'fr' ? 'Indépendant' : 'Freelancer'}
+            </h3>
+            <p className="text-sm text-[#6B7280] mb-4">
+              {language === 'fr' ? '1 utilisateur' : '1 user'}
+            </p>
 
-            return (
-              <motion.div
-                key={plan.key}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className={`relative p-6 rounded-xl border ${isPopular ? 'border-[#0A0A0A] bg-[#0A0A0A] text-white' : 'border-[#E5E7EB] bg-white'}`}
-                data-testid={`pricing-${plan.key}`}
+            <div className="mb-2">
+              <span className="text-4xl font-semibold text-[#0A0A0A]">
+                €{calculateAnnual(monthlyPrices.independant)}
+              </span>
+              <span className="text-sm text-[#6B7280]">/{language === 'fr' ? 'an' : 'yr'}</span>
+            </div>
+            <p className="text-xs text-[#059669] mb-4">
+              {language === 'fr' ? `Au lieu de €${monthlyPrices.independant * 12}/an (-20%)` : `Instead of €${monthlyPrices.independant * 12}/yr (-20%)`}
+            </p>
+
+            {/* Features */}
+            <div className="mb-4">
+              <div className="flex flex-wrap gap-1 mb-2">
+                {features[language].operations.map((op, i) => (
+                  <span key={i} className="text-xs px-2 py-0.5 rounded bg-[#F3F4F6] text-[#6B7280]">
+                    {op}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-1">
+                {features[language].tools.map((tool, i) => (
+                  <span key={i} className="text-xs px-2 py-0.5 rounded bg-[#F3F4F6] text-[#6B7280]">
+                    {tool}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <button
+              onClick={handleTrialClick}
+              className="w-full py-2.5 text-sm font-medium rounded-lg bg-[#0A0A0A] text-white hover:bg-[#1F2937] transition-colors"
+            >
+              {language === 'fr' ? 'Commencer l\'essai' : 'Start trial'}
+            </button>
+          </motion.div>
+
+          {/* TPE */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="relative p-6 rounded-xl border border-[#0A0A0A] bg-[#0A0A0A] text-white"
+            data-testid="pricing-tpe"
+          >
+            <span className="absolute -top-3 left-6 px-3 py-1 text-xs font-medium bg-white text-[#0A0A0A] rounded-full">
+              Popular
+            </span>
+
+            <h3 className="text-lg font-semibold text-white mb-1">TPE</h3>
+            <p className="text-sm text-white/60 mb-4">
+              {language === 'fr' ? 'Jusqu\'à 9 utilisateurs' : 'Up to 9 users'}
+            </p>
+
+            {/* User selector */}
+            <div className="flex items-center justify-between mb-3 bg-white/10 rounded-lg p-2">
+              <button
+                onClick={() => setTpeUsers(Math.max(1, tpeUsers - 1))}
+                className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
               >
-                {isPopular && (
-                  <span className="absolute -top-3 left-6 px-3 py-1 text-xs font-medium bg-white text-[#0A0A0A] rounded-full">
-                    Popular
+                <Minus className="w-4 h-4" />
+              </button>
+              <div className="text-center">
+                <span className="text-2xl font-semibold">{tpeUsers}</span>
+                <span className="text-sm text-white/60 ml-1">{language === 'fr' ? 'utilisateurs' : 'users'}</span>
+              </div>
+              <button
+                onClick={() => setTpeUsers(Math.min(9, tpeUsers + 1))}
+                className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+              >
+                <Plus className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="mb-2">
+              <span className="text-4xl font-semibold text-white">
+                €{calculateAnnual(monthlyPrices.tpe) * tpeUsers}
+              </span>
+              <span className="text-sm text-white/60">/{language === 'fr' ? 'an' : 'yr'}</span>
+            </div>
+            <p className="text-xs text-[#4ADE80] mb-4">
+              {language === 'fr' ? `€${calculateAnnual(monthlyPrices.tpe)}/utilisateur/an (-20%)` : `€${calculateAnnual(monthlyPrices.tpe)}/user/yr (-20%)`}
+            </p>
+
+            {/* Features */}
+            <div className="mb-4">
+              <div className="flex flex-wrap gap-1 mb-2">
+                {features[language].operations.map((op, i) => (
+                  <span key={i} className="text-xs px-2 py-0.5 rounded bg-white/10 text-white/80">
+                    {op}
                   </span>
-                )}
-
-                <h3 className={`text-lg font-semibold mb-1 ${isPopular ? 'text-white' : 'text-[#0A0A0A]'}`}>
-                  {plan.name[language]}
-                </h3>
-                <p className={`text-sm mb-4 ${isPopular ? 'text-white/60' : 'text-[#6B7280]'}`}>
-                  {plan.desc[language]}
-                </p>
-
-                <div className="mb-4">
-                  <span className={`text-4xl font-semibold ${isPopular ? 'text-white' : 'text-[#0A0A0A]'}`}>
-                    €{plan.price}
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-1">
+                {features[language].tools.map((tool, i) => (
+                  <span key={i} className="text-xs px-2 py-0.5 rounded bg-white/10 text-white/80">
+                    {tool}
                   </span>
-                  <span className={`text-sm ${isPopular ? 'text-white/60' : 'text-[#6B7280]'}`}>
-                    /{language === 'fr' ? 'mois' : 'mo'}
+                ))}
+              </div>
+            </div>
+
+            <button
+              onClick={handleTrialClick}
+              className="w-full py-2.5 text-sm font-medium rounded-lg bg-white text-[#0A0A0A] hover:bg-[#F3F4F6] transition-colors"
+            >
+              {language === 'fr' ? 'Commencer l\'essai' : 'Start trial'}
+            </button>
+          </motion.div>
+
+          {/* PME */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="relative p-6 rounded-xl border border-[#E5E7EB] bg-white"
+            data-testid="pricing-pme"
+          >
+            <h3 className="text-lg font-semibold text-[#0A0A0A] mb-1">PME</h3>
+            <p className="text-sm text-[#6B7280] mb-4">
+              {language === 'fr' ? 'De 10 à 49 utilisateurs' : '10 to 49 users'}
+            </p>
+
+            {/* User selector */}
+            <div className="flex items-center justify-between mb-3 bg-[#F3F4F6] rounded-lg p-2">
+              <button
+                onClick={() => setPmeUsers(Math.max(10, pmeUsers - 1))}
+                className="w-8 h-8 rounded-lg bg-white flex items-center justify-center hover:bg-[#E5E7EB] transition-colors"
+              >
+                <Minus className="w-4 h-4 text-[#6B7280]" />
+              </button>
+              <div className="text-center">
+                <span className="text-2xl font-semibold text-[#0A0A0A]">{pmeUsers}</span>
+                <span className="text-sm text-[#6B7280] ml-1">{language === 'fr' ? 'utilisateurs' : 'users'}</span>
+              </div>
+              <button
+                onClick={() => setPmeUsers(Math.min(49, pmeUsers + 1))}
+                className="w-8 h-8 rounded-lg bg-white flex items-center justify-center hover:bg-[#E5E7EB] transition-colors"
+              >
+                <Plus className="w-4 h-4 text-[#6B7280]" />
+              </button>
+            </div>
+
+            <div className="mb-2">
+              <span className="text-4xl font-semibold text-[#0A0A0A]">
+                €{calculateAnnual(monthlyPrices.pme) * pmeUsers}
+              </span>
+              <span className="text-sm text-[#6B7280]">/{language === 'fr' ? 'an' : 'yr'}</span>
+            </div>
+            <p className="text-xs text-[#059669] mb-4">
+              {language === 'fr' ? `€${calculateAnnual(monthlyPrices.pme)}/utilisateur/an (-20%)` : `€${calculateAnnual(monthlyPrices.pme)}/user/yr (-20%)`}
+            </p>
+
+            {/* Features */}
+            <div className="mb-4">
+              <div className="flex flex-wrap gap-1 mb-2">
+                {features[language].operations.map((op, i) => (
+                  <span key={i} className="text-xs px-2 py-0.5 rounded bg-[#F3F4F6] text-[#6B7280]">
+                    {op}
                   </span>
-                </div>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-1">
+                {features[language].tools.map((tool, i) => (
+                  <span key={i} className="text-xs px-2 py-0.5 rounded bg-[#F3F4F6] text-[#6B7280]">
+                    {tool}
+                  </span>
+                ))}
+              </div>
+            </div>
 
-                {/* Features */}
-                <div className="mb-4">
-                  <p className={`text-xs font-medium mb-2 ${isPopular ? 'text-white/70' : 'text-[#6B7280]'}`}>
-                    {language === 'fr' ? 'Toutes les opérations' : 'All operations'}
-                  </p>
-                  <div className="flex flex-wrap gap-1 mb-3">
-                    {features[language].operations.slice(0, 4).map((op, i) => (
-                      <span key={i} className={`text-xs px-2 py-0.5 rounded ${isPopular ? 'bg-white/10 text-white/80' : 'bg-[#F3F4F6] text-[#6B7280]'}`}>
-                        {op}
-                      </span>
-                    ))}
-                  </div>
-                  <p className={`text-xs font-medium mb-2 ${isPopular ? 'text-white/70' : 'text-[#6B7280]'}`}>
-                    {language === 'fr' ? 'Tous les outils IA' : 'All AI tools'}
-                  </p>
-                  <div className="flex flex-wrap gap-1">
-                    {features[language].tools.slice(0, 4).map((tool, i) => (
-                      <span key={i} className={`text-xs px-2 py-0.5 rounded ${isPopular ? 'bg-white/10 text-white/80' : 'bg-[#F3F4F6] text-[#6B7280]'}`}>
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <button
-                  onClick={handleTrialClick}
-                  className={`w-full py-2.5 text-sm font-medium rounded-lg transition-colors ${
-                    isPopular
-                      ? 'bg-white text-[#0A0A0A] hover:bg-[#F3F4F6]'
-                      : 'bg-[#0A0A0A] text-white hover:bg-[#1F2937]'
-                  }`}
-                  data-testid={`pricing-cta-${plan.key}`}
-                >
-                  {language === 'fr' ? 'Commencer l\'essai' : 'Start trial'}
-                </button>
-              </motion.div>
-            );
-          })}
+            <button
+              onClick={handleTrialClick}
+              className="w-full py-2.5 text-sm font-medium rounded-lg bg-[#0A0A0A] text-white hover:bg-[#1F2937] transition-colors"
+            >
+              {language === 'fr' ? 'Commencer l\'essai' : 'Start trial'}
+            </button>
+          </motion.div>
         </div>
 
         {/* Enterprise - Below */}
