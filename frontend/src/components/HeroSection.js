@@ -78,7 +78,7 @@ const HeroSection = () => {
       ))}
 
       <div className="max-w-6xl mx-auto px-6 py-16 md:py-20 relative z-20">
-        <div className="max-w-3xl text-left">
+        <div className="max-w-3xl mx-auto text-center">
           {/* Badge */}
           <motion.a
             href="#platform"
@@ -122,7 +122,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="flex flex-col sm:flex-row items-start gap-3"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3"
           >
             <button
               onClick={handleTrialClick}
