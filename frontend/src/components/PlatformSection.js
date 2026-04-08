@@ -269,7 +269,7 @@ const PlatformSection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-right max-w-3xl ml-auto mb-12"
+          className="text-left max-w-3xl mb-12"
         >
           <span className="section-tag block mb-4">
             {t('platform.tag')}
