@@ -42,15 +42,15 @@ const AISection = () => {
         </motion.div>
 
         {/* Action Feed */}
-        <div className="grid lg:grid-cols-2 gap-6">
+        <div className="grid lg:grid-cols-2 gap-6 items-stretch">
           {/* Left - Stats */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-4"
+            className="flex flex-col gap-4"
           >
-            <div className="bg-[#0A0A0A] text-white rounded-xl p-6">
+            <div className="bg-[#0A0A0A] text-white rounded-xl p-6 flex-1 flex flex-col justify-center">
               <div className="flex items-center gap-2 mb-4">
                 <Zap className="w-4 h-4" />
                 <span className="text-sm font-medium">AI Action Feed</span>
@@ -67,7 +67,7 @@ const AISection = () => {
               </div>
             </div>
 
-            <div className="p-5 bg-[#F9FAFB] rounded-xl border border-[#E5E7EB]">
+            <div className="p-5 bg-[#F9FAFB] rounded-xl border border-[#E5E7EB] flex-1 flex flex-col justify-center">
               <p className="text-sm text-[#6B7280] mb-2">
                 {language === 'fr' ? 'Comment ça marche' : 'How it works'}
               </p>
@@ -84,7 +84,7 @@ const AISection = () => {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-2"
+            className="flex flex-col gap-2"
           >
             {actions.map((action, index) => (
               <motion.div
@@ -93,7 +93,7 @@ const AISection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="group bg-white border border-[#E5E7EB] rounded-lg p-4 hover:border-[#0A0A0A] transition-all cursor-pointer"
+                className="group bg-white border border-[#E5E7EB] rounded-lg p-4 hover:border-[#0A0A0A] transition-all cursor-pointer flex-1 flex flex-col justify-center"
                 data-testid={`action-card-${index}`}
               >
                 <div className="flex items-start justify-between gap-4">
