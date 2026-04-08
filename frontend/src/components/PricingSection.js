@@ -16,18 +16,18 @@ const PricingSection = () => {
     window.open('https://calendly.com/saksae-sales', '_blank');
   };
 
-  // Pricing calculation
+  // Pricing calculation - monthly with annual discount
   const monthlyPrices = {
     independant: 79,
     tpe: 59,
     pme: 49
   };
 
-  // 20% annual discount
+  // 20% annual discount - show monthly price
   const annualDiscount = 0.20;
 
-  const calculateAnnual = (monthly) => {
-    return Math.round(monthly * 12 * (1 - annualDiscount));
+  const getDiscountedMonthly = (monthly) => {
+    return Math.round(monthly * (1 - annualDiscount));
   };
 
   const features = {
@@ -84,12 +84,12 @@ const PricingSection = () => {
 
             <div className="mb-2">
               <span className="text-4xl font-semibold text-[#0A0A0A]">
-                €{calculateAnnual(monthlyPrices.independant)}
+                €{getDiscountedMonthly(monthlyPrices.independant)}
               </span>
-              <span className="text-sm text-[#6B7280]">/{language === 'fr' ? 'an' : 'yr'}</span>
+              <span className="text-sm text-[#6B7280]">/{language === 'fr' ? 'mois' : 'mo'}</span>
             </div>
             <p className="text-xs text-[#059669] mb-4">
-              {language === 'fr' ? `Au lieu de €${monthlyPrices.independant * 12}/an (-20%)` : `Instead of €${monthlyPrices.independant * 12}/yr (-20%)`}
+              {language === 'fr' ? `Au lieu de €${monthlyPrices.independant}/mois (abo. annuel)` : `Instead of €${monthlyPrices.independant}/mo (annual plan)`}
             </p>
 
             {/* Features */}
@@ -158,12 +158,12 @@ const PricingSection = () => {
 
             <div className="mb-2">
               <span className="text-4xl font-semibold text-white">
-                €{calculateAnnual(monthlyPrices.tpe) * tpeUsers}
+                €{getDiscountedMonthly(monthlyPrices.tpe) * tpeUsers}
               </span>
-              <span className="text-sm text-white/60">/{language === 'fr' ? 'an' : 'yr'}</span>
+              <span className="text-sm text-white/60">/{language === 'fr' ? 'mois' : 'mo'}</span>
             </div>
             <p className="text-xs text-[#4ADE80] mb-4">
-              {language === 'fr' ? `€${calculateAnnual(monthlyPrices.tpe)}/utilisateur/an (-20%)` : `€${calculateAnnual(monthlyPrices.tpe)}/user/yr (-20%)`}
+              {language === 'fr' ? `€${getDiscountedMonthly(monthlyPrices.tpe)}/utilisateur/mois (abo. annuel)` : `€${getDiscountedMonthly(monthlyPrices.tpe)}/user/mo (annual plan)`}
             </p>
 
             {/* Features */}
@@ -228,12 +228,12 @@ const PricingSection = () => {
 
             <div className="mb-2">
               <span className="text-4xl font-semibold text-[#0A0A0A]">
-                €{calculateAnnual(monthlyPrices.pme) * pmeUsers}
+                €{getDiscountedMonthly(monthlyPrices.pme) * pmeUsers}
               </span>
-              <span className="text-sm text-[#6B7280]">/{language === 'fr' ? 'an' : 'yr'}</span>
+              <span className="text-sm text-[#6B7280]">/{language === 'fr' ? 'mois' : 'mo'}</span>
             </div>
             <p className="text-xs text-[#059669] mb-4">
-              {language === 'fr' ? `€${calculateAnnual(monthlyPrices.pme)}/utilisateur/an (-20%)` : `€${calculateAnnual(monthlyPrices.pme)}/user/yr (-20%)`}
+              {language === 'fr' ? `€${getDiscountedMonthly(monthlyPrices.pme)}/utilisateur/mois (abo. annuel)` : `€${getDiscountedMonthly(monthlyPrices.pme)}/user/mo (annual plan)`}
             </p>
 
             {/* Features */}
