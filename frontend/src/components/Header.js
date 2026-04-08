@@ -41,14 +41,14 @@ const Header = () => {
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1">
             <button className="flex items-center gap-1 px-3 py-2 text-sm text-[#6B7280] hover:text-[#0A0A0A] transition-colors">
-              {t('nav.platform')}
+              {language === 'fr' ? 'Plateforme' : 'Platform'}
               <ChevronDown className="w-3.5 h-3.5" />
             </button>
-            <a href="#pricing" className="px-3 py-2 text-sm text-[#6B7280] hover:text-[#0A0A0A] transition-colors">
-              {t('nav.pricing')}
+            <a href="#ai" className="px-3 py-2 text-sm text-[#6B7280] hover:text-[#0A0A0A] transition-colors">
+              {language === 'fr' ? 'Outils IA' : 'AI Tools'}
             </a>
-            <a href="#testimonials" className="px-3 py-2 text-sm text-[#6B7280] hover:text-[#0A0A0A] transition-colors">
-              {t('nav.customers')}
+            <a href="#" className="px-3 py-2 text-sm text-[#6B7280] hover:text-[#0A0A0A] transition-colors">
+              {language === 'fr' ? 'Ressources' : 'Resources'}
             </a>
           </nav>
 
@@ -95,8 +95,9 @@ const Header = () => {
             className="md:hidden py-4 border-t border-[#E5E7EB]"
           >
             <div className="flex flex-col gap-2">
-              <a href="#platform" className="py-2 text-sm text-[#6B7280]">{t('nav.platform')}</a>
-              <a href="#pricing" className="py-2 text-sm text-[#6B7280]">{t('nav.pricing')}</a>
+              <a href="#platform" className="py-2 text-sm text-[#6B7280]">{language === 'fr' ? 'Plateforme' : 'Platform'}</a>
+              <a href="#ai" className="py-2 text-sm text-[#6B7280]">{language === 'fr' ? 'Outils IA' : 'AI Tools'}</a>
+              <a href="#" className="py-2 text-sm text-[#6B7280]">{language === 'fr' ? 'Ressources' : 'Resources'}</a>
               <div className="flex items-center gap-4 pt-4 border-t border-[#E5E7EB]">
                 <button onClick={toggleLanguage} className="text-xs text-[#6B7280] uppercase">
                   {language}
