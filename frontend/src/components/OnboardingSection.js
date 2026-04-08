@@ -68,8 +68,8 @@ const OnboardingSection = () => {
             </span>
             <h2 className="text-section-title text-[#0A0A0A] mb-4">
               {language === 'fr' 
-                ? 'Démarrez rapidement et générez vos premières actions en quelques clics.'
-                : 'Get started quickly and generate your first actions in a few clicks.'}
+                ? 'Générez vos premières actions en quelques clics.'
+                : 'Generate your first actions in a few clicks.'}
             </h2>
             <p className="text-lg text-[#6B7280] mb-8">
               {language === 'fr'
@@ -77,34 +77,28 @@ const OnboardingSection = () => {
                 : 'SAKSAE imports your data and connects to your existing tools to build your platform.'}
             </p>
 
-            {/* Step indicators */}
-            <div className="flex gap-2 mb-6">
-              {steps.map((step, index) => (
-                <button
-                  key={step.key}
-                  onClick={() => setActiveStep(index)}
-                  className={`flex-1 h-1 rounded-full transition-all ${
-                    index === activeStep ? 'bg-[#0A0A0A]' : 'bg-[#E5E7EB]'
-                  }`}
-                />
-              ))}
-            </div>
-
-            {/* Step labels */}
-            <div className="flex gap-4 mb-8">
+            {/* Step indicators and labels aligned */}
+            <div className="grid grid-cols-4 gap-2 mb-8">
               {steps.map((step, index) => {
                 const Icon = step.icon;
                 return (
-                  <button
-                    key={step.key}
-                    onClick={() => setActiveStep(index)}
-                    className={`flex items-center gap-2 text-sm transition-colors ${
-                      index === activeStep ? 'text-[#0A0A0A] font-medium' : 'text-[#9CA3AF]'
-                    }`}
-                  >
-                    <Icon className="w-4 h-4" strokeWidth={1.5} />
-                    <span className="hidden sm:inline">{step.name[language]}</span>
-                  </button>
+                  <div key={step.key} className="flex flex-col items-center">
+                    <button
+                      onClick={() => setActiveStep(index)}
+                      className={`w-full h-1 rounded-full transition-all mb-3 ${
+                        index === activeStep ? 'bg-[#0A0A0A]' : 'bg-[#E5E7EB]'
+                      }`}
+                    />
+                    <button
+                      onClick={() => setActiveStep(index)}
+                      className={`flex items-center gap-1.5 text-xs transition-colors ${
+                        index === activeStep ? 'text-[#0A0A0A] font-medium' : 'text-[#9CA3AF]'
+                      }`}
+                    >
+                      <Icon className="w-3.5 h-3.5" strokeWidth={1.5} />
+                      <span>{step.name[language]}</span>
+                    </button>
+                  </div>
                 );
               })}
             </div>
