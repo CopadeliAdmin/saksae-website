@@ -1,17 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
-import { Button } from '../components/ui/button';
-import { ArrowRight, Play } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const HeroSection = () => {
   const { t } = useLanguage();
 
-  const scrollToRoi = () => {
-    const element = document.getElementById('roi-calculator');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const handleTrialClick = () => {
+    window.location.href = '/register';
   };
 
   const handleDemoClick = () => {
@@ -19,170 +15,156 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-[#F7F9FC]">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#312E81]/5 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-[#F97316]/5 rounded-full blur-3xl" />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left content */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+    <section className="relative min-h-screen flex items-center pt-14 dotted-pattern">
+      <div className="max-w-6xl mx-auto px-6 py-24 md:py-32">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Badge */}
+          <motion.a
+            href="#platform"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="inline-flex items-center gap-2 px-3 py-1.5 mb-8 text-xs font-medium text-[#6B7280] border border-[#E5E7EB] rounded-full hover:border-[#0A0A0A] hover:text-[#0A0A0A] transition-colors"
+            data-testid="hero-badge"
           >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 bg-[#312E81]/10 text-[#312E81] px-4 py-2 rounded-full mb-6"
+            {t('hero.badge')}
+            <ArrowRight className="w-3 h-3" />
+          </motion.a>
+
+          {/* Headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-hero text-[#0A0A0A] mb-6"
+            data-testid="hero-headline"
+          >
+            {t('hero.headline')}
+          </motion.h1>
+
+          {/* Subheadline */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-lg md:text-xl text-[#6B7280] mb-10 max-w-2xl mx-auto"
+          >
+            {t('hero.subheadline')}
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-3"
+          >
+            <button
+              onClick={handleTrialClick}
+              className="w-full sm:w-auto px-6 py-3 text-sm font-medium bg-[#0A0A0A] text-white rounded-lg hover:bg-[#1F2937] transition-colors"
+              data-testid="cta-primary"
             >
-              <span className="text-xs font-bold uppercase tracking-wider">AI-Powered Business Execution</span>
-            </motion.div>
-
-            <h1
-              className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter leading-tight text-[#0F172A] mb-6"
-              style={{ fontFamily: 'Satoshi, sans-serif' }}
-              data-testid="hero-headline"
+              {t('hero.ctaPrimary')}
+            </button>
+            <button
+              onClick={handleDemoClick}
+              className="w-full sm:w-auto px-6 py-3 text-sm font-medium bg-white text-[#0A0A0A] border border-[#E5E7EB] rounded-lg hover:bg-[#F9FAFB] transition-colors"
+              data-testid="cta-secondary"
             >
-              {t('hero.headline')}
-            </h1>
+              {t('hero.ctaSecondary')}
+            </button>
+          </motion.div>
+        </div>
 
-            <p className="text-lg sm:text-xl text-[#475569] leading-relaxed mb-8 max-w-xl">
-              {t('hero.subheadline')}
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                onClick={scrollToRoi}
-                className="bg-[#F97316] hover:bg-[#EA580C] text-white font-medium px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all"
-                data-testid="cta-roi"
-              >
-                {t('hero.ctaRoi')}
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
-              <Button
-                onClick={handleDemoClick}
-                variant="outline"
-                className="border-[#E2E8F0] text-[#0F172A] font-medium px-8 py-6 text-lg rounded-xl hover:bg-white"
-                data-testid="cta-demo"
-              >
-                <Play className="mr-2 w-5 h-5" />
-                {t('hero.ctaDemo')}
-              </Button>
+        {/* Product Preview */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="mt-16 md:mt-24"
+        >
+          <div className="relative bg-white rounded-xl border border-[#E5E7EB] shadow-xl overflow-hidden">
+            {/* Tabs */}
+            <div className="flex items-center border-b border-[#E5E7EB]">
+              {['Ask SAKSAE', 'Data model', 'Workflows', 'Reporting'].map((tab, i) => (
+                <button
+                  key={tab}
+                  className={`px-6 py-4 text-sm transition-colors ${i === 0 ? 'text-[#0A0A0A] border-b-2 border-[#0A0A0A] -mb-px' : 'text-[#6B7280] hover:text-[#0A0A0A]'}`}
+                >
+                  {tab}
+                </button>
+              ))}
             </div>
 
-            {/* Trust badges */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-              className="mt-12 flex items-center gap-6 text-[#94A3B8]"
-            >
-              <span className="text-sm">Trusted by 500+ companies</span>
-              <div className="flex -space-x-2">
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="w-8 h-8 rounded-full bg-gradient-to-br from-[#312E81] to-[#4338CA] border-2 border-white"
-                  />
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Right - Dashboard Preview */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="relative"
-          >
-            <div className="relative bg-white rounded-2xl shadow-2xl border border-[#E2E8F0] overflow-hidden">
-              {/* Browser bar */}
-              <div className="flex items-center gap-2 px-4 py-3 bg-[#F7F9FC] border-b border-[#E2E8F0]">
-                <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-[#EF4444]" />
-                  <div className="w-3 h-3 rounded-full bg-[#F59E0B]" />
-                  <div className="w-3 h-3 rounded-full bg-[#22C55E]" />
-                </div>
-                <div className="flex-1 mx-4">
-                  <div className="bg-white rounded-lg px-4 py-1.5 text-sm text-[#94A3B8] border border-[#E2E8F0]">
-                    app.saksae.com/dashboard
-                  </div>
-                </div>
-              </div>
-
-              {/* Dashboard content */}
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="font-semibold text-[#0F172A]">AI Action Feed</h3>
-                  <span className="text-xs bg-[#22C55E]/10 text-[#22C55E] px-2 py-1 rounded-full font-medium">
-                    12 actions today
-                  </span>
-                </div>
-
-                {/* Action cards */}
-                <div className="space-y-3">
-                  {[
-                    { action: 'Relance client', impact: '€2,500', color: '#F97316' },
-                    { action: 'Facture générée', impact: '€8,500', color: '#22C55E' },
-                    { action: 'Lead qualifié', impact: '€3,200', color: '#312E81' },
-                  ].map((item, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 + i * 0.1 }}
-                      className="flex items-center justify-between p-3 bg-[#F7F9FC] rounded-xl"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div
-                          className="w-2 h-8 rounded-full"
-                          style={{ backgroundColor: item.color }}
-                        />
-                        <span className="text-sm font-medium text-[#0F172A]">{item.action}</span>
-                      </div>
-                      <span className="text-sm font-bold text-[#22C55E]">+{item.impact}</span>
-                    </motion.div>
+            {/* Content */}
+            <div className="p-6 md:p-8">
+              <div className="grid md:grid-cols-4 gap-6">
+                {/* Sidebar */}
+                <div className="hidden md:block space-y-1 border-r border-[#E5E7EB] pr-6">
+                  {['Home', 'Notifications', 'Tasks', 'Notes', 'Emails', 'Reports'].map((item, i) => (
+                    <div key={item} className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm ${i === 0 ? 'bg-[#F3F4F6] text-[#0A0A0A]' : 'text-[#6B7280]'}`}>
+                      <div className="w-4 h-4 rounded bg-[#E5E7EB]" />
+                      {item}
+                    </div>
                   ))}
                 </div>
 
-                {/* Stats */}
-                <div className="mt-6 pt-6 border-t border-[#E2E8F0] grid grid-cols-2 gap-4">
-                  <div className="text-center">
-                    <p className="text-2xl font-bold text-[#312E81]">€47,800</p>
-                    <p className="text-xs text-[#94A3B8]">Revenue generated</p>
+                {/* Main content - Data table */}
+                <div className="md:col-span-3">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-medium text-[#0A0A0A]">Companies</h3>
+                    <div className="flex items-center gap-2 text-xs text-[#6B7280]">
+                      <span>View settings</span>
+                      <span>Import / Export</span>
+                    </div>
                   </div>
-                  <div className="text-center">
-                    <p className="text-2xl font-bold text-[#22C55E]">+34%</p>
-                    <p className="text-xs text-[#94A3B8]">vs last month</p>
+                  
+                  {/* Table header */}
+                  <div className="grid grid-cols-5 gap-4 py-2 border-b border-[#E5E7EB] text-xs font-medium text-[#6B7280]">
+                    <span>Company</span>
+                    <span>Domain</span>
+                    <span>Status</span>
+                    <span>ICP Fit</span>
+                    <span>Est. ARR</span>
                   </div>
+
+                  {/* Table rows */}
+                  {[
+                    { name: 'Vercel', domain: 'vercel.com', status: 'Active', fit: 'Good', arr: '$500k-$1M' },
+                    { name: 'Stripe', domain: 'stripe.com', status: 'Active', fit: 'Good', arr: '$1M-$5M' },
+                    { name: 'Figma', domain: 'figma.com', status: 'Lead', fit: 'Medium', arr: '$500k-$1M' },
+                    { name: 'Notion', domain: 'notion.so', status: 'Active', fit: 'Good', arr: '$1M-$5M' },
+                  ].map((row, i) => (
+                    <div key={i} className="grid grid-cols-5 gap-4 py-3 border-b border-[#F3F4F6] text-sm items-center">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded bg-[#F3F4F6]" />
+                        <span className="text-[#0A0A0A]">{row.name}</span>
+                      </div>
+                      <span className="text-[#6B7280]">{row.domain}</span>
+                      <span className={`inline-flex px-2 py-0.5 rounded text-xs ${row.status === 'Active' ? 'bg-[#D1FAE5] text-[#065F46]' : 'bg-[#FEF3C7] text-[#92400E]'}`}>
+                        {row.status}
+                      </span>
+                      <span className={`text-xs ${row.fit === 'Good' ? 'text-[#059669]' : 'text-[#D97706]'}`}>{row.fit}</span>
+                      <span className="text-[#6B7280]">{row.arr}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
+          </div>
+        </motion.div>
 
-            {/* Floating elements */}
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              className="absolute -top-4 -right-4 bg-white rounded-xl shadow-lg p-3 border border-[#E2E8F0]"
-            >
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-[#22C55E]/10 rounded-lg flex items-center justify-center">
-                  <span className="text-[#22C55E] text-lg">✓</span>
-                </div>
-                <div>
-                  <p className="text-xs font-medium text-[#0F172A]">Action completed</p>
-                  <p className="text-xs text-[#94A3B8]">Just now</p>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
+        {/* Logos */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="mt-16 flex items-center justify-center gap-8 md:gap-12 opacity-40"
+        >
+          {['Modal', 'Railway', 'Replicate', 'Plain', 'Passionfroot'].map((logo) => (
+            <span key={logo} className="text-sm font-medium text-[#6B7280]">{logo}</span>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

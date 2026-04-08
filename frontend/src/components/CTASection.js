@@ -1,109 +1,55 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
-import { Input } from '../components/ui/input';
-import { Button } from '../components/ui/button';
-import { ArrowRight } from 'lucide-react';
-import axios from 'axios';
-
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const CTASection = () => {
   const { t } = useLanguage();
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!email || !name) return;
-    
-    setLoading(true);
-    try {
-      await axios.post(`${API}/leads`, {
-        email,
-        name,
-        source: 'cta_final',
-      });
-      setSubmitted(true);
-    } catch (e) {
-      console.error('Error submitting lead:', e);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleTrialClick = () => {
     window.location.href = '/register';
   };
 
   return (
-    <section id="cta" className="py-20 lg:py-32 bg-[#312E81]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 md:py-32 bg-[#FAFAFA] dotted-pattern">
+      <div className="max-w-6xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center max-w-3xl mx-auto"
+          className="max-w-2xl mx-auto text-center"
         >
-          <h2
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-6"
-            style={{ fontFamily: 'Satoshi, sans-serif' }}
-            data-testid="cta-title"
-          >
+          <h2 className="text-section-title text-[#0A0A0A] mb-4">
             {t('cta.title')}
           </h2>
-          <p className="text-xl text-white/70 mb-12">
+          <p className="text-lg text-[#6B7280] mb-8">
             {t('cta.subtitle')}
           </p>
 
-          {!submitted ? (
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
-              <Input
-                type="text"
-                placeholder="Votre nom"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12"
-                data-testid="cta-name-input"
-              />
-              <Input
-                type="email"
-                placeholder="votre@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12"
-                data-testid="cta-email-input"
-              />
-              <Button
-                type="submit"
-                disabled={loading || !email || !name}
-                className="w-full bg-[#F97316] hover:bg-[#EA580C] text-white h-12 text-lg font-medium"
-                data-testid="cta-submit"
-              >
-                {loading ? '...' : t('cta.button')}
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
-              <p className="text-white/50 text-sm">
-                {t('cta.noCard')}
-              </p>
-            </form>
-          ) : (
-            <div className="bg-white/10 rounded-2xl p-8 max-w-md mx-auto">
-              <div className="w-16 h-16 bg-[#22C55E] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl">✓</span>
-              </div>
-              <p className="text-white text-xl font-medium mb-2">Merci {name} !</p>
-              <p className="text-white/70">Nous vous contacterons très bientôt.</p>
-              <Button
-                onClick={handleTrialClick}
-                className="mt-6 bg-white text-[#312E81] hover:bg-white/90"
-              >
-                Commencer maintenant
-              </Button>
-            </div>
-          )}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <button
+              onClick={handleTrialClick}
+              className="w-full sm:w-auto px-6 py-3 text-sm font-medium bg-[#0A0A0A] text-white rounded-lg hover:bg-[#1F2937] transition-colors"
+              data-testid="final-cta-primary"
+            >
+              {t('cta.button')}
+            </button>
+            <a
+              href="#pricing"
+              className="w-full sm:w-auto px-6 py-3 text-sm font-medium bg-white text-[#0A0A0A] border border-[#E5E7EB] rounded-lg hover:bg-[#F9FAFB] transition-colors text-center"
+            >
+              {t('cta.plans')}
+            </a>
+          </div>
+
+          {/* Decorative shape */}
+          <div className="mt-16 flex justify-center">
+            <svg width="200" height="60" viewBox="0 0 200 60" fill="none" className="text-[#E5E7EB]">
+              <path d="M20 30L60 10V50L20 30Z" stroke="currentColor" strokeWidth="1"/>
+              <path d="M60 30L100 10V50L60 30Z" stroke="currentColor" strokeWidth="1"/>
+              <path d="M100 30L140 10V50L100 30Z" stroke="currentColor" strokeWidth="1"/>
+              <path d="M140 30L180 10V50L140 30Z" stroke="currentColor" strokeWidth="1"/>
+            </svg>
+          </div>
         </motion.div>
       </div>
     </section>

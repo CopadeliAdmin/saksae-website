@@ -4,8 +4,6 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
 import { Input } from '../components/ui/input';
-import { Button } from '../components/ui/button';
-import { Label } from '../components/ui/label';
 import { ArrowLeft, Eye, EyeOff, Check } from 'lucide-react';
 
 const RegisterPage = () => {
@@ -42,7 +40,6 @@ const RegisterPage = () => {
     
     try {
       await register(formData.email, formData.password, formData.name, formData.company);
-      // Redirect to SAKSAE platform dashboard
       navigate('/');
     } catch (e) {
       setError(formatApiErrorDetail(e.response?.data?.detail) || e.message);
@@ -52,112 +49,105 @@ const RegisterPage = () => {
   };
 
   const benefits = [
-    '15 jours d\'essai gratuit',
-    'Accès à toutes les fonctionnalités',
-    'Pas de carte bancaire requise',
-    'Support prioritaire',
+    '14-day free trial',
+    'No credit card required',
+    'All features included',
+    'Cancel anytime'
   ];
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC] flex">
-      {/* Left side - Form */}
-      <div className="flex-1 flex items-center justify-center p-8">
+    <div className="min-h-screen bg-[#FAFAFA] flex">
+      {/* Left - Form */}
+      <div className="flex-1 flex items-center justify-center p-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-md"
+          className="w-full max-w-sm"
         >
           {/* Back link */}
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-[#475569] hover:text-[#312E81] mb-8 transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#0A0A0A] mb-8 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            Retour
+            Back
           </Link>
 
           {/* Logo */}
           <div className="flex items-center gap-2 mb-8">
-            <div className="w-10 h-10 bg-[#312E81] rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-xl">S</span>
-            </div>
-            <span className="font-bold text-2xl text-[#0F172A]" style={{ fontFamily: 'Satoshi, sans-serif' }}>
-              SAKSAE
-            </span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-[#0A0A0A]">
+              <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <span className="font-semibold text-[#0A0A0A]">saksae</span>
           </div>
 
-          <h1
-            className="text-3xl font-bold text-[#0F172A] mb-2"
-            style={{ fontFamily: 'Satoshi, sans-serif' }}
-          >
+          <h1 className="text-2xl font-semibold text-[#0A0A0A] mb-2">
             {t('auth.trial')}
           </h1>
-          <p className="text-[#475569] mb-8">
-            Créez votre compte et découvrez SAKSAE
+          <p className="text-sm text-[#6B7280] mb-8">
+            Get started with SAKSAE today.
           </p>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl mb-6" data-testid="register-error">
+            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-6 text-sm" data-testid="register-error">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="space-y-2">
-              <Label htmlFor="name">{t('auth.name')}</Label>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-[#0A0A0A] mb-1.5">{t('auth.name')}</label>
               <Input
-                id="name"
                 name="name"
                 type="text"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="Jean Dupont"
-                className="h-12"
+                placeholder="John Doe"
+                className="h-11 border-[#E5E7EB] focus:border-[#0A0A0A] focus:ring-0"
                 required
                 data-testid="register-name"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="email">{t('auth.email')}</Label>
+            <div>
+              <label className="block text-sm font-medium text-[#0A0A0A] mb-1.5">{t('auth.email')}</label>
               <Input
-                id="email"
                 name="email"
                 type="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="votre@email.com"
-                className="h-12"
+                placeholder="you@company.com"
+                className="h-11 border-[#E5E7EB] focus:border-[#0A0A0A] focus:ring-0"
                 required
                 data-testid="register-email"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="company">{t('auth.company')}</Label>
+            <div>
+              <label className="block text-sm font-medium text-[#0A0A0A] mb-1.5">{t('auth.company')}</label>
               <Input
-                id="company"
                 name="company"
                 type="text"
                 value={formData.company}
                 onChange={handleChange}
-                placeholder="Votre entreprise"
-                className="h-12"
+                placeholder="Company name"
+                className="h-11 border-[#E5E7EB] focus:border-[#0A0A0A] focus:ring-0"
                 data-testid="register-company"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="password">{t('auth.password')}</Label>
+            <div>
+              <label className="block text-sm font-medium text-[#0A0A0A] mb-1.5">{t('auth.password')}</label>
               <div className="relative">
                 <Input
-                  id="password"
                   name="password"
                   type={showPassword ? 'text' : 'password'}
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  className="h-12 pr-10"
+                  className="h-11 pr-10 border-[#E5E7EB] focus:border-[#0A0A0A] focus:ring-0"
                   required
                   minLength={6}
                   data-testid="register-password"
@@ -165,45 +155,45 @@ const RegisterPage = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#94A3B8] hover:text-[#475569]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9CA3AF] hover:text-[#6B7280]"
                 >
-                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
             </div>
 
-            <Button
+            <button
               type="submit"
               disabled={loading}
-              className="w-full h-12 bg-[#F97316] hover:bg-[#EA580C] text-white"
+              className="w-full h-11 bg-[#0A0A0A] text-white text-sm font-medium rounded-lg hover:bg-[#1F2937] transition-colors disabled:opacity-50"
               data-testid="register-submit"
             >
-              {loading ? 'Création...' : t('auth.registerButton')}
-            </Button>
+              {loading ? 'Creating account...' : t('auth.registerButton')}
+            </button>
           </form>
 
-          <p className="text-center text-[#475569] mt-8">
+          <p className="text-center text-sm text-[#6B7280] mt-8">
             {t('auth.hasAccount')}{' '}
-            <Link to="/login" className="text-[#312E81] hover:underline font-medium">
+            <Link to="/login" className="text-[#0A0A0A] font-medium hover:underline">
               {t('auth.signIn')}
             </Link>
           </p>
         </motion.div>
       </div>
 
-      {/* Right side - Visual */}
-      <div className="hidden lg:flex flex-1 bg-gradient-to-br from-[#312E81] to-[#4338CA] items-center justify-center p-12">
-        <div className="text-white max-w-md">
-          <h2 className="text-3xl font-bold mb-8" style={{ fontFamily: 'Satoshi, sans-serif' }}>
-            Commencez votre essai gratuit
+      {/* Right - Visual */}
+      <div className="hidden lg:flex flex-1 bg-[#0A0A0A] items-center justify-center p-12">
+        <div className="max-w-sm text-white">
+          <h2 className="text-2xl font-semibold mb-8">
+            Start your free trial
           </h2>
           <ul className="space-y-4">
             {benefits.map((benefit, index) => (
-              <li key={index} className="flex items-center gap-3">
-                <div className="w-6 h-6 bg-[#22C55E] rounded-full flex items-center justify-center flex-shrink-0">
-                  <Check className="w-4 h-4 text-white" />
+              <li key={index} className="flex items-center gap-3 text-white/80">
+                <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-3 h-3 text-white" />
                 </div>
-                <span className="text-lg">{benefit}</span>
+                {benefit}
               </li>
             ))}
           </ul>
