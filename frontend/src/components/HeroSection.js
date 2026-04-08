@@ -43,7 +43,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center pt-14 overflow-hidden bg-[#FAFAFA]">
+    <section className="relative flex items-center pt-14 pb-16 overflow-hidden bg-[#FAFAFA]">
       {/* Subtle background grid */}
       <div className="absolute inset-0 dotted-pattern opacity-30" />
 
@@ -77,7 +77,7 @@ const HeroSection = () => {
         </motion.div>
       ))}
 
-      <div className="max-w-6xl mx-auto px-6 py-24 md:py-32 relative z-20">
+      <div className="max-w-6xl mx-auto px-6 py-16 md:py-20 relative z-20">
         <div className="max-w-3xl mx-auto text-center">
           {/* Badge */}
           <motion.a
