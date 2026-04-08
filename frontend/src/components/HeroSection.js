@@ -141,17 +141,6 @@ const HeroSection = () => {
           </motion.div>
         </div>
 
-        {/* Logos */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="mt-20 flex items-center justify-center gap-8 md:gap-12 opacity-30"
-        >
-          {['Modal', 'Railway', 'Replicate', 'Plain', 'Passionfroot'].map((logo) => (
-            <span key={logo} className="text-sm font-medium text-[#6B7280]">{logo}</span>
-          ))}
-        </motion.div>
       </div>
     </section>
   );
