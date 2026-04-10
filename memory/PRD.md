@@ -41,7 +41,7 @@ Redesign complet style Attio : minimaliste, noir/blanc/gris, icônes ligne fine.
 - ✅ JWT Authentication
 - ✅ Multilingue FR/EN
 - ✅ All backend APIs working
-- ✅ [01] Plateforme - Redesign style Attio avec tabs grille, sidebar navigation, app mockup par onglet (CRM table, Workflows, RH, Finances, Produits, Supply) (2026-04-10)
+- ✅ [01] Plateforme - Redesign style Attio v2 : tabs détachés avec underline animé, vraie sidebar SAKSAE (CRM/Management/Finances/RH/Intelligence), contenu pertinent par onglet (Dashboard KPI, Kanban projets, RH table, Facturation, Produits, Supply) (2026-04-10)
 - ✅ [02] Onboarding IA - Animated carousel
 - ✅ [03] Intelligence Artificielle section
 - ✅ [04] Outils IA - Tabbed layout (Réunion IA, Projet, Calendrier, Playbook, Fiche de paie, Contrats, E-signatures) with right-aligned header (2026-04-10)
