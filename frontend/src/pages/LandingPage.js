@@ -4,6 +4,7 @@ import HeroSection from '../components/HeroSection';
 import PlatformSection from '../components/PlatformSection';
 import OnboardingSection from '../components/OnboardingSection';
 import AISection from '../components/AISection';
+import AIToolsSection from '../components/AIToolsSection';
 import TestimonialSection from '../components/TestimonialSection';
 import PricingSection from '../components/PricingSection';
 import CTASection from '../components/CTASection';
@@ -18,6 +19,7 @@ const LandingPage = () => {
         <PlatformSection />
         <OnboardingSection />
         <AISection />
+        <AIToolsSection />
         <TestimonialSection />
         <PricingSection />
         <CTASection />

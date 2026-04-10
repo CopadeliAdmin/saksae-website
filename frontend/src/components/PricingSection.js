@@ -52,7 +52,7 @@ const PricingSection = () => {
           className="max-w-3xl mb-10"
         >
           <span className="section-tag block mb-4">
-            {language === 'fr' ? '[04] Tarification' : '[04] Pricing'}
+            {language === 'fr' ? '[05] Tarification' : '[05] Pricing'}
           </span>
           <h2 className="text-section-title text-[#0A0A0A] mb-4">
             {language === 'fr' ? 'Simple et transparent.' : 'Simple and transparent.'}
