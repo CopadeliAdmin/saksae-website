@@ -122,7 +122,7 @@ const AISection = () => {
           className="max-w-3xl mb-6"
         >
           <span className="section-tag block mb-4">
-            {language === 'fr' ? '[03] Intelligence artificielle' : '[03] Artificial Intelligence'}
+            {language === 'fr' ? '[04] Intelligence artificielle' : '[04] Artificial Intelligence'}
           </span>
           <h2 className="text-section-title text-[#0A0A0A] mb-4">
             {language === 'fr' ? "L'IA en action." : 'AI in action.'}

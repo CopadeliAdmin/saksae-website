@@ -18,8 +18,8 @@ const LandingPage = () => {
         <HeroSection />
         <PlatformSection />
         <OnboardingSection />
-        <AISection />
         <AIToolsSection />
+        <AISection />
         <TestimonialSection />
         <PricingSection />
         <CTASection />
