@@ -173,7 +173,7 @@ const AISection = () => {
           <div className="flex items-center gap-1.5">
             <div className="w-2 h-2 rounded-full bg-[#3B82F6]" />
             <span className="text-sm text-[#6B7280]">
-              <span className="font-semibold text-[#0A0A0A]">{operationalActions.length}</span> {language === 'fr' ? 'opérationnel' : 'operational'}
+              <span className="font-semibold text-[#0A0A0A]">{operationalActions.length}</span> {language === 'fr' ? 'opération' : 'operational'}
             </span>
           </div>
         </motion.div>
@@ -212,18 +212,22 @@ const AISection = () => {
                       }`}
                     >
                       <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#059669] rounded-l-xl" />
-                      <div className="flex items-start justify-between gap-3 pl-2">
-                        <div className="flex-1 min-w-0">
+                      <div className="pl-2">
+                        {/* Line 1: action + value */}
+                        <div className="flex items-center justify-between gap-2">
                           <h4 className="text-sm font-medium text-[#0A0A0A] truncate">{action.action}</h4>
-                          <p className="text-xs text-[#6B7280] truncate mt-0.5">{action.context}</p>
+                          <div className="flex items-center gap-2 flex-shrink-0">
+                            <span className="text-sm font-semibold text-[#059669]">+{action.value}</span>
+                          </div>
                         </div>
-                        <div className="flex flex-col items-end flex-shrink-0">
-                          <span className="text-sm font-semibold text-[#059669]">+{action.value}</span>
-                          <span className="text-[10px] text-[#9CA3AF] mt-0.5">{action.time}</span>
+                        {/* Line 2: context + time + chevron */}
+                        <div className="flex items-center justify-between mt-1">
+                          <p className="text-xs text-[#6B7280] truncate">{action.context}</p>
+                          <div className="flex items-center gap-2 flex-shrink-0 ml-2">
+                            <span className="text-[10px] text-[#9CA3AF]">{action.time}</span>
+                            <ChevronDown className={`w-3.5 h-3.5 text-[#9CA3AF] transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex items-center justify-end mt-1.5 pl-2">
-                        <ChevronDown className={`w-3.5 h-3.5 text-[#9CA3AF] transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
                       </div>
                     </div>
 
@@ -281,7 +285,7 @@ const AISection = () => {
             <div className="flex items-center gap-2 mb-3">
               <Settings className="w-4 h-4 text-[#3B82F6]" />
               <span className="text-sm font-semibold text-[#0A0A0A]">
-                {language === 'fr' ? 'Opérationnel' : 'Operational'}
+                {language === 'fr' ? 'Opération' : 'Operational'}
               </span>
             </div>
             <div className="space-y-2">
