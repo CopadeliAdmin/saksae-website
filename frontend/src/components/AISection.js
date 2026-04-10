@@ -1,121 +1,228 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
-import { Zap, ArrowRight } from 'lucide-react';
+import { Zap, TrendingUp, Settings, ArrowUpRight } from 'lucide-react';
 
 const AISection = () => {
   const { language } = useLanguage();
-  
-  const actions = language === 'fr' ? [
-    { action: 'Relance client envoyée', context: 'Devis #1234 sans réponse depuis 5 jours', impact: '€2,500' },
-    { action: 'Réunion préparée', context: 'Brief automatique pour call Acme Corp', impact: '€1,200' },
-    { action: 'Facture générée', context: 'Projet terminé - TechStart', impact: '€8,500' },
-    { action: 'Lead qualifié', context: 'Score 85/100 - Prêt pour contact', impact: '€3,200' }
+
+  const revenueActions = language === 'fr' ? [
+    { action: 'Relance client envoyée', context: 'Devis #1234 sans réponse depuis 5j', value: '€2,500', time: 'Il y a 3 min' },
+    { action: 'Facture générée', context: 'Projet terminé — TechStart', value: '€8,500', time: 'Il y a 12 min' },
+    { action: 'Lead qualifié automatiquement', context: 'Score 92/100 — Prêt pour contact', value: '€3,200', time: 'Il y a 18 min' },
+    { action: 'Upsell détecté', context: 'CloudNine éligible au Pack Enterprise', value: '€12,000', time: 'Il y a 25 min' },
+    { action: 'Proposition commerciale envoyée', context: 'DataFlow — Renouvellement annuel', value: '€4,800', time: 'Il y a 31 min' },
   ] : [
-    { action: 'Client follow-up sent', context: 'Quote #1234 unanswered for 5 days', impact: '€2,500' },
-    { action: 'Meeting prepared', context: 'Auto brief for Acme Corp call', impact: '€1,200' },
-    { action: 'Invoice generated', context: 'Project completed - TechStart', impact: '€8,500' },
-    { action: 'Lead qualified', context: 'Score 85/100 - Ready for contact', impact: '€3,200' }
+    { action: 'Client follow-up sent', context: 'Quote #1234 unanswered for 5d', value: '€2,500', time: '3 min ago' },
+    { action: 'Invoice generated', context: 'Project completed — TechStart', value: '€8,500', time: '12 min ago' },
+    { action: 'Lead auto-qualified', context: 'Score 92/100 — Ready for contact', value: '€3,200', time: '18 min ago' },
+    { action: 'Upsell detected', context: 'CloudNine eligible for Enterprise Pack', value: '€12,000', time: '25 min ago' },
+    { action: 'Commercial proposal sent', context: 'DataFlow — Annual renewal', value: '€4,800', time: '31 min ago' },
   ];
 
+  const operationalActions = language === 'fr' ? [
+    { action: 'Réunion brief préparé', context: 'Call Acme Corp dans 30 min', domain: 'CRM', priority: 'Haute' },
+    { action: 'Congé approuvé automatiquement', context: 'Lucas Petit — 15-19 Avril', domain: 'RH', priority: 'Moyenne' },
+    { action: 'Contrat renouvelé', context: 'SignalPro — Échéance dans 7 jours', domain: 'Juridique', priority: 'Haute' },
+    { action: 'Rapport hebdo généré', context: 'KPIs équipe commerciale — Semaine 15', domain: 'Finance', priority: 'Basse' },
+    { action: 'Playbook déclenché', context: 'Onboarding nouveau client NexGen', domain: 'Management', priority: 'Haute' },
+  ] : [
+    { action: 'Meeting brief prepared', context: 'Acme Corp call in 30 min', domain: 'CRM', priority: 'High' },
+    { action: 'Leave auto-approved', context: 'Lucas Petit — Apr 15-19', domain: 'HR', priority: 'Medium' },
+    { action: 'Contract renewed', context: 'SignalPro — Due in 7 days', domain: 'Legal', priority: 'High' },
+    { action: 'Weekly report generated', context: 'Sales team KPIs — Week 15', domain: 'Finance', priority: 'Low' },
+    { action: 'Playbook triggered', context: 'New client onboarding NexGen', domain: 'Management', priority: 'High' },
+  ];
+
+  const priorityStyles = {
+    Haute: 'bg-[#FEE2E2] text-[#DC2626]',
+    High: 'bg-[#FEE2E2] text-[#DC2626]',
+    Moyenne: 'bg-[#FEF3C7] text-[#D97706]',
+    Medium: 'bg-[#FEF3C7] text-[#D97706]',
+    Basse: 'bg-[#F3F4F6] text-[#6B7280]',
+    Low: 'bg-[#F3F4F6] text-[#6B7280]',
+  };
+
+  // Interleave revenue and operational actions
+  const allActions = [];
+  const maxLen = Math.max(revenueActions.length, operationalActions.length);
+  for (let i = 0; i < maxLen; i++) {
+    if (i < revenueActions.length) allActions.push({ ...revenueActions[i], type: 'revenue' });
+    if (i < operationalActions.length) allActions.push({ ...operationalActions[i], type: 'operational' });
+  }
+
+  const totalRevenue = revenueActions.reduce((sum, a) => {
+    const num = parseFloat(a.value.replace(/[€,]/g, '').replace(',', ''));
+    return sum + num;
+  }, 0);
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.97 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        delay: i * 0.08,
+        duration: 0.4,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      },
+    }),
+  };
+
   return (
-    <section id="ai" className="py-12 md:py-16 bg-white grid-pattern">
+    <section id="ai" className="py-24 md:py-32 bg-white grid-pattern">
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-3xl mb-10"
+          className="max-w-3xl mb-14"
         >
           <span className="section-tag block mb-4">
             {language === 'fr' ? '[03] Intelligence artificielle' : '[03] Artificial Intelligence'}
           </span>
           <h2 className="text-section-title text-[#0A0A0A] mb-4">
-            {language === 'fr' ? "L'IA en action." : "AI in action."}
+            {language === 'fr' ? "L'IA en action." : 'AI in action.'}
           </h2>
           <p className="text-lg text-[#6B7280]">
             {language === 'fr'
-              ? "Chaque jour, SAKSAE analyse vos données de revenus et les signaux collectés sur vos outils et exécute les actions à impact."
-              : "Every day, SAKSAE analyzes your revenue data and signals collected from your tools and executes high-impact actions."}
+              ? "Chaque jour, SAKSAE analyse vos données, identifie les signaux et exécute les actions à impact — revenu et opérationnel."
+              : 'Every day, SAKSAE analyzes your data, identifies signals and executes high-impact actions — revenue and operational.'}
           </p>
         </motion.div>
 
-        {/* Action Feed */}
-        <div className="grid lg:grid-cols-2 gap-6 items-stretch">
-          {/* Left - Stats */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col gap-4"
-          >
-            <div className="bg-[#0A0A0A] text-white rounded-xl p-6 flex-1 flex flex-col justify-center">
-              <div className="flex items-center gap-2 mb-4">
-                <Zap className="w-4 h-4" />
-                <span className="text-sm font-medium">AI Action Feed</span>
-              </div>
-              <div className="grid grid-cols-2 gap-6">
-                <div>
-                  <p className="text-3xl font-semibold mb-1">12</p>
-                  <p className="text-xs text-white/60">{language === 'fr' ? 'Actions aujourd\'hui' : 'Actions today'}</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-semibold mb-1">€15.4k</p>
-                  <p className="text-xs text-white/60">{language === 'fr' ? 'Valeur générée' : 'Value generated'}</p>
-                </div>
-              </div>
-            </div>
+        {/* Stats bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex flex-wrap items-center gap-6 mb-10"
+        >
+          <div className="flex items-center gap-3 px-4 py-2.5 bg-[#0A0A0A] text-white rounded-lg">
+            <Zap className="w-4 h-4" />
+            <span className="text-sm font-medium">AI Action Feed</span>
+            <span className="relative flex h-2 w-2 ml-1">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#059669] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#059669]" />
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-[#059669]" />
+            <span className="text-sm text-[#6B7280]">
+              <span className="font-semibold text-[#0A0A0A]">{revenueActions.length}</span> {language === 'fr' ? 'actions revenu' : 'revenue actions'}
+            </span>
+            <span className="text-sm font-semibold text-[#059669]">+€{(totalRevenue / 1000).toFixed(1)}k</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-[#3B82F6]" />
+            <span className="text-sm text-[#6B7280]">
+              <span className="font-semibold text-[#0A0A0A]">{operationalActions.length}</span> {language === 'fr' ? 'actions opérationnelles' : 'operational actions'}
+            </span>
+          </div>
+        </motion.div>
 
-            <div className="p-5 bg-[#F9FAFB] rounded-xl border border-[#E5E7EB] flex-1 flex flex-col justify-center">
-              <p className="text-sm text-[#6B7280] mb-2">
-                {language === 'fr' ? 'Comment ça marche' : 'How it works'}
-              </p>
-              <p className="text-sm text-[#0A0A0A]">
-                {language === 'fr' 
-                  ? "SAKSAE analyse vos patterns de données, identifie les opportunités et agit automatiquement. Chaque action est enregistrée avec son impact estimé."
-                  : "SAKSAE analyzes your data patterns, identifies opportunities, and takes action automatically. Each action is logged with its estimated impact."}
-              </p>
+        {/* Action Feed - 2 columns */}
+        <div className="grid md:grid-cols-2 gap-3">
+          {/* Revenue column */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <TrendingUp className="w-4 h-4 text-[#059669]" />
+              <span className="text-sm font-semibold text-[#0A0A0A]">
+                {language === 'fr' ? 'Revenu' : 'Revenue'}
+              </span>
             </div>
-          </motion.div>
+            <div className="space-y-2.5">
+              {revenueActions.map((action, index) => (
+                <motion.div
+                  key={`rev-${index}`}
+                  custom={index}
+                  variants={cardVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.01, y: -2 }}
+                  className="group relative bg-white border border-[#E5E7EB] rounded-xl p-4 hover:border-[#059669]/40 hover:shadow-[0_2px_12px_rgba(5,150,105,0.08)] transition-all cursor-pointer overflow-hidden"
+                  data-testid={`revenue-action-${index}`}
+                >
+                  {/* Green left accent */}
+                  <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#059669] rounded-l-xl" />
 
-          {/* Right - Action Cards */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col gap-2"
-          >
-            {actions.map((action, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group bg-white border border-[#E5E7EB] rounded-lg p-4 hover:border-[#0A0A0A] transition-all cursor-pointer flex-1 flex flex-col justify-center"
-                data-testid={`action-card-${index}`}
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#059669]" />
-                      <h4 className="font-medium text-sm text-[#0A0A0A]">{action.action}</h4>
+                  <div className="flex items-start justify-between gap-3 pl-2">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h4 className="text-sm font-medium text-[#0A0A0A] truncate">{action.action}</h4>
+                      </div>
+                      <p className="text-xs text-[#6B7280] truncate">{action.context}</p>
                     </div>
-                    <p className="text-xs text-[#6B7280]">{action.context}</p>
+                    <div className="flex flex-col items-end flex-shrink-0">
+                      <span className="text-sm font-semibold text-[#059669]">+{action.value}</span>
+                      <span className="text-[10px] text-[#9CA3AF] mt-0.5">{action.time}</span>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <span className="text-sm font-medium text-[#059669]">+{action.impact}</span>
+
+                  {/* Hover arrow */}
+                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#059669]" />
                   </div>
-                </div>
-                <div className="flex items-center justify-end mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span className="text-xs text-[#6B7280] flex items-center gap-1">
-                    {language === 'fr' ? 'Voir détails' : 'View details'} <ArrowRight className="w-3 h-3" />
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Operational column */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <Settings className="w-4 h-4 text-[#3B82F6]" />
+              <span className="text-sm font-semibold text-[#0A0A0A]">
+                {language === 'fr' ? 'Opérationnel' : 'Operational'}
+              </span>
+            </div>
+            <div className="space-y-2.5">
+              {operationalActions.map((action, index) => (
+                <motion.div
+                  key={`op-${index}`}
+                  custom={index + 0.5}
+                  variants={cardVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.01, y: -2 }}
+                  className="group relative bg-white border border-[#E5E7EB] rounded-xl p-4 hover:border-[#3B82F6]/40 hover:shadow-[0_2px_12px_rgba(59,130,246,0.08)] transition-all cursor-pointer overflow-hidden"
+                  data-testid={`operational-action-${index}`}
+                >
+                  {/* Blue left accent */}
+                  <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#3B82F6] rounded-l-xl" />
+
+                  <div className="pl-2">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-medium text-[#0A0A0A] truncate mb-1">{action.action}</h4>
+                        <p className="text-xs text-[#6B7280] truncate">{action.context}</p>
+                      </div>
+                      <span className="text-[10px] text-[#9CA3AF] flex-shrink-0">{revenueActions[index]?.time || ''}</span>
+                    </div>
+
+                    {/* Domain + Priority tags */}
+                    <div className="flex items-center gap-2 mt-2.5">
+                      <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-[#DBEAFE] text-[#2563EB]">
+                        {action.domain}
+                      </span>
+                      <span className={`text-[10px] font-medium px-2 py-0.5 rounded ${priorityStyles[action.priority]}`}>
+                        {action.priority}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Hover arrow */}
+                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#3B82F6]" />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
