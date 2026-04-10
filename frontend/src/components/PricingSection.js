@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
-import { ArrowRight, Minus, Plus } from 'lucide-react';
+import { ArrowRight, Minus, Plus, Check } from 'lucide-react';
 
 const PricingSection = () => {
   const { language } = useLanguage();
+  const [isAnnual, setIsAnnual] = useState(true);
   const [tpeUsers, setTpeUsers] = useState(3);
   const [pmeUsers, setPmeUsers] = useState(15);
 
@@ -16,40 +17,63 @@ const PricingSection = () => {
     window.open('https://calendly.com/saksae-sales', '_blank');
   };
 
-  // Pricing calculation - monthly with annual discount
-  const monthlyPrices = {
-    independant: 79,
-    tpe: 59,
-    pme: 49
-  };
+  const monthlyPrices = { independant: 79, tpe: 59, pme: 49 };
 
-  // 20% annual discount - show monthly price
-  const annualDiscount = 0.20;
+  const getPrice = (base) => isAnnual ? Math.round(base * 0.8) : base;
 
-  const getDiscountedMonthly = (monthly) => {
-    return Math.round(monthly * (1 - annualDiscount));
-  };
-
-  const features = {
-    fr: {
-      operations: ['CRM', 'Management', 'Finances', 'Appro'],
-      tools: ['Réunions IA', 'Mémo IA', 'Signatures', 'Calendrier']
+  const plans = [
+    {
+      key: 'independant',
+      name: language === 'fr' ? 'Indépendant' : 'Freelancer',
+      desc: language === 'fr' ? '1 utilisateur' : '1 user',
+      price: getPrice(monthlyPrices.independant),
+      fullPrice: monthlyPrices.independant,
+      total: null,
+      perUser: null,
+      highlighted: false,
+      features: language === 'fr'
+        ? ['CRM complet', 'Facturation & Contrats', 'Réunions IA', 'Calendrier intégré', 'Mémos vocaux IA', 'Signatures électroniques']
+        : ['Full CRM', 'Invoicing & Contracts', 'AI Meetings', 'Integrated Calendar', 'AI Voice Memos', 'E-signatures'],
     },
-    en: {
-      operations: ['CRM', 'Management', 'Finance', 'Supply'],
-      tools: ['AI Meetings', 'AI Memos', 'Signatures', 'Calendar']
-    }
-  };
+    {
+      key: 'tpe',
+      name: 'TPE',
+      desc: language === 'fr' ? `${tpeUsers} utilisateurs` : `${tpeUsers} users`,
+      price: getPrice(monthlyPrices.tpe) * tpeUsers,
+      fullPrice: monthlyPrices.tpe * tpeUsers,
+      perUser: getPrice(monthlyPrices.tpe),
+      perUserFull: monthlyPrices.tpe,
+      highlighted: true,
+      userControl: { value: tpeUsers, set: setTpeUsers, min: 1, max: 9 },
+      features: language === 'fr'
+        ? ['Tout Indépendant +', 'Management & Projets', 'Playbooks IA', 'RH & Congés', 'Approvisionnements', 'Support prioritaire']
+        : ['Everything in Freelancer +', 'Management & Projects', 'AI Playbooks', 'HR & Leave', 'Supply Chain', 'Priority support'],
+    },
+    {
+      key: 'pme',
+      name: 'PME',
+      desc: language === 'fr' ? `${pmeUsers} utilisateurs` : `${pmeUsers} users`,
+      price: getPrice(monthlyPrices.pme) * pmeUsers,
+      fullPrice: monthlyPrices.pme * pmeUsers,
+      perUser: getPrice(monthlyPrices.pme),
+      perUserFull: monthlyPrices.pme,
+      highlighted: false,
+      userControl: { value: pmeUsers, set: setPmeUsers, min: 10, max: 49 },
+      features: language === 'fr'
+        ? ['Tout TPE +', 'RevOps Center', 'AI Agent avancé', 'Rôles & permissions', 'API avancée', 'Account manager dédié']
+        : ['Everything in TPE +', 'RevOps Center', 'Advanced AI Agent', 'Roles & permissions', 'Advanced API', 'Dedicated account manager'],
+    },
+  ];
 
   return (
-    <section id="pricing" className="py-12 md:py-16 bg-white grid-pattern">
+    <section id="pricing" className="py-24 md:py-32 bg-white grid-pattern">
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-3xl mb-10"
+          className="text-center max-w-2xl mx-auto mb-10"
         >
           <span className="section-tag block mb-4">
             {language === 'fr' ? '[05] Tarification' : '[05] Pricing'}
@@ -57,213 +81,163 @@ const PricingSection = () => {
           <h2 className="text-section-title text-[#0A0A0A] mb-4">
             {language === 'fr' ? 'Simple et transparent.' : 'Simple and transparent.'}
           </h2>
-          <p className="text-lg text-[#6B7280]">
-            {language === 'fr' 
-              ? 'Facturation annuelle. 20% d\'économie par rapport au mensuel.'
-              : 'Annual billing. Save 20% compared to monthly.'}
+          <p className="text-lg text-[#6B7280] mb-8">
+            {language === 'fr'
+              ? 'Tous les outils inclus. Pas de frais cachés.'
+              : 'All tools included. No hidden fees.'}
           </p>
+
+          {/* Toggle Mensuel / Annuel */}
+          <div className="inline-flex items-center bg-[#F3F4F6] rounded-full p-1" data-testid="billing-toggle">
+            <button
+              onClick={() => setIsAnnual(false)}
+              className={`px-5 py-2 text-sm font-medium rounded-full transition-all ${
+                !isAnnual
+                  ? 'bg-white text-[#0A0A0A] shadow-sm'
+                  : 'text-[#6B7280] hover:text-[#0A0A0A]'
+              }`}
+              data-testid="billing-monthly"
+            >
+              {language === 'fr' ? 'Mensuel' : 'Monthly'}
+            </button>
+            <button
+              onClick={() => setIsAnnual(true)}
+              className={`px-5 py-2 text-sm font-medium rounded-full transition-all flex items-center gap-2 ${
+                isAnnual
+                  ? 'bg-white text-[#0A0A0A] shadow-sm'
+                  : 'text-[#6B7280] hover:text-[#0A0A0A]'
+              }`}
+              data-testid="billing-annual"
+            >
+              {language === 'fr' ? 'Annuel' : 'Annual'}
+              <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-[#D1FAE5] text-[#059669]">
+                -20%
+              </span>
+            </button>
+          </div>
         </motion.div>
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-4 mb-8">
-          
-          {/* Indépendant */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="relative p-6 rounded-xl border border-[#E5E7EB] bg-white"
-            data-testid="pricing-independant"
-          >
-            <h3 className="text-lg font-semibold text-[#0A0A0A] mb-1">
-              {language === 'fr' ? 'Indépendant' : 'Freelancer'}
-            </h3>
-            <p className="text-sm text-[#6B7280] mb-4">
-              {language === 'fr' ? '1 utilisateur' : '1 user'}
-            </p>
-
-            <div className="mb-2">
-              <span className="text-4xl font-semibold text-[#0A0A0A]">
-                €{getDiscountedMonthly(monthlyPrices.independant)}
-              </span>
-              <span className="text-sm text-[#6B7280]">/{language === 'fr' ? 'mois' : 'mo'}</span>
-            </div>
-            <p className="text-xs text-[#059669] mb-4">
-              {language === 'fr' ? `Au lieu de €${monthlyPrices.independant}/mois (abo. annuel)` : `Instead of €${monthlyPrices.independant}/mo (annual plan)`}
-            </p>
-
-            {/* Features */}
-            <div className="mb-4">
-              <div className="flex flex-wrap gap-1 mb-2">
-                {features[language].operations.map((op, i) => (
-                  <span key={i} className="text-xs px-2 py-0.5 rounded bg-[#F3F4F6] text-[#6B7280]">
-                    {op}
-                  </span>
-                ))}
-              </div>
-              <div className="flex flex-wrap gap-1">
-                {features[language].tools.map((tool, i) => (
-                  <span key={i} className="text-xs px-2 py-0.5 rounded bg-[#F3F4F6] text-[#6B7280]">
-                    {tool}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <button
-              onClick={handleTrialClick}
-              className="w-full py-2.5 text-sm font-medium rounded-lg bg-[#0A0A0A] text-white hover:bg-[#1F2937] transition-colors"
+        <div className="grid md:grid-cols-3 gap-5 mb-8">
+          {plans.map((plan, pi) => (
+            <motion.div
+              key={plan.key}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: pi * 0.1 }}
+              className={`relative rounded-xl p-6 flex flex-col ${
+                plan.highlighted
+                  ? 'border-2 border-[#0A0A0A] bg-[#0A0A0A] text-white'
+                  : 'border border-[#E5E7EB] bg-white'
+              }`}
+              data-testid={`pricing-${plan.key}`}
             >
-              {language === 'fr' ? 'Commencer l\'essai' : 'Start trial'}
-            </button>
-          </motion.div>
+              {plan.highlighted && (
+                <span className="absolute -top-3 left-6 px-3 py-1 text-xs font-medium bg-white text-[#0A0A0A] rounded-full">
+                  Popular
+                </span>
+              )}
 
-          {/* TPE */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="relative p-6 rounded-xl border border-[#0A0A0A] bg-[#0A0A0A] text-white"
-            data-testid="pricing-tpe"
-          >
-            <span className="absolute -top-3 left-6 px-3 py-1 text-xs font-medium bg-white text-[#0A0A0A] rounded-full">
-              Popular
-            </span>
+              {/* Plan name */}
+              <h3 className={`text-lg font-semibold mb-1 ${plan.highlighted ? 'text-white' : 'text-[#0A0A0A]'}`}>
+                {plan.name}
+              </h3>
+              <p className={`text-sm mb-5 ${plan.highlighted ? 'text-white/60' : 'text-[#6B7280]'}`}>
+                {plan.desc}
+              </p>
 
-            <h3 className="text-lg font-semibold text-white mb-1">TPE</h3>
-            <p className="text-sm text-white/60 mb-4">
-              {language === 'fr' ? 'Jusqu\'à 9 utilisateurs' : 'Up to 9 users'}
-            </p>
+              {/* User selector */}
+              {plan.userControl && (
+                <div className={`flex items-center justify-between mb-4 rounded-lg p-2 ${
+                  plan.highlighted ? 'bg-white/10' : 'bg-[#F3F4F6]'
+                }`}>
+                  <button
+                    onClick={() => plan.userControl.set(Math.max(plan.userControl.min, plan.userControl.value - 1))}
+                    className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
+                      plan.highlighted ? 'bg-white/10 hover:bg-white/20' : 'bg-white hover:bg-[#E5E7EB]'
+                    }`}
+                  >
+                    <Minus className={`w-4 h-4 ${plan.highlighted ? 'text-white' : 'text-[#6B7280]'}`} />
+                  </button>
+                  <div className="text-center">
+                    <span className={`text-xl font-semibold ${plan.highlighted ? 'text-white' : 'text-[#0A0A0A]'}`}>
+                      {plan.userControl.value}
+                    </span>
+                    <span className={`text-xs ml-1 ${plan.highlighted ? 'text-white/60' : 'text-[#6B7280]'}`}>
+                      {language === 'fr' ? 'utilisateurs' : 'users'}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => plan.userControl.set(Math.min(plan.userControl.max, plan.userControl.value + 1))}
+                    className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
+                      plan.highlighted ? 'bg-white/10 hover:bg-white/20' : 'bg-white hover:bg-[#E5E7EB]'
+                    }`}
+                  >
+                    <Plus className={`w-4 h-4 ${plan.highlighted ? 'text-white' : 'text-[#6B7280]'}`} />
+                  </button>
+                </div>
+              )}
 
-            {/* User selector */}
-            <div className="flex items-center justify-between mb-3 bg-white/10 rounded-lg p-2">
+              {/* Price */}
+              <div className="mb-1">
+                <span className={`text-4xl font-semibold ${plan.highlighted ? 'text-white' : 'text-[#0A0A0A]'}`}>
+                  €{plan.price}
+                </span>
+                <span className={`text-sm ${plan.highlighted ? 'text-white/60' : 'text-[#6B7280]'}`}>
+                  /{language === 'fr' ? 'mois' : 'mo'}
+                </span>
+              </div>
+
+              {/* Price details */}
+              <div className="mb-5">
+                {isAnnual && plan.price !== plan.fullPrice && (
+                  <p className={`text-xs ${plan.highlighted ? 'text-[#4ADE80]' : 'text-[#059669]'}`}>
+                    {language === 'fr' ? `Au lieu de €${plan.fullPrice}/mois` : `Instead of €${plan.fullPrice}/mo`}
+                  </p>
+                )}
+                {plan.perUser && (
+                  <p className={`text-xs mt-0.5 ${plan.highlighted ? 'text-white/50' : 'text-[#9CA3AF]'}`}>
+                    {language === 'fr'
+                      ? `soit €${plan.perUser}/utilisateur/mois`
+                      : `i.e. €${plan.perUser}/user/mo`}
+                  </p>
+                )}
+              </div>
+
+              {/* Features list */}
+              <div className="flex-1 mb-6">
+                <ul className="space-y-2.5">
+                  {plan.features.map((f, i) => (
+                    <li key={i} className="flex items-center gap-2">
+                      <Check className={`w-4 h-4 flex-shrink-0 ${
+                        plan.highlighted ? 'text-[#4ADE80]' : 'text-[#059669]'
+                      }`} strokeWidth={2} />
+                      <span className={`text-sm ${
+                        plan.highlighted ? 'text-white/80' : 'text-[#4B5563]'
+                      }`}>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* CTA */}
               <button
-                onClick={() => setTpeUsers(Math.max(1, tpeUsers - 1))}
-                className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+                onClick={handleTrialClick}
+                className={`w-full py-2.5 text-sm font-medium rounded-lg transition-colors ${
+                  plan.highlighted
+                    ? 'bg-white text-[#0A0A0A] hover:bg-[#F3F4F6]'
+                    : 'bg-[#0A0A0A] text-white hover:bg-[#1F2937]'
+                }`}
+                data-testid={`pricing-cta-${plan.key}`}
               >
-                <Minus className="w-4 h-4" />
+                {language === 'fr' ? '15 jours d\'essai gratuit' : '15-day free trial'}
               </button>
-              <div className="text-center">
-                <span className="text-2xl font-semibold">{tpeUsers}</span>
-                <span className="text-sm text-white/60 ml-1">{language === 'fr' ? 'utilisateurs' : 'users'}</span>
-              </div>
-              <button
-                onClick={() => setTpeUsers(Math.min(9, tpeUsers + 1))}
-                className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
-              >
-                <Plus className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="mb-2">
-              <span className="text-4xl font-semibold text-white">
-                €{getDiscountedMonthly(monthlyPrices.tpe) * tpeUsers}
-              </span>
-              <span className="text-sm text-white/60">/{language === 'fr' ? 'mois' : 'mo'}</span>
-            </div>
-            <p className="text-xs text-[#4ADE80] mb-4">
-              {language === 'fr' ? `€${getDiscountedMonthly(monthlyPrices.tpe)}/utilisateur/mois (abo. annuel)` : `€${getDiscountedMonthly(monthlyPrices.tpe)}/user/mo (annual plan)`}
-            </p>
-
-            {/* Features */}
-            <div className="mb-4">
-              <div className="flex flex-wrap gap-1 mb-2">
-                {features[language].operations.map((op, i) => (
-                  <span key={i} className="text-xs px-2 py-0.5 rounded bg-white/10 text-white/80">
-                    {op}
-                  </span>
-                ))}
-              </div>
-              <div className="flex flex-wrap gap-1">
-                {features[language].tools.map((tool, i) => (
-                  <span key={i} className="text-xs px-2 py-0.5 rounded bg-white/10 text-white/80">
-                    {tool}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <button
-              onClick={handleTrialClick}
-              className="w-full py-2.5 text-sm font-medium rounded-lg bg-white text-[#0A0A0A] hover:bg-[#F3F4F6] transition-colors"
-            >
-              {language === 'fr' ? 'Commencer l\'essai' : 'Start trial'}
-            </button>
-          </motion.div>
-
-          {/* PME */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="relative p-6 rounded-xl border border-[#E5E7EB] bg-white"
-            data-testid="pricing-pme"
-          >
-            <h3 className="text-lg font-semibold text-[#0A0A0A] mb-1">PME</h3>
-            <p className="text-sm text-[#6B7280] mb-4">
-              {language === 'fr' ? 'De 10 à 49 utilisateurs' : '10 to 49 users'}
-            </p>
-
-            {/* User selector */}
-            <div className="flex items-center justify-between mb-3 bg-[#F3F4F6] rounded-lg p-2">
-              <button
-                onClick={() => setPmeUsers(Math.max(10, pmeUsers - 1))}
-                className="w-8 h-8 rounded-lg bg-white flex items-center justify-center hover:bg-[#E5E7EB] transition-colors"
-              >
-                <Minus className="w-4 h-4 text-[#6B7280]" />
-              </button>
-              <div className="text-center">
-                <span className="text-2xl font-semibold text-[#0A0A0A]">{pmeUsers}</span>
-                <span className="text-sm text-[#6B7280] ml-1">{language === 'fr' ? 'utilisateurs' : 'users'}</span>
-              </div>
-              <button
-                onClick={() => setPmeUsers(Math.min(49, pmeUsers + 1))}
-                className="w-8 h-8 rounded-lg bg-white flex items-center justify-center hover:bg-[#E5E7EB] transition-colors"
-              >
-                <Plus className="w-4 h-4 text-[#6B7280]" />
-              </button>
-            </div>
-
-            <div className="mb-2">
-              <span className="text-4xl font-semibold text-[#0A0A0A]">
-                €{getDiscountedMonthly(monthlyPrices.pme) * pmeUsers}
-              </span>
-              <span className="text-sm text-[#6B7280]">/{language === 'fr' ? 'mois' : 'mo'}</span>
-            </div>
-            <p className="text-xs text-[#059669] mb-4">
-              {language === 'fr' ? `€${getDiscountedMonthly(monthlyPrices.pme)}/utilisateur/mois (abo. annuel)` : `€${getDiscountedMonthly(monthlyPrices.pme)}/user/mo (annual plan)`}
-            </p>
-
-            {/* Features */}
-            <div className="mb-4">
-              <div className="flex flex-wrap gap-1 mb-2">
-                {features[language].operations.map((op, i) => (
-                  <span key={i} className="text-xs px-2 py-0.5 rounded bg-[#F3F4F6] text-[#6B7280]">
-                    {op}
-                  </span>
-                ))}
-              </div>
-              <div className="flex flex-wrap gap-1">
-                {features[language].tools.map((tool, i) => (
-                  <span key={i} className="text-xs px-2 py-0.5 rounded bg-[#F3F4F6] text-[#6B7280]">
-                    {tool}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <button
-              onClick={handleTrialClick}
-              className="w-full py-2.5 text-sm font-medium rounded-lg bg-[#0A0A0A] text-white hover:bg-[#1F2937] transition-colors"
-            >
-              {language === 'fr' ? 'Commencer l\'essai' : 'Start trial'}
-            </button>
-          </motion.div>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Enterprise - Below */}
+        {/* Enterprise */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -276,14 +250,15 @@ const PricingSection = () => {
                 {language === 'fr' ? 'Entreprise' : 'Enterprise'}
               </h3>
               <p className="text-sm text-[#6B7280]">
-                {language === 'fr' 
-                  ? 'Solution sur mesure et personnalisée pour les grandes organisations.'
-                  : 'Custom and personalized solution for large organizations.'}
+                {language === 'fr'
+                  ? '50+ utilisateurs — Solution sur mesure, déploiement dédié et accompagnement personnalisé.'
+                  : '50+ users — Custom solution, dedicated deployment and personalized support.'}
               </p>
             </div>
             <button
               onClick={handleContactClick}
               className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium bg-[#0A0A0A] text-white rounded-lg hover:bg-[#1F2937] transition-colors whitespace-nowrap"
+              data-testid="pricing-cta-enterprise"
             >
               {language === 'fr' ? 'Nous contacter' : 'Contact us'}
               <ArrowRight className="w-4 h-4" />
