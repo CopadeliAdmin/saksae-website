@@ -9,28 +9,20 @@ const AISection = () => {
   const revenueActions = language === 'fr' ? [
     { action: 'Relance client envoyée', context: 'Devis #1234 sans réponse depuis 5j', value: '€2,500', time: 'Il y a 3 min' },
     { action: 'Facture générée', context: 'Projet terminé — TechStart', value: '€8,500', time: 'Il y a 12 min' },
-    { action: 'Lead qualifié automatiquement', context: 'Score 92/100 — Prêt pour contact', value: '€3,200', time: 'Il y a 18 min' },
     { action: 'Upsell détecté', context: 'CloudNine éligible au Pack Enterprise', value: '€12,000', time: 'Il y a 25 min' },
-    { action: 'Proposition commerciale envoyée', context: 'DataFlow — Renouvellement annuel', value: '€4,800', time: 'Il y a 31 min' },
   ] : [
     { action: 'Client follow-up sent', context: 'Quote #1234 unanswered for 5d', value: '€2,500', time: '3 min ago' },
     { action: 'Invoice generated', context: 'Project completed — TechStart', value: '€8,500', time: '12 min ago' },
-    { action: 'Lead auto-qualified', context: 'Score 92/100 — Ready for contact', value: '€3,200', time: '18 min ago' },
     { action: 'Upsell detected', context: 'CloudNine eligible for Enterprise Pack', value: '€12,000', time: '25 min ago' },
-    { action: 'Commercial proposal sent', context: 'DataFlow — Annual renewal', value: '€4,800', time: '31 min ago' },
   ];
 
   const operationalActions = language === 'fr' ? [
     { action: 'Réunion brief préparé', context: 'Call Acme Corp dans 30 min', domain: 'CRM', priority: 'Haute' },
     { action: 'Congé approuvé automatiquement', context: 'Lucas Petit — 15-19 Avril', domain: 'RH', priority: 'Moyenne' },
-    { action: 'Contrat renouvelé', context: 'SignalPro — Échéance dans 7 jours', domain: 'Juridique', priority: 'Haute' },
-    { action: 'Rapport hebdo généré', context: 'KPIs équipe commerciale — Semaine 15', domain: 'Finance', priority: 'Basse' },
     { action: 'Playbook déclenché', context: 'Onboarding nouveau client NexGen', domain: 'Management', priority: 'Haute' },
   ] : [
     { action: 'Meeting brief prepared', context: 'Acme Corp call in 30 min', domain: 'CRM', priority: 'High' },
     { action: 'Leave auto-approved', context: 'Lucas Petit — Apr 15-19', domain: 'HR', priority: 'Medium' },
-    { action: 'Contract renewed', context: 'SignalPro — Due in 7 days', domain: 'Legal', priority: 'High' },
-    { action: 'Weekly report generated', context: 'Sales team KPIs — Week 15', domain: 'Finance', priority: 'Low' },
     { action: 'Playbook triggered', context: 'New client onboarding NexGen', domain: 'Management', priority: 'High' },
   ];
 
@@ -78,7 +70,7 @@ const AISection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-3xl mb-14"
+          className="max-w-3xl mb-6"
         >
           <span className="section-tag block mb-4">
             {language === 'fr' ? '[03] Intelligence artificielle' : '[03] Artificial Intelligence'}
@@ -98,7 +90,7 @@ const AISection = () => {
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex flex-wrap items-center gap-6 mb-10"
+          className="flex flex-wrap items-center gap-6 mb-6"
         >
           <div className="flex items-center gap-3 px-4 py-2.5 bg-[#0A0A0A] text-white rounded-lg">
             <Zap className="w-4 h-4" />
@@ -201,7 +193,9 @@ const AISection = () => {
                         <h4 className="text-sm font-medium text-[#0A0A0A] truncate mb-1">{action.action}</h4>
                         <p className="text-xs text-[#6B7280] truncate">{action.context}</p>
                       </div>
-                      <span className="text-[10px] text-[#9CA3AF] flex-shrink-0">{revenueActions[index]?.time || ''}</span>
+                      <span className="text-[10px] text-[#9CA3AF] flex-shrink-0">
+                        {index === 0 ? (language === 'fr' ? 'Il y a 3 min' : '3 min ago') : index === 1 ? (language === 'fr' ? 'Il y a 12 min' : '12 min ago') : (language === 'fr' ? 'Il y a 25 min' : '25 min ago')}
+                      </span>
                     </div>
 
                     {/* Domain + Priority tags */}
