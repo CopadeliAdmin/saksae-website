@@ -32,22 +32,28 @@ Redesign complet style Attio : minimaliste, noir/blanc/gris, icônes ligne fine.
   8. CTA Final
   9. Footer
 
-## What's Been Implemented (2026-04-08)
-- ✅ Complete redesign Attio-style
+## What's Been Implemented
+- ✅ Complete redesign Attio-style (2026-04-08)
 - ✅ New IA Onboarding section with smart import
-- ✅ Minimal black/white design
-- ✅ Dotted grid backgrounds
-- ✅ Numbered sections [01][02][03][04]
+- ✅ Minimal black/white design with dotted grid backgrounds
+- ✅ Numbered sections [01][02][03][04][05]
 - ✅ Line icons throughout
 - ✅ JWT Authentication
 - ✅ Multilingue FR/EN
 - ✅ All backend APIs working
+- ✅ [01] Plateforme - HubSpot-style tabs (CRM, Management, RH, Finances, Produits, Supply)
+- ✅ [02] Onboarding IA - Animated carousel
+- ✅ [03] Intelligence Artificielle section
+- ✅ [04] Outils IA - Tabbed layout (Réunion IA, Projet, Calendrier, Playbook, Fiche de paie, Contrats, E-signatures) with right-aligned header (2026-04-10)
+- ✅ [04] Lead Magnet "Calculez vos économies" - Interactive calculator modal with tool selection + email capture (2026-04-10)
+- ✅ [05] Tarification - Interactive sliders, annual/monthly toggle
+- ✅ Testimonials section
 
 ## MOCKED
 - SendGrid (logs to console)
 
-## Next Tasks
-1. Connect real SendGrid API
-2. Set actual Calendly URL for demos
-3. Add more testimonials
-4. Build user dashboard
+## Next Tasks (P1/P2)
+1. Connect real SendGrid API (P1)
+2. Set actual Calendly URL for demos (P2)
+3. Add more testimonials (P2)
+4. Build user dashboard (P2)
