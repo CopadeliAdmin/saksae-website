@@ -46,8 +46,8 @@ const HeroSection = () => {
             data-testid="hero-headline"
           >
             {language === 'fr' 
-              ? <>#1 plateforme business IA<br />pour Indépendants, TPE/PME</>
-              : "The #1 AI Business platform for Freelancers & SMEs"}
+              ? <>#1 plateforme business IA<br /><span className="text-[#A1A1AA]">pour Indépendants, TPE/PME</span></>
+              : <>The #1 AI Business platform<br /><span className="text-[#A1A1AA]">for Freelancers & SMEs</span></>}
           </motion.h1>
 
           {/* Subheadline */}
