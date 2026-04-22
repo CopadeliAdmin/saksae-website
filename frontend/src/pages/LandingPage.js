@@ -20,8 +20,8 @@ const LandingPage = () => {
         <OnboardingSection />
         <AIToolsSection />
         <AISection />
-        <TestimonialSection />
         <PricingSection />
+        <TestimonialSection />
         <CTASection />
       </main>
       <Footer />
