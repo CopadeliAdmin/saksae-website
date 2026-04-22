@@ -17,7 +17,7 @@ const translations = {
       ctaSecondary: 'Parler aux sales'
     },
     platform: {
-      tag: '[01] Plateforme unifiée',
+      tag: '[01] Plateforme unifiée et actionnable',
       title: 'Tout votre business. Une seule source de vérité.',
       desc: 'Centralisez CRM, projets, finance et communications. Transformez chaque donnée en action concrète.',
       modules: {
@@ -75,8 +75,8 @@ const translations = {
       ctaEnterprise: 'Nous contacter'
     },
     cta: {
-      title: 'Prêt à transformer votre business ?',
-      subtitle: 'Commencez avec un essai gratuit de 14 jours.',
+      title: 'Prêt à transformer votre business et à passer à l\'action avec SAKSAE ?',
+      subtitle: 'Commencez avec un essai gratuit de 15 jours.',
       button: 'Commencer gratuitement',
       plans: 'Voir les tarifs'
     },
@@ -177,8 +177,8 @@ const translations = {
       ctaEnterprise: 'Contact us'
     },
     cta: {
-      title: 'Ready to transform your business?',
-      subtitle: 'Start with a 14-day free trial.',
+      title: 'Ready to transform your business and take action with SAKSAE?',
+      subtitle: 'Start with a 15-day free trial.',
       button: 'Start for free',
       plans: 'See pricing'
     },

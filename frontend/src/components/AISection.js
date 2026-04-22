@@ -125,12 +125,12 @@ const AISection = () => {
             {language === 'fr' ? '[04] Intelligence artificielle' : '[04] Artificial Intelligence'}
           </span>
           <h2 className="text-section-title text-[#0A0A0A] mb-4">
-            {language === 'fr' ? "L'IA en action." : 'AI in action.'}
+            {language === 'fr' ? "L'IA qui transforme vos données en actions." : 'The AI that transforms your data into actions.'}
           </h2>
           <p className="text-lg text-[#6B7280]">
             {language === 'fr'
-              ? "Chaque jour, SAKSAE analyse vos données, identifie les signaux et exécute les actions à impact — revenu et opérationnel."
-              : 'Every day, SAKSAE analyzes your data, identifies signals and executes high-impact actions — revenue and operational.'}
+              ? <>Chaque jour, SAKSAE analyse vos revenus, vos clients, vos projets, vos finances et vos opérations pour identifier les actions à fort impact : opérations &amp; revenus.<br className="hidden md:block" />L'IA SAKSAE vous propose des actions concrètes, priorisées et reliées à un impact business : chiffre d'affaires, cash, temps gagné, risque réduit, qualité d'exécution.</>
+              : 'Every day, SAKSAE analyzes your revenue, clients, projects, finances and operations to identify high-impact actions: operations & revenue. SAKSAE AI proposes concrete, prioritized actions linked to business impact.'}
           </p>
         </motion.div>
 

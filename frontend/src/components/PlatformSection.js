@@ -455,8 +455,8 @@ const PlatformSection = () => {
           </h2>
           <p className="text-lg text-[#6B7280]">
             {language === 'fr'
-              ? 'SAKSAE rassemble vos équipes opérationnelles sur la même plateforme. Chaque produit est puissant, mais la véritable magie se produit lorsque vous les utilisez ensemble.'
-              : 'SAKSAE brings your operational teams together on the same platform. Each product is powerful, but the real magic happens when you use them together.'}
+              ? <>SAKSAE rassemble vos équipes sur la même plateforme.<br className="hidden md:block" />Chaque outil est performant, mais la véritable magie se produit lorsque vous les utilisez ensemble.<br className="hidden md:block" />Réduisez la dispersion et déclenchez les bonnes actions au bon moment.</>
+              : 'SAKSAE brings your teams together on the same platform. Each tool is powerful, but the real magic happens when you use them together. Reduce fragmentation and trigger the right actions at the right time.'}
           </p>
         </motion.div>
 

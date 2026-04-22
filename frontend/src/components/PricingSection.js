@@ -32,8 +32,8 @@ const PricingSection = () => {
       perUser: null,
       highlighted: false,
       features: language === 'fr'
-        ? ['CRM complet', 'Facturation & Contrats', 'Réunions IA', 'Calendrier intégré', 'Mémos vocaux IA', 'Signatures électroniques']
-        : ['Full CRM', 'Invoicing & Contracts', 'AI Meetings', 'Integrated Calendar', 'AI Voice Memos', 'E-signatures'],
+        ? ['CRM', 'Management', 'Services ou Produits', 'Admin et Finances', 'RH', 'Actions IA']
+        : ['CRM', 'Management', 'Services or Products', 'Admin & Finance', 'HR', 'AI Actions'],
     },
     {
       key: 'tpe',
@@ -46,8 +46,8 @@ const PricingSection = () => {
       highlighted: true,
       userControl: { value: tpeUsers, set: setTpeUsers, min: 1, max: 9 },
       features: language === 'fr'
-        ? ['Tout Indépendant +', 'Management & Projets', 'Playbooks IA', 'RH & Congés', 'Approvisionnements', 'Support prioritaire']
-        : ['Everything in Freelancer +', 'Management & Projects', 'AI Playbooks', 'HR & Leave', 'Supply Chain', 'Priority support'],
+        ? ['CRM', 'Management', 'Services ou Produits', 'Admin et Finances', 'RH', 'Revenus Center', 'Opérations Center', 'Actions IA']
+        : ['CRM', 'Management', 'Services or Products', 'Admin & Finance', 'HR', 'Revenue Center', 'Operations Center', 'AI Actions'],
     },
     {
       key: 'pme',
@@ -60,8 +60,8 @@ const PricingSection = () => {
       highlighted: false,
       userControl: { value: pmeUsers, set: setPmeUsers, min: 10, max: 49 },
       features: language === 'fr'
-        ? ['Tout TPE +', 'RevOps Center', 'AI Agent avancé', 'Rôles & permissions', 'API avancée', 'Account manager dédié']
-        : ['Everything in TPE +', 'RevOps Center', 'Advanced AI Agent', 'Roles & permissions', 'Advanced API', 'Dedicated account manager'],
+        ? ['CRM', 'Management', 'Services ou Produits', 'Admin et Finances', 'RH', 'Revenus Center', 'Opérations Center', 'Actions IA']
+        : ['CRM', 'Management', 'Services or Products', 'Admin & Finance', 'HR', 'Revenue Center', 'Operations Center', 'AI Actions'],
     },
   ];
 
@@ -83,8 +83,8 @@ const PricingSection = () => {
           </h2>
           <p className="text-lg text-[#6B7280] mb-8">
             {language === 'fr'
-              ? 'Tous les outils inclus. Pas de frais cachés.'
-              : 'All tools included. No hidden fees.'}
+              ? 'Tous les outils inclus. Abonnements par utilisateurs.'
+              : 'All tools included. Per-user subscriptions.'}
           </p>
 
           {/* Toggle Mensuel / Annuel */}

@@ -227,13 +227,13 @@ const AIToolsSection = () => {
           </span>
           <h2 className="text-section-title text-[#0A0A0A] mb-4">
             {language === 'fr' 
-              ? 'Tous vos outils. Une seule intelligence.'
-              : 'All your tools. One intelligence.'}
+              ? 'Tous vos outils. Une seule intelligence d\'exécution.'
+              : 'All your tools. One execution intelligence.'}
           </h2>
           <p className="text-lg text-[#6B7280]">
             {language === 'fr'
-              ? 'SAKSAE remplace vos outils dispersés et transforme chaque interaction en signal exploitable.'
-              : 'SAKSAE replaces your scattered tools and transforms every interaction into an actionable signal.'}
+              ? <>SAKSAE remplace vos outils dispersés et transforme chaque interaction en signal actionnable.<br className="hidden md:block" />Gagnez du temps et optimisez vos revenus avec plus d'actions utiles : relancer, facturer, préparer, signer, prioriser, déléguer, suivre.</>
+              : 'SAKSAE replaces your scattered tools and transforms every interaction into an actionable signal. Save time and optimize your revenue with more useful actions: follow up, invoice, prepare, sign, prioritize, delegate, track.'}
           </p>
         </motion.div>
 

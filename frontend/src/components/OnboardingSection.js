@@ -64,17 +64,17 @@ const OnboardingSection = () => {
             viewport={{ once: true }}
           >
             <span className="section-tag block mb-4">
-              {language === 'fr' ? '[02] Onboarding IA' : '[02] AI Onboarding'}
+              {language === 'fr' ? '[02] Onboarding intelligent' : '[02] Smart Onboarding'}
             </span>
             <h2 className="text-section-title text-[#0A0A0A] mb-4">
               {language === 'fr' 
-                ? 'Générez vos premières actions en quelques clics.'
-                : 'Generate your first actions in a few clicks.'}
+                ? 'Passez de vos données à vos premières actions en quelques clics.'
+                : 'Go from your data to your first actions in a few clicks.'}
             </h2>
             <p className="text-lg text-[#6B7280] mb-8">
               {language === 'fr'
-                ? 'SAKSAE importe vos données et se connecte à vos outils existants pour construire votre plateforme.'
-                : 'SAKSAE imports your data and connects to your existing tools to build your platform.'}
+                ? 'SAKSAE importe vos données dispersées automatiquement et se connecte à vos outils existants pour construire votre plateforme.'
+                : 'SAKSAE automatically imports your scattered data and connects to your existing tools to build your platform.'}
             </p>
 
             {/* Step indicators and labels aligned */}
