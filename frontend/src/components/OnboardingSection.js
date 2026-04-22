@@ -54,14 +54,15 @@ const OnboardingSection = () => {
   const ActiveIcon = activeStepData.icon;
 
   return (
-    <section id="onboarding" className="py-16 md:py-20 bg-[#FAFAFA]">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+    <section id="onboarding" className="py-32 md:py-40 bg-[#FAFAFA]">
+      <div className="max-w-[1120px] mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left - Content */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="section-tag block mb-4">
               {language === 'fr' ? '[02] Onboarding intelligent' : '[02] Smart Onboarding'}
@@ -71,7 +72,7 @@ const OnboardingSection = () => {
                 ? 'Passez de vos données à vos premières actions en quelques clics.'
                 : 'Go from your data to your first actions in a few clicks.'}
             </h2>
-            <p className="text-lg text-[#6B7280] mb-8">
+            <p className="text-base text-[#52525B] leading-[1.7] mb-10">
               {language === 'fr'
                 ? 'SAKSAE importe vos données dispersées automatiquement et se connecte à vos outils existants pour construire votre plateforme.'
                 : 'SAKSAE automatically imports your scattered data and connects to your existing tools to build your platform.'}
@@ -114,12 +115,13 @@ const OnboardingSection = () => {
 
           {/* Right - Animated Carousel Visual */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="relative"
           >
-            <div className="bg-white rounded-xl border border-[#E5E7EB] p-6 shadow-sm min-h-[280px]">
+            <div className="bg-white rounded-xl border border-[#E4E4E7] p-7 shadow-[0_1px_2px_rgba(0,0,0,0.03)] min-h-[300px]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeStep}

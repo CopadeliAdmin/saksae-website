@@ -41,13 +41,20 @@ Redesign complet style Attio : minimaliste, noir/blanc/gris, icônes ligne fine.
 - ✅ JWT Authentication
 - ✅ Multilingue FR/EN
 - ✅ All backend APIs working
-- ✅ [01] Plateforme - Redesign style Attio v2 : tabs détachés avec underline animé, vraie sidebar SAKSAE (CRM/Management/Finances/RH/Intelligence), contenu pertinent par onglet (Dashboard KPI, Kanban projets, RH table, Facturation, Produits, Supply) (2026-04-10)
-- ✅ [02] Onboarding IA - Animated carousel
-- ✅ [03] Intelligence Artificielle section
-- ✅ [04] Outils IA - Tabbed layout (Réunion IA, Projet, Calendrier, Playbook, Fiche de paie, Contrats, E-signatures) with right-aligned header (2026-04-10)
-- ✅ [04] Lead Magnet "Calculez vos économies" - Interactive calculator modal with tool selection + email capture (2026-04-10)
-- ✅ [05] Tarification - Interactive sliders, annual/monthly toggle
-- ✅ Testimonials section
+- ✅ [01] Plateforme unifiée et actionnable - Attio-style tabs détachés, vraie sidebar SAKSAE, mockups par onglet (2026-04-10)
+- ✅ [02] Onboarding intelligent - Animated carousel (2026-04-10)
+- ✅ [03] Outils IA - Tabbed layout right-aligned header (2026-04-10)
+- ✅ [03] Lead Magnet "Calculez vos économies" - Interactive calculator modal (2026-04-10)
+- ✅ [04] Intelligence artificielle - Typing animation, 3+3 actions Revenu/Opération, expandable cards with email preview (2026-04-10)
+- ✅ [05] Tarification - Toggle Mensuel/Annuel, features par plan (2026-04-10)
+- ✅ **Premium design overhaul** - Refonte complète direction artistique premium (2026-04-22)
+  - Système de design: Inter optimisé, easing premium, transitions 180-240ms, zinc palette
+  - Hero: 92vh, signaux ambiants subtils, gradient fade
+  - Toutes sections: py-40, max-w-1120px, reveals viewport margin
+  - Motion: stagger reveals 400-700ms, hover states 180ms, spring tabs
+  - Pricing: toggle premium avec shadow, cards p-7
+  - CTA: plus statutaire, footer éditorial
+  - Testimonials: 3 cartes quotes éditoriales
 
 ## MOCKED
 - SendGrid (logs to console)

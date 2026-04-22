@@ -6,87 +6,45 @@ import { ArrowRight } from 'lucide-react';
 const HeroSection = () => {
   const { language } = useLanguage();
 
-  const handleTrialClick = () => {
-    window.location.href = '/register';
-  };
+  const handleTrialClick = () => { window.location.href = '/register'; };
+  const handleDemoClick = () => { window.open('https://calendly.com/saksae-sales', '_blank'); };
 
-  const handleDemoClick = () => {
-    window.open('https://calendly.com/saksae-sales', '_blank');
-  };
-
-  // Floating AI action cards data - smaller and more transparent
-  const aiActions = [
-    { 
-      text: language === 'fr' ? 'Relance client' : 'Client follow-up',
-      impact: '+€2.5k',
-      delay: 0,
-      position: { top: '20%', left: '8%' }
-    },
-    { 
-      text: language === 'fr' ? 'Lead scoré' : 'Lead scored',
-      impact: '85/100',
-      delay: 1.2,
-      position: { top: '15%', right: '10%' }
-    },
-    { 
-      text: language === 'fr' ? 'Facture' : 'Invoice',
-      impact: '+€8.5k',
-      delay: 2.4,
-      position: { bottom: '25%', left: '5%' }
-    },
-    { 
-      text: language === 'fr' ? 'Action détectée' : 'Action detected',
-      impact: 'Priority',
-      delay: 3.6,
-      position: { bottom: '18%', right: '8%' }
-    },
+  // Subtle floating signals - very light, ambient
+  const signals = [
+    { text: '+€2.5k', delay: 0, x: '7%', y: '22%' },
+    { text: '85/100', delay: 2, x: '88%', y: '18%' },
+    { text: '+€8.5k', delay: 4, x: '4%', y: '72%' },
+    { text: 'Priority', delay: 6, x: '91%', y: '68%' },
   ];
 
   return (
-    <section className="relative flex items-center pt-14 pb-16 overflow-hidden bg-[#FAFAFA]">
-      {/* Subtle background grid */}
-      <div className="absolute inset-0 dotted-pattern opacity-30" />
+    <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-[#FAFAFA]">
+      {/* Very subtle dotted background */}
+      <div className="absolute inset-0 dotted-pattern opacity-40" />
 
-      {/* Floating AI Action Cards - smaller and 70% opacity */}
-      {aiActions.map((action, index) => (
+      {/* Ambient floating signals */}
+      {signals.map((s, i) => (
         <motion.div
-          key={index}
-          className="absolute hidden lg:block bg-white/70 backdrop-blur-sm rounded-lg border border-[#E5E7EB]/50 px-3 py-2 shadow-sm"
-          style={action.position}
-          initial={{ opacity: 0, y: 10, scale: 0.95 }}
-          animate={{ 
-            opacity: [0, 0.7, 0.7, 0],
-            y: [10, 0, 0, -10],
-            scale: [0.95, 1, 1, 0.95]
-          }}
-          transition={{ 
-            duration: 4,
-            delay: action.delay,
-            repeat: Infinity,
-            repeatDelay: 2,
-            ease: "easeInOut"
-          }}
+          key={i}
+          className="absolute hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-white/50 backdrop-blur-sm border border-[#E4E4E7]/40"
+          style={{ left: s.x, top: s.y }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 0.5, 0.5, 0] }}
+          transition={{ duration: 5, delay: s.delay, repeat: Infinity, repeatDelay: 3, ease: 'easeInOut' }}
         >
-          <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#059669]/70" />
-            <span className="text-xs text-[#6B7280]">{action.text}</span>
-          </div>
-          <div className="text-right mt-1">
-            <span className="text-[10px] font-medium text-[#059669]/70">{action.impact}</span>
-          </div>
+          <div className="w-1 h-1 rounded-full bg-[#059669]/50" />
+          <span className="text-[10px] text-[#A1A1AA] font-medium tracking-wide">{s.text}</span>
         </motion.div>
       ))}
 
-      <div className="max-w-6xl mx-auto px-6 py-16 md:py-20 relative z-20">
-        <div className="max-w-3xl mx-auto text-center">
-          {/* Badge */}
-
+      <div className="max-w-[1120px] mx-auto px-6 py-28 md:py-36 relative z-10">
+        <div className="max-w-[720px] mx-auto text-center">
           {/* Headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-hero text-[#0A0A0A] mb-6"
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="text-hero text-[#0A0A0A] mb-7"
             data-testid="hero-headline"
           >
             {language === 'fr' 
@@ -96,10 +54,10 @@ const HeroSection = () => {
 
           {/* Subheadline */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-lg md:text-xl text-[#6B7280] mb-10 max-w-2xl mx-auto"
+            transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            className="text-base md:text-lg text-[#52525B] leading-[1.7] mb-12 max-w-[600px] mx-auto"
           >
             {language === 'fr'
               ? <>SAKSAE est une plateforme d'Exécution Business, qui centralise vos outils, analyse vos données d'opérations et de revenus et les transforme en actions.<br className="hidden md:block" />Pilotez votre activité, détectez vos priorités, passez à l'action avec SAKSAE.</>
@@ -108,29 +66,36 @@ const HeroSection = () => {
 
           {/* CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={{ duration: 0.7, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col sm:flex-row items-center justify-center gap-3"
           >
             <button
               onClick={handleTrialClick}
-              className="w-full sm:w-auto px-6 py-3 text-sm font-medium bg-[#0A0A0A] text-white rounded-lg hover:bg-[#1F2937] transition-colors"
+              className="group w-full sm:w-auto px-7 py-3 text-sm font-medium bg-[#0A0A0A] text-white rounded-lg transition-all hover:bg-[#171717] active:scale-[0.98]"
+              style={{ transitionDuration: '240ms', transitionTimingFunction: 'cubic-bezier(0.33, 1, 0.68, 1)' }}
               data-testid="cta-primary"
             >
-              {language === 'fr' ? 'Commencer gratuitement' : 'Start for free'}
+              <span className="flex items-center justify-center gap-2">
+                {language === 'fr' ? 'Commencer gratuitement' : 'Start for free'}
+                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" style={{ transitionDuration: '240ms' }} />
+              </span>
             </button>
             <button
               onClick={handleDemoClick}
-              className="w-full sm:w-auto px-6 py-3 text-sm font-medium bg-white text-[#0A0A0A] border border-[#E5E7EB] rounded-lg hover:bg-[#F9FAFB] transition-colors"
+              className="w-full sm:w-auto px-7 py-3 text-sm font-medium text-[#52525B] bg-white border border-[#E4E4E7] rounded-lg transition-all hover:border-[#D4D4D8] hover:text-[#0A0A0A] active:scale-[0.98]"
+              style={{ transitionDuration: '240ms', transitionTimingFunction: 'cubic-bezier(0.33, 1, 0.68, 1)' }}
               data-testid="cta-secondary"
             >
               {language === 'fr' ? 'Parler aux sales' : 'Talk to sales'}
             </button>
           </motion.div>
         </div>
-
       </div>
+
+      {/* Bottom gradient fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#FAFAFA] to-transparent" />
     </section>
   );
 };

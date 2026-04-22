@@ -112,14 +112,15 @@ const AISection = () => {
   };
 
   return (
-    <section id="ai" className="py-24 md:py-32 bg-white grid-pattern">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="ai" className="py-32 md:py-40 bg-white grid-pattern">
+      <div className="max-w-[1120px] mx-auto px-6">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-3xl mb-6"
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-[640px] mb-8"
         >
           <span className="section-tag block mb-4">
             {language === 'fr' ? '[04] Intelligence artificielle' : '[04] Artificial Intelligence'}
@@ -127,7 +128,7 @@ const AISection = () => {
           <h2 className="text-section-title text-[#0A0A0A] mb-4">
             {language === 'fr' ? "L'IA qui transforme vos données en actions." : 'The AI that transforms your data into actions.'}
           </h2>
-          <p className="text-lg text-[#6B7280]">
+          <p className="text-base text-[#52525B] leading-[1.7]">
             {language === 'fr'
               ? <>Chaque jour, SAKSAE analyse vos revenus, vos clients, vos projets, vos finances et vos opérations pour identifier les actions à fort impact : opérations &amp; revenus.<br className="hidden md:block" />L'IA SAKSAE vous propose des actions concrètes, priorisées et reliées à un impact business : chiffre d'affaires, cash, temps gagné, risque réduit, qualité d'exécution.</>
               : 'Every day, SAKSAE analyzes your revenue, clients, projects, finances and operations to identify high-impact actions: operations & revenue. SAKSAE AI proposes concrete, prioritized actions linked to business impact.'}
@@ -136,10 +137,11 @@ const AISection = () => {
 
         {/* AI Greeting Animation */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-6"
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-8"
         >
           <div className="inline-flex items-start gap-3 bg-[#0A0A0A] text-white rounded-xl px-5 py-3.5">
             <div className="flex items-center gap-2 flex-shrink-0 mt-0.5">
@@ -161,7 +163,7 @@ const AISection = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="flex items-center gap-5 mb-5"
+          className="flex items-center gap-5 mb-8"
         >
           <div className="flex items-center gap-1.5">
             <div className="w-2 h-2 rounded-full bg-[#059669]" />
@@ -179,7 +181,7 @@ const AISection = () => {
         </motion.div>
 
         {/* Action Feed - 2 columns */}
-        <div className="grid md:grid-cols-2 gap-3">
+        <div className="grid md:grid-cols-2 gap-4">
           {/* Revenue column */}
           <div>
             <div className="flex items-center gap-2 mb-3">
@@ -205,11 +207,12 @@ const AISection = () => {
                     {/* Card */}
                     <div
                       onClick={() => setExpandedRevenue(isExpanded ? null : index)}
-                      className={`group relative bg-white border rounded-xl p-4 cursor-pointer transition-all overflow-hidden ${
+                      className={`group relative bg-white border rounded-xl p-5 cursor-pointer overflow-hidden transition-all ${
                         isExpanded
-                          ? 'border-[#059669]/50 shadow-[0_2px_16px_rgba(5,150,105,0.1)]'
-                          : 'border-[#E5E7EB] hover:border-[#059669]/30 hover:shadow-[0_1px_8px_rgba(5,150,105,0.06)]'
+                          ? 'border-[#059669]/30 shadow-[0_1px_8px_rgba(5,150,105,0.06)]'
+                          : 'border-[#E4E4E7] hover:border-[#D4D4D8]'
                       }`}
+                      style={{ transitionDuration: '240ms', transitionTimingFunction: 'cubic-bezier(0.33, 1, 0.68, 1)' }}
                     >
                       <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#059669] rounded-l-xl" />
                       <div className="pl-2">
@@ -305,11 +308,12 @@ const AISection = () => {
                     {/* Card - compact 2 lines */}
                     <div
                       onClick={() => setExpandedOp(isExpanded ? null : index)}
-                      className={`group relative bg-white border rounded-xl p-4 cursor-pointer transition-all overflow-hidden ${
+                      className={`group relative bg-white border rounded-xl p-5 cursor-pointer overflow-hidden transition-all ${
                         isExpanded
-                          ? 'border-[#3B82F6]/50 shadow-[0_2px_16px_rgba(59,130,246,0.1)]'
-                          : 'border-[#E5E7EB] hover:border-[#3B82F6]/30 hover:shadow-[0_1px_8px_rgba(59,130,246,0.06)]'
+                          ? 'border-[#3B82F6]/30 shadow-[0_1px_8px_rgba(59,130,246,0.06)]'
+                          : 'border-[#E4E4E7] hover:border-[#D4D4D8]'
                       }`}
+                      style={{ transitionDuration: '240ms', transitionTimingFunction: 'cubic-bezier(0.33, 1, 0.68, 1)' }}
                     >
                       <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#3B82F6] rounded-l-xl" />
                       <div className="pl-2">

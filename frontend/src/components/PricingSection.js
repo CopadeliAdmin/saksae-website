@@ -66,14 +66,15 @@ const PricingSection = () => {
   ];
 
   return (
-    <section id="pricing" className="py-24 md:py-32 bg-white grid-pattern">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="pricing" className="py-32 md:py-40 bg-white">
+      <div className="max-w-[1120px] mx-auto px-6">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-left max-w-2xl mb-10"
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="text-left max-w-[540px] mb-14"
         >
           <span className="section-tag block mb-4">
             {language === 'fr' ? '[05] Tarification' : '[05] Pricing'}
@@ -81,36 +82,38 @@ const PricingSection = () => {
           <h2 className="text-section-title text-[#0A0A0A] mb-4">
             {language === 'fr' ? 'Simple et transparent.' : 'Simple and transparent.'}
           </h2>
-          <p className="text-lg text-[#6B7280] mb-8">
+          <p className="text-base text-[#52525B] leading-[1.7] mb-10">
             {language === 'fr'
               ? 'Tous les outils inclus. Abonnements par utilisateurs.'
               : 'All tools included. Per-user subscriptions.'}
           </p>
 
           {/* Toggle Mensuel / Annuel */}
-          <div className="inline-flex items-center bg-[#F3F4F6] rounded-full p-1" data-testid="billing-toggle">
+          <div className="inline-flex items-center bg-[#F4F4F5] rounded-full p-1" data-testid="billing-toggle">
             <button
               onClick={() => setIsAnnual(false)}
-              className={`px-5 py-2 text-sm font-medium rounded-full transition-all ${
+              className={`px-5 py-2 text-[13px] font-medium rounded-full transition-all ${
                 !isAnnual
-                  ? 'bg-white text-[#0A0A0A] shadow-sm'
-                  : 'text-[#6B7280] hover:text-[#0A0A0A]'
+                  ? 'bg-white text-[#0A0A0A] shadow-[0_1px_2px_rgba(0,0,0,0.05)]'
+                  : 'text-[#A1A1AA] hover:text-[#52525B]'
               }`}
+              style={{ transitionDuration: '240ms', transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
               data-testid="billing-monthly"
             >
               {language === 'fr' ? 'Mensuel' : 'Monthly'}
             </button>
             <button
               onClick={() => setIsAnnual(true)}
-              className={`px-5 py-2 text-sm font-medium rounded-full transition-all flex items-center gap-2 ${
+              className={`px-5 py-2 text-[13px] font-medium rounded-full transition-all flex items-center gap-2 ${
                 isAnnual
-                  ? 'bg-white text-[#0A0A0A] shadow-sm'
-                  : 'text-[#6B7280] hover:text-[#0A0A0A]'
+                  ? 'bg-white text-[#0A0A0A] shadow-[0_1px_2px_rgba(0,0,0,0.05)]'
+                  : 'text-[#A1A1AA] hover:text-[#52525B]'
               }`}
+              style={{ transitionDuration: '240ms', transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
               data-testid="billing-annual"
             >
               {language === 'fr' ? 'Annuel' : 'Annual'}
-              <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-[#D1FAE5] text-[#059669]">
+              <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-[#DCFCE7] text-[#16A34A]">
                 -20%
               </span>
             </button>
@@ -118,18 +121,18 @@ const PricingSection = () => {
         </motion.div>
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-5 mb-8">
+        <div className="grid md:grid-cols-3 gap-4 mb-10">
           {plans.map((plan, pi) => (
             <motion.div
               key={plan.key}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: pi * 0.1 }}
-              className={`relative rounded-xl p-6 flex flex-col ${
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ delay: pi * 0.08, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              className={`relative rounded-xl p-7 flex flex-col ${
                 plan.highlighted
                   ? 'border-2 border-[#0A0A0A] bg-[#0A0A0A] text-white'
-                  : 'border border-[#E5E7EB] bg-white'
+                  : 'border border-[#E4E4E7] bg-white'
               }`}
               data-testid={`pricing-${plan.key}`}
             >

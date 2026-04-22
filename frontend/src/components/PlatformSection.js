@@ -436,14 +436,15 @@ const PlatformSection = () => {
   };
 
   return (
-    <section id="platform" className="py-24 md:py-32 bg-white">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="platform" className="py-32 md:py-40 bg-white">
+      <div className="max-w-[1120px] mx-auto px-6">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-left max-w-3xl mb-16"
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="text-left max-w-[640px] mb-20"
         >
           <span className="section-tag block mb-4">
             {t('platform.tag')}
@@ -453,7 +454,7 @@ const PlatformSection = () => {
               ? 'Une plateforme puissante et simple, alimentée par l\'IA.'
               : 'A powerful and simple platform, powered by AI.'}
           </h2>
-          <p className="text-lg text-[#6B7280]">
+          <p className="text-base text-[#52525B] leading-[1.7]">
             {language === 'fr'
               ? <>SAKSAE rassemble vos équipes sur la même plateforme.<br className="hidden md:block" />Chaque outil est performant, mais la véritable magie se produit lorsque vous les utilisez ensemble.<br className="hidden md:block" />Réduisez la dispersion et déclenchez les bonnes actions au bon moment.</>
               : 'SAKSAE brings your teams together on the same platform. Each tool is powerful, but the real magic happens when you use them together. Reduce fragmentation and trigger the right actions at the right time.'}
@@ -462,33 +463,34 @@ const PlatformSection = () => {
 
         {/* ── Detached Tab Bar (Attio-style) ── */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           data-testid="platform-tabs"
         >
-          <div className="border border-[#E5E7EB] rounded-xl overflow-hidden bg-white">
+          <div className="border border-[#E4E4E7] rounded-xl overflow-hidden bg-white">
             <div className="grid grid-cols-6">
               {tabs.map((tab, i) => (
                 <button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key)}
-                  className={`relative py-4 text-sm text-center transition-colors ${
-                    i > 0 ? 'border-l border-[#E5E7EB]' : ''
+                  className={`relative py-4 text-[13px] text-center transition-colors ${
+                    i > 0 ? 'border-l border-[#E4E4E7]' : ''
                   } ${
                     activeTab === tab.key
                       ? 'text-[#0A0A0A] font-semibold'
-                      : 'text-[#9CA3AF] hover:text-[#6B7280]'
+                      : 'text-[#A1A1AA] hover:text-[#52525B]'
                   }`}
+                  style={{ transitionDuration: '180ms' }}
                   data-testid={`tab-${tab.key}`}
                 >
                   {tab.name[language]}
                   {activeTab === tab.key && (
                     <motion.div
                       layoutId="platformTabUnderline"
-                      className="absolute bottom-0 left-4 right-4 h-[2.5px] bg-[#0A0A0A] rounded-full"
-                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                      className="absolute bottom-0 left-5 right-5 h-[2px] bg-[#0A0A0A] rounded-full"
+                      transition={{ type: 'spring', stiffness: 350, damping: 32 }}
                     />
                   )}
                 </button>
@@ -497,26 +499,24 @@ const PlatformSection = () => {
           </div>
         </motion.div>
 
-        {/* ── Gap between tabs and mockup ── */}
-        <div className="h-8" />
+        <div className="h-6" />
 
-        {/* ── App Mockup (separate card) ── */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="border border-[#E5E7EB] rounded-xl overflow-hidden bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+          <div className="border border-[#E4E4E7] rounded-xl overflow-hidden bg-white shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.15 }}
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 className="flex"
-                style={{ height: '460px' }}
+                style={{ height: '480px' }}
               >
                 <Sidebar />
                 <div className="flex-1 overflow-hidden border-l-0">

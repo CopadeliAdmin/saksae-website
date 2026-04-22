@@ -213,14 +213,15 @@ const AIToolsSection = () => {
   };
 
   return (
-    <section id="ai-tools" className="py-24 md:py-32 bg-[#FAFAFA]">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="ai-tools" className="py-32 md:py-40 bg-[#FAFAFA]">
+      <div className="max-w-[1120px] mx-auto px-6">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-left max-w-3xl mb-12"
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="text-left max-w-[640px] mb-16"
         >
           <span className="section-tag block mb-4">
             {language === 'fr' ? '[03] Outils IA' : '[03] AI Tools'}
@@ -230,7 +231,7 @@ const AIToolsSection = () => {
               ? 'Tous vos outils. Une seule intelligence d\'exécution.'
               : 'All your tools. One execution intelligence.'}
           </h2>
-          <p className="text-lg text-[#6B7280]">
+          <p className="text-base text-[#52525B] leading-[1.7]">
             {language === 'fr'
               ? <>SAKSAE remplace vos outils dispersés et transforme chaque interaction en signal actionnable.<br className="hidden md:block" />Gagnez du temps et optimisez vos revenus avec plus d'actions utiles : relancer, facturer, préparer, signer, prioriser, déléguer, suivre.</>
               : 'SAKSAE replaces your scattered tools and transforms every interaction into an actionable signal. Save time and optimize your revenue with more useful actions: follow up, invoice, prepare, sign, prioritize, delegate, track.'}
@@ -238,17 +239,18 @@ const AIToolsSection = () => {
         </motion.div>
 
         {/* Tabs */}
-        <div className="border-b border-[#E5E7EB] mb-12 overflow-x-auto">
-          <div className="flex gap-1 min-w-max pb-px">
+        <div className="border-b border-[#E4E4E7] mb-14 overflow-x-auto">
+          <div className="flex gap-0 min-w-max pb-px">
             {tabs.map((tab) => (
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
-                className={`px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors relative ${
+                className={`px-5 py-3.5 text-[13px] font-medium whitespace-nowrap transition-colors relative ${
                   activeTab === tab.key 
                     ? 'text-[#0A0A0A]' 
-                    : 'text-[#6B7280] hover:text-[#0A0A0A]'
+                    : 'text-[#A1A1AA] hover:text-[#52525B]'
                 }`}
+                style={{ transitionDuration: '180ms' }}
                 data-testid={`tool-tab-${tab.key}`}
               >
                 {tab.name[language]}
@@ -267,11 +269,11 @@ const AIToolsSection = () => {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="grid lg:grid-cols-2 gap-12 items-center mb-12"
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="grid lg:grid-cols-2 gap-14 items-center mb-14"
           >
             {/* Left - Text */}
             <div>
