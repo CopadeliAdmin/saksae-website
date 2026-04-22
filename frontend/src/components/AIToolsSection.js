@@ -556,19 +556,11 @@ const AIToolsSection = () => {
                 </div>
               </div>
 
-              <p className="text-xs text-[#6B7280] leading-relaxed mb-5">
+              <p className="text-xs text-[#6B7280] leading-relaxed">
                 {language === 'fr'
-                  ? 'Au-delà des économies, ces outils dispersés créent des données fragmentées, sans vision globale et sans valeur d\'action. SAKSAE unifie tout en une seule plateforme intelligente.'
-                  : 'Beyond savings, these scattered tools create fragmented data, with no global vision and no actionable value. SAKSAE unifies everything into one intelligent platform.'}
+                  ? 'Au-delà des économies réalisées avec SAKSAE, ces outils dispersés créent des données fragmentées, sans valeur d\'action et de revenus. SAKSAE unifie tout en une seule plateforme intelligente pour créer des actions à impact.'
+                  : 'Beyond the savings achieved with SAKSAE, these scattered tools create fragmented data, with no actionable or revenue value. SAKSAE unifies everything into one intelligent platform to create impactful actions.'}
               </p>
-
-              <button
-                onClick={() => { setShowCalculator(false); window.location.href = '/register'; }}
-                className="w-full py-3 text-sm font-medium bg-[#0A0A0A] text-white rounded-lg hover:bg-[#1F2937] transition-colors"
-              >
-                {language === 'fr' ? 'Commencer l\'essai gratuit' : 'Start free trial'}
-                <ArrowRight className="w-4 h-4 inline ml-2" />
-              </button>
             </motion.div>
           </motion.div>
         )}
