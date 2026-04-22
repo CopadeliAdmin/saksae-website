@@ -44,10 +44,6 @@ const AISection = () => {
       detail: { desc: 'Le devis #1234 envoyé à TechVision le 5 avril n\'a reçu aucune réponse. L\'IA a détecté un risque de perte et a préparé une relance personnalisée.', emailSubject: 'Relance : Votre devis SAKSAE #1234', emailPreview: 'Bonjour M. Durand,\n\nJe me permets de revenir vers vous concernant notre proposition du 5 avril. Souhaitez-vous en discuter cette semaine ?\n\nCordialement,\nChristophe' }
     },
     {
-      action: 'Facture générée', context: 'Projet terminé — TechStart', value: '€8,500', time: 'Il y a 12 min',
-      detail: { desc: 'Le projet TechStart est terminé. L\'IA a généré la facture finale et préparé l\'email d\'envoi avec le PDF en pièce jointe.', emailSubject: 'Facture finale — Projet TechStart', emailPreview: 'Bonjour,\n\nVeuillez trouver ci-joint la facture finale du projet TechStart pour un montant de €8,500 HT.\n\nCordialement,\nChristophe' }
-    },
-    {
       action: 'Upsell détecté', context: 'CloudNine éligible au Pack Enterprise', value: '€12,000', time: 'Il y a 25 min',
       detail: { desc: 'CloudNine utilise 90% de sa capacité actuelle et a ajouté 12 collaborateurs ce mois. L\'IA recommande une proposition d\'upgrade vers le Pack Enterprise.', emailSubject: 'Évoluez vers Enterprise — Offre spéciale', emailPreview: 'Bonjour Sophie,\n\nVotre usage de SAKSAE a fortement évolué ! Nous vous proposons une migration vers le Pack Enterprise avec 20% de remise le premier trimestre.\n\nCordialement,\nChristophe' }
     },
@@ -55,10 +51,6 @@ const AISection = () => {
     {
       action: 'Client follow-up sent', context: 'Quote #1234 unanswered for 5d', value: '€2,500', time: '3 min ago',
       detail: { desc: 'Quote #1234 sent to TechVision on April 5 received no response. AI detected a churn risk and prepared a personalized follow-up.', emailSubject: 'Follow-up: Your SAKSAE Quote #1234', emailPreview: 'Hello Mr. Durand,\n\nI\'m reaching out regarding our proposal from April 5. Would you like to discuss it this week?\n\nBest regards,\nChristophe' }
-    },
-    {
-      action: 'Invoice generated', context: 'Project completed — TechStart', value: '€8,500', time: '12 min ago',
-      detail: { desc: 'The TechStart project is complete. AI generated the final invoice and prepared the delivery email with PDF attached.', emailSubject: 'Final Invoice — TechStart Project', emailPreview: 'Hello,\n\nPlease find attached the final invoice for the TechStart project, totaling €8,500.\n\nBest regards,\nChristophe' }
     },
     {
       action: 'Upsell detected', context: 'CloudNine eligible for Enterprise Pack', value: '€12,000', time: '25 min ago',
@@ -72,10 +64,6 @@ const AISection = () => {
       detail: { desc: 'L\'IA a analysé les 3 derniers échanges avec Acme Corp, les notes de réunion précédentes et le statut du deal pour préparer un brief complet.', task: 'Brief de 2 pages généré avec points clés, objections anticipées et proposition de prix. Partagé sur votre calendrier.' }
     },
     {
-      action: 'Congé approuvé automatiquement', context: 'Lucas Petit — 15-19 Avril', domain: 'RH', priority: 'Moyenne',
-      detail: { desc: 'La demande de congé de Lucas Petit respecte toutes les conditions (solde suffisant, pas de conflit d\'équipe). Approuvée automatiquement via le playbook RH.', task: 'Notification envoyée à Lucas et son manager. Calendrier d\'équipe mis à jour. Backup assigné : Emma Richard.' }
-    },
-    {
       action: 'Playbook déclenché', context: 'Onboarding nouveau client NexGen', domain: 'Management', priority: 'Haute',
       detail: { desc: 'NexGen vient de signer. Le playbook d\'onboarding s\'est déclenché automatiquement : création du projet, envoi du welcome pack, planification du kickoff.', task: 'Projet créé dans Management. Email de bienvenue envoyé. Call de kickoff planifié le 14 avril à 10h.' }
     },
@@ -83,10 +71,6 @@ const AISection = () => {
     {
       action: 'Meeting brief prepared', context: 'Acme Corp call in 30 min', domain: 'CRM', priority: 'High',
       detail: { desc: 'AI analyzed the last 3 exchanges with Acme Corp, previous meeting notes and deal status to prepare a complete brief.', task: '2-page brief generated with key points, anticipated objections and pricing proposal. Shared to your calendar.' }
-    },
-    {
-      action: 'Leave auto-approved', context: 'Lucas Petit — Apr 15-19', domain: 'HR', priority: 'Medium',
-      detail: { desc: 'Lucas Petit\'s leave request meets all conditions (sufficient balance, no team conflict). Auto-approved via HR playbook.', task: 'Notification sent to Lucas and his manager. Team calendar updated. Backup assigned: Emma Richard.' }
     },
     {
       action: 'Playbook triggered', context: 'New client onboarding NexGen', domain: 'Management', priority: 'High',
