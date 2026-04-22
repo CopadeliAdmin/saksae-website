@@ -8,8 +8,6 @@ const AIToolsSection = () => {
   const [activeTab, setActiveTab] = useState('reunion');
   const [showCalculator, setShowCalculator] = useState(false);
   const [selectedTools, setSelectedTools] = useState({});
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
 
   const tabs = [
     { 
@@ -101,25 +99,6 @@ const AIToolsSection = () => {
   const monthlySavings = Math.max(0, totalSavings - saksaePrice);
 
   const activeTabData = tabs.find(tab => tab.key === activeTab);
-
-  const handleSubmitCalculator = async () => {
-    if (!email) return;
-    try {
-      await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/leads`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          name: 'Calculator Lead',
-          source: 'savings_calculator',
-          message: JSON.stringify({ selectedTools, totalSavings, monthlySavings })
-        })
-      });
-      setSubmitted(true);
-    } catch (e) {
-      console.error(e);
-    }
-  };
 
   // Visual component for each tool
   const TabVisual = ({ tabKey }) => {
@@ -500,7 +479,7 @@ const AIToolsSection = () => {
             className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium bg-[#0A0A0A] text-white rounded-lg hover:bg-[#1F2937] transition-colors"
           >
             <Calculator className="w-4 h-4" />
-            {language === 'fr' ? 'Calculez vos économies' : 'Calculate your savings'}
+            {language === 'fr' ? 'Calculez vos économies d\'outils dispersés' : 'Calculate your scattered tools savings'}
           </button>
         </motion.div>
       </div>
@@ -524,101 +503,72 @@ const AIToolsSection = () => {
             >
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-xl font-semibold text-[#0A0A0A]">
-                  {language === 'fr' ? 'Calculez vos économies' : 'Calculate your savings'}
+                  {language === 'fr' ? 'Calculez vos économies d\'outils dispersés' : 'Calculate your scattered tools savings'}
                 </h3>
                 <button onClick={() => setShowCalculator(false)} className="p-1 hover:bg-[#F3F4F6] rounded-lg">
                   <X className="w-5 h-5 text-[#6B7280]" />
                 </button>
               </div>
 
-              {!submitted ? (
-                <>
-                  <p className="text-sm text-[#6B7280] mb-4">
-                    {language === 'fr' 
-                      ? 'Sélectionnez les outils que vous utilisez actuellement :'
-                      : 'Select the tools you currently use:'}
-                  </p>
+              <p className="text-sm text-[#6B7280] mb-4">
+                {language === 'fr' 
+                  ? 'Sélectionnez les outils que vous utilisez actuellement :'
+                  : 'Select the tools you currently use:'}
+              </p>
 
-                  <div className="grid grid-cols-2 gap-2 mb-6">
-                    {marketTools.map((tool) => (
-                      <button
-                        key={tool.name}
-                        onClick={() => toggleTool(tool.name)}
-                        className={`p-3 rounded-lg border text-left transition-all ${
-                          selectedTools[tool.name]
-                            ? 'border-[#0A0A0A] bg-[#0A0A0A] text-white'
-                            : 'border-[#E5E7EB] hover:border-[#0A0A0A]'
-                        }`}
-                      >
-                        <p className="text-sm font-medium">{tool.name}</p>
-                        <p className={`text-xs ${selectedTools[tool.name] ? 'text-white/60' : 'text-[#6B7280]'}`}>
-                          €{tool.price}/mois
-                        </p>
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Results */}
-                  <div className="p-4 rounded-xl bg-[#F9FAFB] border border-[#E5E7EB] mb-6">
-                    <div className="flex justify-between mb-2">
-                      <span className="text-sm text-[#6B7280]">{language === 'fr' ? 'Vos outils actuels' : 'Your current tools'}</span>
-                      <span className="text-sm font-medium text-[#0A0A0A]">€{totalSavings}/mois</span>
-                    </div>
-                    <div className="flex justify-between mb-2">
-                      <span className="text-sm text-[#6B7280]">SAKSAE</span>
-                      <span className="text-sm font-medium text-[#0A0A0A]">€{saksaePrice}/mois</span>
-                    </div>
-                    <div className="border-t border-[#E5E7EB] pt-2 mt-2">
-                      <div className="flex justify-between">
-                        <span className="text-sm font-medium text-[#059669]">{language === 'fr' ? 'Économies mensuelles' : 'Monthly savings'}</span>
-                        <span className="text-lg font-bold text-[#059669]">€{monthlySavings}/mois</span>
-                      </div>
-                      <p className="text-xs text-[#059669] mt-1">
-                        = €{monthlySavings * 12}/an
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Email capture */}
-                  <div className="space-y-3">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder={language === 'fr' ? 'Votre email' : 'Your email'}
-                      className="w-full px-4 py-3 rounded-lg border border-[#E5E7EB] focus:border-[#0A0A0A] focus:outline-none text-sm"
-                    />
-                    <button
-                      onClick={handleSubmitCalculator}
-                      disabled={!email || monthlySavings <= 0}
-                      className="w-full py-3 text-sm font-medium bg-[#0A0A0A] text-white rounded-lg hover:bg-[#1F2937] transition-colors disabled:opacity-50"
-                    >
-                      {language === 'fr' ? 'Recevoir mon rapport d\'économies' : 'Get my savings report'}
-                      <ArrowRight className="w-4 h-4 inline ml-2" />
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <div className="text-center py-8">
-                  <div className="w-16 h-16 bg-[#D1FAE5] rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-[#059669] text-2xl">✓</span>
-                  </div>
-                  <h4 className="text-lg font-semibold text-[#0A0A0A] mb-2">
-                    {language === 'fr' ? 'Rapport envoyé !' : 'Report sent!'}
-                  </h4>
-                  <p className="text-sm text-[#6B7280] mb-4">
-                    {language === 'fr' 
-                      ? `Vous économiseriez €${monthlySavings * 12}/an avec SAKSAE`
-                      : `You would save €${monthlySavings * 12}/year with SAKSAE`}
-                  </p>
+              <div className="grid grid-cols-2 gap-2 mb-6">
+                {marketTools.map((tool) => (
                   <button
-                    onClick={() => { setShowCalculator(false); window.location.href = '/register'; }}
-                    className="px-6 py-3 text-sm font-medium bg-[#0A0A0A] text-white rounded-lg hover:bg-[#1F2937] transition-colors"
+                    key={tool.name}
+                    onClick={() => toggleTool(tool.name)}
+                    className={`p-3 rounded-lg border text-left transition-all ${
+                      selectedTools[tool.name]
+                        ? 'border-[#0A0A0A] bg-[#0A0A0A] text-white'
+                        : 'border-[#E5E7EB] hover:border-[#0A0A0A]'
+                    }`}
                   >
-                    {language === 'fr' ? 'Commencer l\'essai gratuit' : 'Start free trial'}
+                    <p className="text-sm font-medium">{tool.name}</p>
+                    <p className={`text-xs ${selectedTools[tool.name] ? 'text-white/60' : 'text-[#6B7280]'}`}>
+                      €{tool.price}/{language === 'fr' ? 'mois/utilisateur' : 'mo/user'}
+                    </p>
                   </button>
+                ))}
+              </div>
+
+              {/* Results */}
+              <div className="p-4 rounded-xl bg-[#F9FAFB] border border-[#E5E7EB] mb-4">
+                <div className="flex justify-between mb-2">
+                  <span className="text-sm text-[#6B7280]">{language === 'fr' ? 'Vos outils actuels' : 'Your current tools'}</span>
+                  <span className="text-sm font-medium text-[#0A0A0A]">€{totalSavings}/{language === 'fr' ? 'mois/utilisateur' : 'mo/user'}</span>
                 </div>
-              )}
+                <div className="flex justify-between mb-2">
+                  <span className="text-sm text-[#6B7280]">SAKSAE</span>
+                  <span className="text-sm font-medium text-[#0A0A0A]">€{saksaePrice}/{language === 'fr' ? 'mois/utilisateur' : 'mo/user'}</span>
+                </div>
+                <div className="border-t border-[#E5E7EB] pt-2 mt-2">
+                  <div className="flex justify-between">
+                    <span className="text-sm font-medium text-[#059669]">{language === 'fr' ? 'Économies mensuelles' : 'Monthly savings'}</span>
+                    <span className="text-lg font-bold text-[#059669]">€{monthlySavings}/{language === 'fr' ? 'mois' : 'mo'}</span>
+                  </div>
+                  <p className="text-xs text-[#059669] mt-1">
+                    = €{monthlySavings * 12}/{language === 'fr' ? 'an par utilisateur' : 'year per user'}
+                  </p>
+                </div>
+              </div>
+
+              <p className="text-xs text-[#6B7280] leading-relaxed mb-5">
+                {language === 'fr'
+                  ? 'Au-delà des économies, ces outils dispersés créent des données fragmentées, sans vision globale et sans valeur d\'action. SAKSAE unifie tout en une seule plateforme intelligente.'
+                  : 'Beyond savings, these scattered tools create fragmented data, with no global vision and no actionable value. SAKSAE unifies everything into one intelligent platform.'}
+              </p>
+
+              <button
+                onClick={() => { setShowCalculator(false); window.location.href = '/register'; }}
+                className="w-full py-3 text-sm font-medium bg-[#0A0A0A] text-white rounded-lg hover:bg-[#1F2937] transition-colors"
+              >
+                {language === 'fr' ? 'Commencer l\'essai gratuit' : 'Start free trial'}
+                <ArrowRight className="w-4 h-4 inline ml-2" />
+              </button>
             </motion.div>
           </motion.div>
         )}
