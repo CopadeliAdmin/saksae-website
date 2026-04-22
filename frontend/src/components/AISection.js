@@ -1,12 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
-import { TrendingUp, Settings, ArrowUpRight, Mail, Send, ChevronDown, CheckCircle } from 'lucide-react';
+import { Zap, TrendingUp, Settings, Mail, Send, ChevronDown, CheckCircle } from 'lucide-react';
 
 const AISection = () => {
   const { language } = useLanguage();
   const [expandedRevenue, setExpandedRevenue] = useState(null);
   const [expandedOp, setExpandedOp] = useState(null);
+  const [typedText, setTypedText] = useState('');
+  const [showCursor, setShowCursor] = useState(true);
+
+  const greeting = language === 'fr'
+    ? 'Bonjour Christophe, voici vos actions prioritaires pour aujourd\'hui.'
+    : 'Hello Christophe, here are your priority actions for today.';
+
+  useEffect(() => {
+    let i = 0;
+    setTypedText('');
+    const interval = setInterval(() => {
+      if (i < greeting.length) {
+        setTypedText(greeting.slice(0, i + 1));
+        i++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 28);
+    return () => clearInterval(interval);
+  }, [language]);
+
+  useEffect(() => {
+    const blink = setInterval(() => setShowCursor(prev => !prev), 530);
+    return () => clearInterval(blink);
+  }, []);
 
   const revenueActions = language === 'fr' ? [
     {
@@ -105,18 +130,27 @@ const AISection = () => {
                 : 'Every day, SAKSAE analyzes your revenue, clients, projects, finances and operations to identify high-impact actions. AI proposes concrete, prioritized actions linked to business impact.'}
             </motion.p>
 
-            <motion.button
+            <motion.div
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
-              onClick={() => window.open('https://calendly.com/saksae-sales', '_blank')}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium bg-[#0A0A0A] text-white rounded-lg hover:bg-[#1F2937] transition-colors"
-              data-testid="ai-section-demo-btn"
+              data-testid="ai-section-greeting"
             >
-              {language === 'fr' ? 'Demander une démo' : 'Request a demo'}
-              <ArrowUpRight className="w-4 h-4" />
-            </motion.button>
+              <div className="inline-flex items-start gap-3 bg-[#0A0A0A] text-white rounded-xl px-5 py-3.5">
+                <div className="flex items-center gap-2 flex-shrink-0 mt-0.5">
+                  <Zap className="w-4 h-4" />
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#059669] opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#059669]" />
+                  </span>
+                </div>
+                <span className="text-sm leading-relaxed">
+                  {typedText}
+                  <span className={`inline-block w-[2px] h-4 bg-white ml-0.5 align-middle ${showCursor ? 'opacity-100' : 'opacity-0'}`} />
+                </span>
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* Right - Interactive Action Feed */}
