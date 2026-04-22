@@ -16,12 +16,9 @@ const CTASection = () => {
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-[560px] mx-auto text-center"
         >
-          <h2 className="text-2xl md:text-[1.875rem] font-semibold text-white mb-4 tracking-[-0.025em] leading-[1.2]">
+          <h2 className="text-2xl md:text-[1.875rem] font-semibold text-white mb-10 tracking-[-0.025em] leading-[1.2]">
             {t('cta.title')}
           </h2>
-          <p className="text-[15px] text-[#71717A] mb-10 leading-relaxed">
-            {t('cta.subtitle')}
-          </p>
           <a
             href="/register"
             className="group inline-flex items-center gap-2.5 px-7 py-3 text-[14px] font-medium bg-white text-[#0A0A0A] rounded-lg hover:bg-[#F4F4F5] transition-all active:scale-[0.98]"
