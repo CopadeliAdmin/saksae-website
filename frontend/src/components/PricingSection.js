@@ -66,7 +66,7 @@ const PricingSection = () => {
   ];
 
   return (
-    <section id="pricing" className="py-32 md:py-40 bg-white">
+    <section id="pricing" className="py-24 md:py-32 bg-[#FAFAFA]">
       <div className="max-w-[1120px] mx-auto px-6">
         {/* Header */}
         <motion.div

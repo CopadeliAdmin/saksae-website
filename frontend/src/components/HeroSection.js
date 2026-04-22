@@ -69,11 +69,11 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-3"
+            className="flex justify-center"
           >
             <button
               onClick={handleTrialClick}
-              className="group w-full sm:w-auto px-7 py-3 text-sm font-medium bg-[#0A0A0A] text-white rounded-lg transition-all hover:bg-[#171717] active:scale-[0.98]"
+              className="group px-7 py-3 text-sm font-medium bg-[#0A0A0A] text-white rounded-lg transition-all hover:bg-[#171717] active:scale-[0.98]"
               style={{ transitionDuration: '240ms', transitionTimingFunction: 'cubic-bezier(0.33, 1, 0.68, 1)' }}
               data-testid="cta-primary"
             >
@@ -81,14 +81,6 @@ const HeroSection = () => {
                 {language === 'fr' ? 'Commencer gratuitement' : 'Start for free'}
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" style={{ transitionDuration: '240ms' }} />
               </span>
-            </button>
-            <button
-              onClick={handleDemoClick}
-              className="w-full sm:w-auto px-7 py-3 text-sm font-medium text-[#52525B] bg-white border border-[#E4E4E7] rounded-lg transition-all hover:border-[#D4D4D8] hover:text-[#0A0A0A] active:scale-[0.98]"
-              style={{ transitionDuration: '240ms', transitionTimingFunction: 'cubic-bezier(0.33, 1, 0.68, 1)' }}
-              data-testid="cta-secondary"
-            >
-              {language === 'fr' ? 'Parler aux sales' : 'Talk to sales'}
             </button>
           </motion.div>
         </div>

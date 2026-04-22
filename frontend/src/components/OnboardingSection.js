@@ -54,7 +54,7 @@ const OnboardingSection = () => {
   const ActiveIcon = activeStepData.icon;
 
   return (
-    <section id="onboarding" className="py-32 md:py-40 bg-[#FAFAFA]">
+    <section id="onboarding" className="py-24 md:py-32 bg-white">
       <div className="max-w-[1120px] mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left - Content */}

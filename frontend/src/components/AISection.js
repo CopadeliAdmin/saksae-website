@@ -112,7 +112,7 @@ const AISection = () => {
   };
 
   return (
-    <section id="ai" className="py-32 md:py-40 bg-white grid-pattern">
+    <section id="ai" className="py-24 md:py-32 bg-white">
       <div className="max-w-[1120px] mx-auto px-6">
         {/* Header */}
         <motion.div
