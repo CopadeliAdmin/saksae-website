@@ -76,8 +76,8 @@ const translations = {
     },
     cta: {
       title: 'Prêt à transformer votre business et à passer à l\'action avec SAKSAE ?',
-      subtitle: 'Commencez avec un essai gratuit de 15 jours.',
-      button: 'Commencer gratuitement',
+      subtitle: '',
+      button: 'Commencez votre essai gratuit de 15 jours',
       plans: 'Voir les tarifs'
     },
     footer: {
@@ -178,8 +178,8 @@ const translations = {
     },
     cta: {
       title: 'Ready to transform your business and take action with SAKSAE?',
-      subtitle: 'Start with a 15-day free trial.',
-      button: 'Start for free',
+      subtitle: '',
+      button: 'Start your 15-day free trial',
       plans: 'See pricing'
     },
     footer: {
