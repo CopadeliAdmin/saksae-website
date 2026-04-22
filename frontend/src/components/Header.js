@@ -20,9 +20,8 @@ const Header = () => {
       <div className="max-w-[1120px] mx-auto px-6">
         <div className="flex items-center justify-between h-[56px]">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2.5 group">
-            <img src="/logo-saksae.png" alt="SAKSAE" className="h-7 w-7 object-contain" />
-            <span className="text-[15px] font-semibold text-[#0A0A0A] tracking-[-0.02em]">saksae</span>
+          <a href="/" className="flex items-center group">
+            <img src="/logo-saksae.png" alt="SAKSAE" className="h-8 object-contain" />
           </a>
 
           {/* Desktop Nav */}

@@ -31,9 +31,8 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="col-span-2 md:col-span-2">
-            <div className="flex items-center gap-2.5 mb-4">
-              <img src="/logo-saksae.png" alt="SAKSAE" className="h-6 w-6 object-contain" />
-              <span className="text-[14px] font-semibold text-[#0A0A0A] tracking-[-0.01em]">saksae</span>
+            <div className="flex items-center mb-4">
+              <img src="/logo-saksae.png" alt="SAKSAE" className="h-5 object-contain" />
             </div>
             <p className="text-[13px] text-[#A1A1AA] leading-[1.7] max-w-xs">
               {language === 'fr'
