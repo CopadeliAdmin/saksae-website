@@ -1,42 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
-import { Zap, TrendingUp, Settings, ArrowUpRight, Mail, Send, ChevronDown, CheckCircle, X } from 'lucide-react';
+import { TrendingUp, Settings, ArrowUpRight, Mail, Send, ChevronDown, CheckCircle } from 'lucide-react';
 
 const AISection = () => {
   const { language } = useLanguage();
-  const [typedText, setTypedText] = useState('');
-  const [showCursor, setShowCursor] = useState(true);
-  const [typingDone, setTypingDone] = useState(false);
   const [expandedRevenue, setExpandedRevenue] = useState(null);
   const [expandedOp, setExpandedOp] = useState(null);
-
-  const greeting = language === 'fr'
-    ? 'Bonjour Christophe, voici vos actions prioritaires pour aujourd\'hui.'
-    : 'Hello Christophe, here are your priority actions for today.';
-
-  // Typing animation
-  useEffect(() => {
-    let i = 0;
-    setTypedText('');
-    setTypingDone(false);
-    const interval = setInterval(() => {
-      if (i < greeting.length) {
-        setTypedText(greeting.slice(0, i + 1));
-        i++;
-      } else {
-        clearInterval(interval);
-        setTypingDone(true);
-      }
-    }, 28);
-    return () => clearInterval(interval);
-  }, [language]);
-
-  // Cursor blink
-  useEffect(() => {
-    const blink = setInterval(() => setShowCursor(prev => !prev), 530);
-    return () => clearInterval(blink);
-  }, []);
 
   const revenueActions = language === 'fr' ? [
     {
@@ -83,15 +53,11 @@ const AISection = () => {
     Moyenne: 'bg-[#FEF3C7] text-[#D97706]', Medium: 'bg-[#FEF3C7] text-[#D97706]',
   };
 
-  const totalRevenue = revenueActions.reduce((sum, a) => {
-    return sum + parseFloat(a.value.replace(/[€,]/g, ''));
-  }, 0);
-
   const cardVariants = {
-    hidden: { opacity: 0, y: 16 },
+    hidden: { opacity: 0, y: 20, scale: 0.97 },
     visible: (i) => ({
-      opacity: 1, y: 0,
-      transition: { delay: i * 0.1, duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] },
+      opacity: 1, y: 0, scale: 1,
+      transition: { delay: 0.25 + i * 0.12, duration: 0.5, ease: [0.16, 1, 0.3, 1] },
     }),
   };
 
@@ -139,29 +105,6 @@ const AISection = () => {
                 : 'Every day, SAKSAE analyzes your revenue, clients, projects, finances and operations to identify high-impact actions. AI proposes concrete, prioritized actions linked to business impact.'}
             </motion.p>
 
-            {/* Stats summary */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
-              className="flex items-center gap-5 mb-8"
-            >
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-[#059669]" />
-                <span className="text-sm text-[#6B7280]">
-                  <span className="font-semibold text-[#0A0A0A]">{revenueActions.length}</span> {language === 'fr' ? 'revenu' : 'revenue'}
-                </span>
-                <span className="text-sm font-semibold text-[#059669]">+€{(totalRevenue / 1000).toFixed(1)}k</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-[#3B82F6]" />
-                <span className="text-sm text-[#6B7280]">
-                  <span className="font-semibold text-[#0A0A0A]">{operationalActions.length}</span> {language === 'fr' ? 'opération' : 'operational'}
-                </span>
-              </div>
-            </motion.div>
-
             <motion.button
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -183,31 +126,20 @@ const AISection = () => {
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            {/* AI Greeting Animation */}
-            <div className="mb-5">
-              <div className="inline-flex items-start gap-3 bg-[#0A0A0A] text-white rounded-xl px-5 py-3.5">
-                <div className="flex items-center gap-2 flex-shrink-0 mt-0.5">
-                  <Zap className="w-4 h-4" />
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#059669] opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#059669]" />
-                  </span>
-                </div>
-                <span className="text-sm leading-relaxed">
-                  {typedText}
-                  <span className={`inline-block w-[2px] h-4 bg-white ml-0.5 align-middle ${showCursor ? 'opacity-100' : 'opacity-0'}`} />
-                </span>
-              </div>
-            </div>
-
             {/* Revenue actions */}
-            <div className="mb-5">
-              <div className="flex items-center gap-2 mb-3">
+            <div className="mb-4">
+              <motion.div
+                initial={{ opacity: 0, x: 8 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-center gap-2 mb-2.5"
+              >
                 <TrendingUp className="w-4 h-4 text-[#059669]" />
                 <span className="text-sm font-semibold text-[#0A0A0A]">
                   {language === 'fr' ? 'Revenu' : 'Revenue'}
                 </span>
-              </div>
+              </motion.div>
               <div className="space-y-2">
                 {revenueActions.map((action, index) => {
                   const isExpanded = expandedRevenue === index;
@@ -295,12 +227,18 @@ const AISection = () => {
 
             {/* Operational actions */}
             <div>
-              <div className="flex items-center gap-2 mb-3">
+              <motion.div
+                initial={{ opacity: 0, x: 8 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-center gap-2 mb-2.5"
+              >
                 <Settings className="w-4 h-4 text-[#3B82F6]" />
                 <span className="text-sm font-semibold text-[#0A0A0A]">
                   {language === 'fr' ? 'Opération' : 'Operational'}
                 </span>
-              </div>
+              </motion.div>
               <div className="space-y-2">
                 {operationalActions.map((action, index) => {
                   const isExpanded = expandedOp === index;
