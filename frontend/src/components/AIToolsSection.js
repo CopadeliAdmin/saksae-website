@@ -123,92 +123,255 @@ const AIToolsSection = () => {
 
   // Visual component for each tool
   const TabVisual = ({ tabKey }) => {
+    const containerVariants = {
+      hidden: { opacity: 0 },
+      visible: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.1 } }
+    };
+    const itemVariants = {
+      hidden: { opacity: 0, y: 12 },
+      visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }
+    };
+
     switch(tabKey) {
       case 'reunion':
         return (
-          <div className="bg-white rounded-xl border border-[#E5E7EB] p-5 shadow-sm">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-sm font-medium text-[#0A0A0A]">Réunion IA</span>
-              <span className="text-xs text-[#059669] bg-[#D1FAE5] px-2 py-0.5 rounded">En direct</span>
-            </div>
-            <div className="space-y-3 mb-4">
-              <div className="p-3 bg-[#F9FAFB] rounded-lg text-xs text-[#6B7280]">
-                <p className="font-medium text-[#0A0A0A] mb-1">Transcription</p>
-                "Nous devons finaliser le budget Q2..."
+          <motion.div
+            variants={containerVariants} initial="hidden" animate="visible"
+            className="bg-white rounded-2xl border border-[#E5E7EB] p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] w-full max-w-[440px]"
+          >
+            <motion.div variants={itemVariants} className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-[#F3F4F6] flex items-center justify-center">
+                  <Video className="w-5 h-5 text-[#0A0A0A]" strokeWidth={1.5} />
+                </div>
+                <span className="text-base font-semibold text-[#0A0A0A]">{language === 'fr' ? 'Réunion IA' : 'AI Meeting'}</span>
               </div>
-              <div className="p-3 bg-[#FEF3C7] rounded-lg text-xs">
-                <p className="font-medium text-[#92400E]">Action détectée</p>
-                <p className="text-[#92400E]/70">Envoyer budget → Marie</p>
-              </div>
-            </div>
-          </div>
+              <span className="text-xs font-medium text-[#059669] bg-[#D1FAE5] px-2.5 py-1 rounded-full">{language === 'fr' ? 'En direct' : 'Live'}</span>
+            </motion.div>
+            <motion.div variants={itemVariants} className="p-4 bg-[#F9FAFB] rounded-xl mb-3">
+              <p className="text-xs font-medium text-[#0A0A0A] mb-2">{language === 'fr' ? 'Transcription' : 'Transcription'}</p>
+              <p className="text-sm text-[#6B7280] leading-relaxed italic">"Nous devons finaliser le budget Q2 avant vendredi..."</p>
+            </motion.div>
+            <motion.div variants={itemVariants} className="p-4 bg-[#FEF3C7] rounded-xl mb-3">
+              <p className="text-xs font-semibold text-[#92400E] mb-1">{language === 'fr' ? 'Action détectée' : 'Action detected'}</p>
+              <p className="text-sm text-[#92400E]/80">{language === 'fr' ? 'Envoyer budget Q2 → Marie (vendredi)' : 'Send Q2 budget → Marie (Friday)'}</p>
+            </motion.div>
+            <motion.div variants={itemVariants} className="p-4 bg-[#EFF6FF] rounded-xl">
+              <p className="text-xs font-semibold text-[#1E40AF] mb-1">{language === 'fr' ? 'Résumé IA' : 'AI Summary'}</p>
+              <p className="text-sm text-[#1E40AF]/80">{language === 'fr' ? '3 décisions prises, 2 actions assignées' : '3 decisions made, 2 actions assigned'}</p>
+            </motion.div>
+          </motion.div>
         );
       case 'projet':
         return (
-          <div className="bg-white rounded-xl border border-[#E5E7EB] p-5 shadow-sm">
-            <p className="text-sm font-medium text-[#0A0A0A] mb-4">Projet: Lancement Q2</p>
-            <div className="space-y-2">
-              {['Recherche', 'Design', 'Dev', 'Tests'].map((phase, i) => (
-                <div key={phase} className="flex items-center gap-3">
-                  <div className={`w-2.5 h-2.5 rounded-full ${i < 2 ? 'bg-[#059669]' : i === 2 ? 'bg-[#F59E0B]' : 'bg-[#E5E7EB]'}`} />
-                  <span className="text-sm text-[#6B7280] flex-1">{phase}</span>
-                  <span className="text-xs text-[#9CA3AF]">{i < 2 ? '100%' : i === 2 ? '60%' : '0%'}</span>
-                </div>
+          <motion.div
+            variants={containerVariants} initial="hidden" animate="visible"
+            className="bg-white rounded-2xl border border-[#E5E7EB] p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] w-full max-w-[440px]"
+          >
+            <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-[#F3F4F6] flex items-center justify-center">
+                <FolderKanban className="w-5 h-5 text-[#0A0A0A]" strokeWidth={1.5} />
+              </div>
+              <span className="text-base font-semibold text-[#0A0A0A]">Projet: Lancement Q2</span>
+            </motion.div>
+            <div className="space-y-4">
+              {[
+                { name: 'Recherche', pct: 100, color: '#059669' },
+                { name: 'Design', pct: 100, color: '#059669' },
+                { name: 'Dev', pct: 60, color: '#F59E0B' },
+                { name: 'Tests', pct: 0, color: '#E5E7EB' },
+              ].map((phase, i) => (
+                <motion.div key={phase.name} variants={itemVariants} className="flex items-center gap-4">
+                  <div className={`w-3 h-3 rounded-full flex-shrink-0`} style={{ backgroundColor: phase.color }} />
+                  <span className="text-sm text-[#0A0A0A] w-24 font-medium">{phase.name}</span>
+                  <div className="flex-1 h-2 bg-[#F3F4F6] rounded-full overflow-hidden">
+                    <motion.div
+                      className="h-full rounded-full"
+                      style={{ backgroundColor: phase.pct > 0 ? phase.color : 'transparent' }}
+                      initial={{ width: 0 }}
+                      animate={{ width: `${phase.pct}%` }}
+                      transition={{ duration: 0.8, delay: 0.2 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                    />
+                  </div>
+                  <span className="text-sm text-[#9CA3AF] w-10 text-right font-medium">{phase.pct}%</span>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         );
       case 'calendrier':
         return (
-          <div className="bg-white rounded-xl border border-[#E5E7EB] p-5 shadow-sm">
-            <p className="text-sm font-medium text-[#0A0A0A] mb-4">Aujourd'hui</p>
-            <div className="space-y-2">
-              {[{ time: '09:00', title: 'Call client' }, { time: '11:00', title: 'Review projet' }, { time: '14:00', title: 'Team sync', ai: true }].map((event, i) => (
-                <div key={i} className="flex items-center gap-3 p-2 rounded-lg bg-[#F9FAFB]">
-                  <span className="text-xs text-[#9CA3AF] w-12">{event.time}</span>
-                  <span className="text-sm text-[#0A0A0A]">{event.title}</span>
-                  {event.ai && <span className="text-xs text-[#059669] ml-auto">IA</span>}
-                </div>
+          <motion.div
+            variants={containerVariants} initial="hidden" animate="visible"
+            className="bg-white rounded-2xl border border-[#E5E7EB] p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] w-full max-w-[440px]"
+          >
+            <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-[#F3F4F6] flex items-center justify-center">
+                <Calendar className="w-5 h-5 text-[#0A0A0A]" strokeWidth={1.5} />
+              </div>
+              <span className="text-base font-semibold text-[#0A0A0A]">{language === 'fr' ? "Aujourd'hui" : 'Today'}</span>
+            </motion.div>
+            <div className="space-y-2.5">
+              {[
+                { time: '09:00', title: 'Call client Acme', color: '#0A0A0A' },
+                { time: '11:00', title: 'Review projet Q2', color: '#3B82F6' },
+                { time: '14:00', title: 'Team sync', color: '#059669', ai: true },
+                { time: '16:00', title: 'Prep pitch NexGen', color: '#F59E0B', ai: true },
+              ].map((event, i) => (
+                <motion.div key={i} variants={itemVariants} className="flex items-center gap-4 p-3.5 rounded-xl bg-[#F9FAFB]">
+                  <span className="text-sm text-[#9CA3AF] w-12 font-medium">{event.time}</span>
+                  <div className="w-1 h-8 rounded-full flex-shrink-0" style={{ backgroundColor: event.color }} />
+                  <span className="text-sm text-[#0A0A0A] font-medium flex-1">{event.title}</span>
+                  {event.ai && <span className="text-[10px] font-semibold text-[#059669] bg-[#D1FAE5] px-2 py-0.5 rounded-full">IA</span>}
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         );
       case 'playbook':
         return (
-          <div className="bg-white rounded-xl border border-[#E5E7EB] p-5 shadow-sm">
-            <p className="text-sm font-medium text-[#0A0A0A] mb-4">Playbook actif</p>
-            <div className="flex items-center justify-between gap-2">
-              {['Trigger', 'Action 1', 'Action 2', 'Done'].map((step, i) => (
-                <React.Fragment key={step}>
-                  <div className="flex flex-col items-center">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs ${i < 3 ? 'bg-[#0A0A0A] text-white' : 'bg-[#E5E7EB] text-[#6B7280]'}`}>
-                      {i < 3 ? '✓' : '4'}
-                    </div>
-                    <span className="text-[10px] text-[#6B7280] mt-1">{step}</span>
+          <motion.div
+            variants={containerVariants} initial="hidden" animate="visible"
+            className="bg-white rounded-2xl border border-[#E5E7EB] p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] w-full max-w-[440px]"
+          >
+            <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-[#F3F4F6] flex items-center justify-center">
+                <BookOpen className="w-5 h-5 text-[#0A0A0A]" strokeWidth={1.5} />
+              </div>
+              <span className="text-base font-semibold text-[#0A0A0A]">{language === 'fr' ? 'Playbook actif' : 'Active Playbook'}</span>
+            </motion.div>
+            <motion.div variants={itemVariants} className="flex items-center justify-between gap-3 mb-6">
+              {[
+                { label: 'Trigger', done: true },
+                { label: 'Action 1', done: true },
+                { label: 'Action 2', done: true },
+                { label: 'Done', done: false },
+              ].map((step, i) => (
+                <React.Fragment key={step.label}>
+                  <div className="flex flex-col items-center gap-2">
+                    <motion.div
+                      className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-semibold ${step.done ? 'bg-[#0A0A0A] text-white' : 'bg-[#F3F4F6] text-[#9CA3AF]'}`}
+                      initial={{ scale: 0.5, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: 0.15 + i * 0.12, duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                      {step.done ? '✓' : (i + 1)}
+                    </motion.div>
+                    <span className="text-[11px] text-[#6B7280] font-medium">{step.label}</span>
                   </div>
-                  {i < 3 && <div className="h-px flex-1 bg-[#E5E7EB]" />}
+                  {i < 3 && (
+                    <motion.div
+                      className={`h-0.5 flex-1 rounded-full ${i < 2 ? 'bg-[#0A0A0A]' : 'bg-[#E5E7EB]'}`}
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ delay: 0.3 + i * 0.12, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      style={{ transformOrigin: 'left', marginBottom: '20px' }}
+                    />
+                  )}
                 </React.Fragment>
               ))}
-            </div>
-          </div>
+            </motion.div>
+            <motion.div variants={itemVariants} className="p-4 bg-[#F9FAFB] rounded-xl">
+              <p className="text-xs font-medium text-[#0A0A0A] mb-1">{language === 'fr' ? 'Prochaine étape' : 'Next step'}</p>
+              <p className="text-sm text-[#6B7280]">{language === 'fr' ? 'Validation finale et notification équipe' : 'Final validation and team notification'}</p>
+            </motion.div>
+          </motion.div>
         );
-      default:
+      case 'paie':
         return (
-          <div className="bg-white rounded-xl border border-[#E5E7EB] p-5 shadow-sm">
-            <div className="flex items-center gap-3 mb-4">
-              {activeTabData && <activeTabData.icon className="w-5 h-5 text-[#0A0A0A]" />}
-              <span className="text-sm font-medium text-[#0A0A0A]">{activeTabData?.name[language]}</span>
-            </div>
-            <div className="space-y-2">
-              {activeTabData?.features[language].slice(0, 3).map((f, i) => (
-                <div key={i} className="flex items-center gap-2 text-sm text-[#6B7280]">
-                  <span className="text-[#059669]">✓</span>
-                  {f}
-                </div>
+          <motion.div
+            variants={containerVariants} initial="hidden" animate="visible"
+            className="bg-white rounded-2xl border border-[#E5E7EB] p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] w-full max-w-[440px]"
+          >
+            <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-[#F3F4F6] flex items-center justify-center">
+                <Receipt className="w-5 h-5 text-[#0A0A0A]" strokeWidth={1.5} />
+              </div>
+              <span className="text-base font-semibold text-[#0A0A0A]">{language === 'fr' ? 'Fiche de paie' : 'Payslip'}</span>
+            </motion.div>
+            <div className="space-y-3">
+              {(language === 'fr'
+                ? ['Calculs automatiques', 'Conformité légale', 'Envoi sécurisé']
+                : ['Automatic calculations', 'Legal compliance', 'Secure delivery']
+              ).map((f, i) => (
+                <motion.div key={i} variants={itemVariants} className="flex items-center gap-3 p-3.5 bg-[#F9FAFB] rounded-xl">
+                  <div className="w-6 h-6 rounded-full bg-[#D1FAE5] flex items-center justify-center flex-shrink-0">
+                    <span className="text-[#059669] text-xs font-bold">✓</span>
+                  </div>
+                  <span className="text-sm text-[#0A0A0A] font-medium">{f}</span>
+                </motion.div>
               ))}
             </div>
-          </div>
+            <motion.div variants={itemVariants} className="mt-4 p-4 bg-[#EFF6FF] rounded-xl">
+              <p className="text-xs font-semibold text-[#1E40AF] mb-1">{language === 'fr' ? 'Statut' : 'Status'}</p>
+              <p className="text-sm text-[#1E40AF]/80">{language === 'fr' ? '12 bulletins générés ce mois' : '12 payslips generated this month'}</p>
+            </motion.div>
+          </motion.div>
         );
+      case 'contrats':
+        return (
+          <motion.div
+            variants={containerVariants} initial="hidden" animate="visible"
+            className="bg-white rounded-2xl border border-[#E5E7EB] p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] w-full max-w-[440px]"
+          >
+            <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-[#F3F4F6] flex items-center justify-center">
+                <FileText className="w-5 h-5 text-[#0A0A0A]" strokeWidth={1.5} />
+              </div>
+              <span className="text-base font-semibold text-[#0A0A0A]">{language === 'fr' ? 'Contrats' : 'Contracts'}</span>
+            </motion.div>
+            <div className="space-y-3">
+              {(language === 'fr'
+                ? ['Templates personnalisables', 'Suivi des échéances', 'Alertes de renouvellement']
+                : ['Customizable templates', 'Deadline tracking', 'Renewal alerts']
+              ).map((f, i) => (
+                <motion.div key={i} variants={itemVariants} className="flex items-center gap-3 p-3.5 bg-[#F9FAFB] rounded-xl">
+                  <div className="w-6 h-6 rounded-full bg-[#D1FAE5] flex items-center justify-center flex-shrink-0">
+                    <span className="text-[#059669] text-xs font-bold">✓</span>
+                  </div>
+                  <span className="text-sm text-[#0A0A0A] font-medium">{f}</span>
+                </motion.div>
+              ))}
+            </div>
+            <motion.div variants={itemVariants} className="mt-4 p-4 bg-[#FEF3C7] rounded-xl">
+              <p className="text-xs font-semibold text-[#92400E] mb-1">{language === 'fr' ? 'Alerte' : 'Alert'}</p>
+              <p className="text-sm text-[#92400E]/80">{language === 'fr' ? '2 contrats à renouveler cette semaine' : '2 contracts to renew this week'}</p>
+            </motion.div>
+          </motion.div>
+        );
+      case 'signatures':
+        return (
+          <motion.div
+            variants={containerVariants} initial="hidden" animate="visible"
+            className="bg-white rounded-2xl border border-[#E5E7EB] p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] w-full max-w-[440px]"
+          >
+            <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-[#F3F4F6] flex items-center justify-center">
+                <PenTool className="w-5 h-5 text-[#0A0A0A]" strokeWidth={1.5} />
+              </div>
+              <span className="text-base font-semibold text-[#0A0A0A]">E-signatures</span>
+            </motion.div>
+            <div className="space-y-3">
+              {(language === 'fr'
+                ? ['Signature légale eIDAS', 'Multi-signataires', 'Rappels automatiques']
+                : ['eIDAS legal signature', 'Multi-signers', 'Automatic reminders']
+              ).map((f, i) => (
+                <motion.div key={i} variants={itemVariants} className="flex items-center gap-3 p-3.5 bg-[#F9FAFB] rounded-xl">
+                  <div className="w-6 h-6 rounded-full bg-[#D1FAE5] flex items-center justify-center flex-shrink-0">
+                    <span className="text-[#059669] text-xs font-bold">✓</span>
+                  </div>
+                  <span className="text-sm text-[#0A0A0A] font-medium">{f}</span>
+                </motion.div>
+              ))}
+            </div>
+            <motion.div variants={itemVariants} className="mt-4 p-4 bg-[#D1FAE5] rounded-xl">
+              <p className="text-xs font-semibold text-[#059669] mb-1">{language === 'fr' ? 'Dernier contrat signé' : 'Last signed contract'}</p>
+              <p className="text-sm text-[#059669]/80">{language === 'fr' ? 'NexGen — il y a 2h' : 'NexGen — 2h ago'}</p>
+            </motion.div>
+          </motion.div>
+        );
+      default:
+        return null;
     }
   };
 
