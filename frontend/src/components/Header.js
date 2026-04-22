@@ -21,7 +21,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-[56px]">
           {/* Logo */}
           <a href="/" className="flex items-center group">
-            <img src="/logo-saksae.png" alt="SAKSAE" className="h-10 object-contain" />
+            <img src="/logo-saksae.png" alt="SAKSAE" className="h-12 object-contain" />
           </a>
 
           {/* Desktop Nav */}
