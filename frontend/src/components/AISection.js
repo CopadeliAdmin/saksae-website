@@ -89,14 +89,13 @@ const AISection = () => {
   return (
     <section id="ai" className="py-24 md:py-32 bg-white" data-testid="ai-section">
       <div className="max-w-[1120px] mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left - Content */}
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:sticky lg:top-32"
           >
             <motion.span
               initial={{ opacity: 0, x: -8 }}
