@@ -18,7 +18,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-[#FAFAFA]">
+    <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-[#FAFAFA]">
       {/* Very subtle dotted background */}
       <div className="absolute inset-0 dotted-pattern opacity-40" />
 
@@ -37,7 +37,7 @@ const HeroSection = () => {
         </motion.div>
       ))}
 
-      <div className="max-w-[1120px] mx-auto px-6 py-28 md:py-36 relative z-10">
+      <div className="max-w-[1120px] mx-auto px-6 py-20 md:py-24 relative z-10">
         <div className="max-w-[720px] mx-auto text-center">
           {/* Headline */}
           <motion.h1
