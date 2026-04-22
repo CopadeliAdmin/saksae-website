@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 import { ArrowRight, TrendingUp, Settings } from 'lucide-react';
 
@@ -8,6 +8,28 @@ const HeroSection = () => {
 
   const handleTrialClick = () => { window.location.href = '/register'; };
   const handleDemoClick = () => { window.open('https://calendly.com/saksae-sales', '_blank'); };
+
+  // Each popup cycles through its positions
+  const [posIndices, setPosIndices] = useState([0, 0, 0, 0]);
+  const [visiblePopups, setVisiblePopups] = useState([false, false, false, false]);
+
+  useEffect(() => {
+    const timers = popups.map((p, i) => {
+      const show = () => {
+        setVisiblePopups(prev => { const n = [...prev]; n[i] = true; return n; });
+        setTimeout(() => {
+          setVisiblePopups(prev => { const n = [...prev]; n[i] = false; return n; });
+          setTimeout(() => {
+            setPosIndices(prev => { const n = [...prev]; n[i] = (n[i] + 1) % p.positions.length; return n; });
+          }, 400);
+        }, 2800);
+      };
+      const initial = setTimeout(show, p.delay * 1000);
+      const interval = setInterval(show, (p.delay + 3.6) * 1000 + 3600);
+      return () => { clearTimeout(initial); clearInterval(interval); };
+    });
+    return () => timers.forEach(fn => fn());
+  }, []);
 
   // Subtle floating signals - very light, ambient
   const signals = [
@@ -25,16 +47,16 @@ const HeroSection = () => {
   };
 
   const popups = [
-    { type: 'revenue', x: '2%', y: '22%', delay: 0.7, from: 'left',
+    { type: 'revenue', delay: 0, positions: [{ left: '2%', top: '18%' }, { left: '5%', top: '55%' }, { left: '1%', top: '72%' }],
       fr: { action: 'Relance client', value: '+€2,500' },
       en: { action: 'Client follow-up', value: '+€2,500' } },
-    { type: 'revenue', x: '3%', y: '58%', delay: 1.3, from: 'left',
+    { type: 'revenue', delay: 3, positions: [{ left: '6%', top: '42%' }, { left: '2%', top: '68%' }, { left: '4%', top: '25%' }],
       fr: { action: 'Upsell détecté', value: '+€12,000' },
       en: { action: 'Upsell detected', value: '+€12,000' } },
-    { type: 'operation', x: '2%', y: '22%', delay: 1.0, from: 'right',
+    { type: 'operation', delay: 1.5, positions: [{ right: '2%', top: '20%' }, { right: '5%', top: '60%' }, { right: '1%', top: '40%' }],
       fr: { action: 'Playbook déclenché', tag: 'Management' },
       en: { action: 'Playbook triggered', tag: 'Management' } },
-    { type: 'operation', x: '3%', y: '58%', delay: 1.6, from: 'right',
+    { type: 'operation', delay: 4.5, positions: [{ right: '4%', top: '50%' }, { right: '2%', top: '28%' }, { right: '6%', top: '70%' }],
       fr: { action: 'Brief préparé', tag: 'CRM' },
       en: { action: 'Brief prepared', tag: 'CRM' } },
   ];
@@ -59,7 +81,7 @@ const HeroSection = () => {
         </motion.div>
       ))}
 
-      {/* Action popups — 2 revenue (left), 2 operation (right) */}
+      {/* Action popups — 2 revenue (left), 2 operation (right) — cycle positions */}
       {popups.map((p, i) => {
         const isRevenue = p.type === 'revenue';
         const color = isRevenue ? '#059669' : '#3B82F6';
@@ -67,34 +89,35 @@ const HeroSection = () => {
         const label = isRevenue
           ? (language === 'fr' ? 'Revenu' : 'Revenue')
           : (language === 'fr' ? 'Opération' : 'Operation');
-        const posStyle = p.from === 'left'
-          ? { left: p.x, top: p.y }
-          : { right: p.x, top: p.y };
-        const initX = p.from === 'left' ? -20 : 20;
+        const pos = p.positions[posIndices[i]];
 
         return (
-          <motion.div
-            key={i}
-            className="absolute hidden lg:block z-10 pointer-events-none"
-            style={posStyle}
-            initial={{ opacity: 0, x: initX }}
-            animate={{ opacity: 0.5, x: 0 }}
-            transition={{ duration: 0.8, delay: p.delay, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="bg-white/70 backdrop-blur-sm rounded-lg border border-[#E4E4E7]/60 px-3 py-2 w-[150px]">
-              <div className="flex items-center gap-1.5 mb-0.5">
-                <Icon className="w-3 h-3" style={{ color }} />
-                <span className="text-[9px] font-semibold" style={{ color }}>{label}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-medium text-[#0A0A0A]/70 truncate">{p[language].action}</span>
-                {isRevenue
-                  ? <span className="text-[10px] font-bold ml-1 flex-shrink-0" style={{ color }}>{p[language].value}</span>
-                  : <span className="text-[8px] font-medium px-1 py-px rounded ml-1 flex-shrink-0 bg-[#DBEAFE]/70 text-[#2563EB]/70">{p[language].tag}</span>
-                }
-              </div>
-            </div>
-          </motion.div>
+          <AnimatePresence key={i}>
+            {visiblePopups[i] && (
+              <motion.div
+                className="absolute hidden lg:block z-10 pointer-events-none"
+                style={pos}
+                initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                animate={{ opacity: 0.5, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -6, scale: 0.97 }}
+                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <div className="bg-white/70 backdrop-blur-sm rounded-lg border border-[#E4E4E7]/60 px-3 py-2 w-[150px]">
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <Icon className="w-3 h-3" style={{ color }} />
+                    <span className="text-[9px] font-semibold" style={{ color }}>{label}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-medium text-[#0A0A0A]/70 truncate">{p[language].action}</span>
+                    {isRevenue
+                      ? <span className="text-[10px] font-bold ml-1 flex-shrink-0" style={{ color }}>{p[language].value}</span>
+                      : <span className="text-[8px] font-medium px-1 py-px rounded ml-1 flex-shrink-0 bg-[#DBEAFE]/70 text-[#2563EB]/70">{p[language].tag}</span>
+                    }
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         );
       })}
 
