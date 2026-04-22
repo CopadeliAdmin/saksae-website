@@ -35,7 +35,7 @@ const HeroSection = () => {
         </motion.div>
       ))}
 
-      <div className="max-w-[1120px] mx-auto px-6 pt-20 md:pt-24 pb-6 relative z-10">
+      <div className="max-w-[1120px] mx-auto px-6 pt-28 md:pt-32 pb-6 relative z-10">
         <div className="max-w-[720px] mx-auto text-center">
           {/* Headline */}
           <motion.h1
@@ -46,8 +46,8 @@ const HeroSection = () => {
             data-testid="hero-headline"
           >
             {language === 'fr' 
-              ? <>La plateforme d'Execution business IA pour Indépendant&nbsp;/&nbsp;TPE et&nbsp;PME.</>
-              : "The AI Business Execution platform for Freelancers / SMEs."}
+              ? <>#1 plateforme business IA<br />pour Indépendants, TPE/PME</>
+              : "The #1 AI Business platform for Freelancers & SMEs"}
           </motion.h1>
 
           {/* Subheadline */}
@@ -55,11 +55,11 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-            className="text-base md:text-lg text-[#52525B] leading-[1.7] mb-12 max-w-[600px] mx-auto"
+            className="text-base md:text-lg text-[#52525B] leading-[1.7] mb-12 max-w-[680px] mx-auto"
           >
             {language === 'fr'
-              ? <>SAKSAE est une plateforme d'Exécution Business, qui centralise vos outils, analyse vos données d'opérations et de revenus et les transforme en actions.<br className="hidden md:block" />Pilotez votre activité, détectez vos priorités, passez à l'action avec SAKSAE.</>
-              : "SAKSAE is a Business Execution platform that centralizes your tools, analyzes your operations and revenue data, and turns them into actions. Drive your business, detect priorities, take action with SAKSAE."}
+              ? <>SAKSAE est une plateforme d'Exécution Business, qui centralise vos outils,<br className="hidden md:block" />analyse vos données d'opérations et de revenus et les transforme en actions.<br />Pilotez votre activité, détectez vos priorités, passez à l'action avec SAKSAE.</>
+              : <>SAKSAE is a Business Execution platform that centralizes your tools,<br className="hidden md:block" />analyzes your operations and revenue data, and turns them into actions.<br />Drive your business, detect priorities, take action with SAKSAE.</>}
           </motion.p>
 
           {/* CTAs */}
