@@ -138,7 +138,7 @@ const AISection = () => {
             transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
             className="text-section-title text-[#0A0A0A] mb-5"
           >
-            {language === 'fr' ? "L'IA qui transforme vos données en actions." : 'The AI that transforms your data into actions.'}
+            {language === 'fr' ? "Des Agents IA métier qui transforment vos données en actions." : 'Business AI Agents that transform your data into actions.'}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
