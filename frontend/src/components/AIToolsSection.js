@@ -132,12 +132,14 @@ const AIToolsSection = () => {
       visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }
     };
 
+    const cardClass = "bg-white rounded-2xl border border-[#E5E7EB] p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] w-full max-w-[440px] h-[340px] flex flex-col";
+
     switch(tabKey) {
       case 'reunion':
         return (
           <motion.div
             variants={containerVariants} initial="hidden" animate="visible"
-            className="bg-white rounded-2xl border border-[#E5E7EB] p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] w-full max-w-[440px]"
+            className={cardClass}
           >
             <motion.div variants={itemVariants} className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
@@ -166,7 +168,7 @@ const AIToolsSection = () => {
         return (
           <motion.div
             variants={containerVariants} initial="hidden" animate="visible"
-            className="bg-white rounded-2xl border border-[#E5E7EB] p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] w-full max-w-[440px]"
+            className={cardClass}
           >
             <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-[#F3F4F6] flex items-center justify-center">
@@ -203,7 +205,7 @@ const AIToolsSection = () => {
         return (
           <motion.div
             variants={containerVariants} initial="hidden" animate="visible"
-            className="bg-white rounded-2xl border border-[#E5E7EB] p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] w-full max-w-[440px]"
+            className={cardClass}
           >
             <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-[#F3F4F6] flex items-center justify-center">
@@ -232,7 +234,7 @@ const AIToolsSection = () => {
         return (
           <motion.div
             variants={containerVariants} initial="hidden" animate="visible"
-            className="bg-white rounded-2xl border border-[#E5E7EB] p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] w-full max-w-[440px]"
+            className={cardClass}
           >
             <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-[#F3F4F6] flex items-center justify-center">
@@ -281,7 +283,7 @@ const AIToolsSection = () => {
         return (
           <motion.div
             variants={containerVariants} initial="hidden" animate="visible"
-            className="bg-white rounded-2xl border border-[#E5E7EB] p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] w-full max-w-[440px]"
+            className={cardClass}
           >
             <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-[#F3F4F6] flex items-center justify-center">
@@ -312,7 +314,7 @@ const AIToolsSection = () => {
         return (
           <motion.div
             variants={containerVariants} initial="hidden" animate="visible"
-            className="bg-white rounded-2xl border border-[#E5E7EB] p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] w-full max-w-[440px]"
+            className={cardClass}
           >
             <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-[#F3F4F6] flex items-center justify-center">
@@ -343,7 +345,7 @@ const AIToolsSection = () => {
         return (
           <motion.div
             variants={containerVariants} initial="hidden" animate="visible"
-            className="bg-white rounded-2xl border border-[#E5E7EB] p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] w-full max-w-[440px]"
+            className={cardClass}
           >
             <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-[#F3F4F6] flex items-center justify-center">
