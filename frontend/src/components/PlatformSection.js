@@ -446,19 +446,37 @@ const PlatformSection = () => {
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           className="text-left max-w-[640px] mb-20"
         >
-          <span className="section-tag block mb-4">
+          <motion.span
+            initial={{ opacity: 0, x: -8 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="section-tag block mb-5"
+          >
             {t('platform.tag')}
-          </span>
-          <h2 className="text-section-title text-[#0A0A0A] mb-4">
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            className="text-section-title text-[#0A0A0A] mb-5"
+          >
             {language === 'fr'
               ? 'Une plateforme puissante et simple, alimentée par l\'IA.'
               : 'A powerful and simple platform, powered by AI.'}
-          </h2>
-          <p className="text-base text-[#52525B] leading-[1.7]">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+            className="text-base text-[#52525B] leading-[1.7]"
+          >
             {language === 'fr'
               ? <>SAKSAE rassemble vos équipes sur la même plateforme.<br className="hidden md:block" />Chaque outil est performant, mais la véritable magie se produit lorsque vous les utilisez ensemble.<br className="hidden md:block" />Réduisez la dispersion et déclenchez les bonnes actions au bon moment.</>
               : 'SAKSAE brings your teams together on the same platform. Each tool is powerful, but the real magic happens when you use them together. Reduce fragmentation and trigger the right actions at the right time.'}
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* ── Detached Tab Bar (Attio-style) ── */}

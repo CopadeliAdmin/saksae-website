@@ -76,17 +76,35 @@ const PricingSection = () => {
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           className="text-left max-w-[540px] mb-14"
         >
-          <span className="section-tag block mb-4">
+          <motion.span
+            initial={{ opacity: 0, x: -8 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="section-tag block mb-5"
+          >
             {language === 'fr' ? '[05] Tarification' : '[05] Pricing'}
-          </span>
-          <h2 className="text-section-title text-[#0A0A0A] mb-4">
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            className="text-section-title text-[#0A0A0A] mb-5"
+          >
             {language === 'fr' ? 'Simple et transparent.' : 'Simple and transparent.'}
-          </h2>
-          <p className="text-base text-[#52525B] leading-[1.7] mb-10">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+            className="text-base text-[#52525B] leading-[1.7] mb-10"
+          >
             {language === 'fr'
               ? 'Tous les outils inclus. Abonnements par utilisateurs.'
               : 'All tools included. Per-user subscriptions.'}
-          </p>
+          </motion.p>
 
           {/* Toggle Mensuel / Annuel */}
           <div className="inline-flex items-center bg-[#F4F4F5] rounded-full p-1" data-testid="billing-toggle">

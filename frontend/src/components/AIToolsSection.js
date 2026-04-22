@@ -223,19 +223,37 @@ const AIToolsSection = () => {
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           className="text-left max-w-[640px] mb-16"
         >
-          <span className="section-tag block mb-4">
+          <motion.span
+            initial={{ opacity: 0, x: -8 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="section-tag block mb-5"
+          >
             {language === 'fr' ? '[03] Outils IA' : '[03] AI Tools'}
-          </span>
-          <h2 className="text-section-title text-[#0A0A0A] mb-4">
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            className="text-section-title text-[#0A0A0A] mb-5"
+          >
             {language === 'fr' 
               ? 'Tous vos outils. Une seule intelligence d\'exécution.'
               : 'All your tools. One execution intelligence.'}
-          </h2>
-          <p className="text-base text-[#52525B] leading-[1.7]">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+            className="text-base text-[#52525B] leading-[1.7]"
+          >
             {language === 'fr'
               ? <>SAKSAE remplace vos outils dispersés et transforme chaque interaction en signal actionnable.<br className="hidden md:block" />Gagnez du temps et optimisez vos revenus avec plus d'actions utiles : relancer, facturer, préparer, signer, prioriser, déléguer, suivre.</>
               : 'SAKSAE replaces your scattered tools and transforms every interaction into an actionable signal. Save time and optimize your revenue with more useful actions: follow up, invoice, prepare, sign, prioritize, delegate, track.'}
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* Tabs */}

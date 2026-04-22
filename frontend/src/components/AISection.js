@@ -122,17 +122,35 @@ const AISection = () => {
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-[640px] mb-8"
         >
-          <span className="section-tag block mb-4">
+          <motion.span
+            initial={{ opacity: 0, x: -8 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="section-tag block mb-5"
+          >
             {language === 'fr' ? '[04] Intelligence artificielle' : '[04] Artificial Intelligence'}
-          </span>
-          <h2 className="text-section-title text-[#0A0A0A] mb-4">
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            className="text-section-title text-[#0A0A0A] mb-5"
+          >
             {language === 'fr' ? "L'IA qui transforme vos données en actions." : 'The AI that transforms your data into actions.'}
-          </h2>
-          <p className="text-base text-[#52525B] leading-[1.7]">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+            className="text-base text-[#52525B] leading-[1.7]"
+          >
             {language === 'fr'
               ? <>Chaque jour, SAKSAE analyse vos revenus, vos clients, vos projets, vos finances et vos opérations pour identifier les actions à fort impact : opérations &amp; revenus.<br className="hidden md:block" />L'IA SAKSAE vous propose des actions concrètes, priorisées et reliées à un impact business : chiffre d'affaires, cash, temps gagné, risque réduit, qualité d'exécution.</>
               : 'Every day, SAKSAE analyzes your revenue, clients, projects, finances and operations to identify high-impact actions: operations & revenue. SAKSAE AI proposes concrete, prioritized actions linked to business impact.'}
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* AI Greeting Animation */}

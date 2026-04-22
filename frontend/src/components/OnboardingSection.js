@@ -64,19 +64,37 @@ const OnboardingSection = () => {
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="section-tag block mb-4">
+            <motion.span
+              initial={{ opacity: 0, x: -8 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="section-tag block mb-5"
+            >
               {language === 'fr' ? '[02] Onboarding intelligent' : '[02] Smart Onboarding'}
-            </span>
-            <h2 className="text-section-title text-[#0A0A0A] mb-4">
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="text-section-title text-[#0A0A0A] mb-5"
+            >
               {language === 'fr' 
                 ? 'Passez de vos données à vos premières actions en quelques clics.'
                 : 'Go from your data to your first actions in a few clicks.'}
-            </h2>
-            <p className="text-base text-[#52525B] leading-[1.7] mb-10">
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.6, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+              className="text-base text-[#52525B] leading-[1.7] mb-10"
+            >
               {language === 'fr'
                 ? 'SAKSAE importe vos données dispersées automatiquement et se connecte à vos outils existants pour construire votre plateforme.'
                 : 'SAKSAE automatically imports your scattered data and connects to your existing tools to build your platform.'}
-            </p>
+            </motion.p>
 
             {/* Step indicators and labels aligned */}
             <div className="grid grid-cols-4 gap-2 mb-8">
