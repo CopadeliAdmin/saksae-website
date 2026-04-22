@@ -21,11 +21,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-[56px]">
           {/* Logo */}
           <a href="/" className="flex items-center gap-2.5 group">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="text-[#0A0A0A]">
-              <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            <img src="/logo-saksae.png" alt="SAKSAE" className="h-7 w-7 object-contain" />
             <span className="text-[15px] font-semibold text-[#0A0A0A] tracking-[-0.02em]">saksae</span>
           </a>
 
