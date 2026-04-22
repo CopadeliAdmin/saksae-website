@@ -81,8 +81,8 @@ const OnboardingSection = () => {
               className="text-section-title text-[#0A0A0A] mb-5"
             >
               {language === 'fr' 
-                ? 'Passez de vos données à vos premières actions en quelques clics.'
-                : 'Go from your data to your first actions in a few clicks.'}
+                ? <>Passez de vos données<br />à vos premières actions<br />en quelques clics.</>
+                : <>Go from your data<br />to your first actions<br />in a few clicks.</>}
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 16 }}
