@@ -24,6 +24,21 @@ const HeroSection = () => {
     en: { label: 'Operation', action: 'Playbook triggered', tag: 'Management' },
   };
 
+  const popups = [
+    { type: 'revenue', x: '2%', y: '22%', delay: 0.7, from: 'left',
+      fr: { action: 'Relance client', value: '+€2,500' },
+      en: { action: 'Client follow-up', value: '+€2,500' } },
+    { type: 'revenue', x: '3%', y: '58%', delay: 1.3, from: 'left',
+      fr: { action: 'Upsell détecté', value: '+€12,000' },
+      en: { action: 'Upsell detected', value: '+€12,000' } },
+    { type: 'operation', x: '2%', y: '22%', delay: 1.0, from: 'right',
+      fr: { action: 'Playbook déclenché', tag: 'Management' },
+      en: { action: 'Playbook triggered', tag: 'Management' } },
+    { type: 'operation', x: '3%', y: '58%', delay: 1.6, from: 'right',
+      fr: { action: 'Brief préparé', tag: 'CRM' },
+      en: { action: 'Brief prepared', tag: 'CRM' } },
+  ];
+
   return (
     <section className="relative flex items-center overflow-hidden bg-[#FAFAFA]">
       {/* Very subtle dotted background */}
@@ -44,43 +59,44 @@ const HeroSection = () => {
         </motion.div>
       ))}
 
-      {/* Revenue popup - left side */}
-      <motion.div
-        className="absolute hidden lg:block z-20"
-        style={{ left: '4%', top: '55%' }}
-        initial={{ opacity: 0, x: -30, y: 10 }}
-        animate={{ opacity: 1, x: 0, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <div className="bg-white rounded-xl border border-[#E4E4E7] p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)] w-[220px]">
-          <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#059669] rounded-l-xl" />
-          <div className="flex items-center gap-2 mb-2">
-            <TrendingUp className="w-3.5 h-3.5 text-[#059669]" />
-            <span className="text-[11px] font-semibold text-[#059669]">{revenuePopup[language].label}</span>
-          </div>
-          <p className="text-xs font-medium text-[#0A0A0A] mb-1">{revenuePopup[language].action}</p>
-          <span className="text-sm font-bold text-[#059669]">{revenuePopup[language].value}</span>
-        </div>
-      </motion.div>
+      {/* Action popups — 2 revenue (left), 2 operation (right) */}
+      {popups.map((p, i) => {
+        const isRevenue = p.type === 'revenue';
+        const color = isRevenue ? '#059669' : '#3B82F6';
+        const Icon = isRevenue ? TrendingUp : Settings;
+        const label = isRevenue
+          ? (language === 'fr' ? 'Revenu' : 'Revenue')
+          : (language === 'fr' ? 'Opération' : 'Operation');
+        const posStyle = p.from === 'left'
+          ? { left: p.x, top: p.y }
+          : { right: p.x, top: p.y };
+        const initX = p.from === 'left' ? -20 : 20;
 
-      {/* Operation popup - right side */}
-      <motion.div
-        className="absolute hidden lg:block z-20"
-        style={{ right: '4%', top: '50%' }}
-        initial={{ opacity: 0, x: 30, y: 10 }}
-        animate={{ opacity: 1, x: 0, y: 0 }}
-        transition={{ duration: 0.7, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <div className="bg-white rounded-xl border border-[#E4E4E7] p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)] w-[220px]">
-          <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#3B82F6] rounded-l-xl" />
-          <div className="flex items-center gap-2 mb-2">
-            <Settings className="w-3.5 h-3.5 text-[#3B82F6]" />
-            <span className="text-[11px] font-semibold text-[#3B82F6]">{operationPopup[language].label}</span>
-          </div>
-          <p className="text-xs font-medium text-[#0A0A0A] mb-1">{operationPopup[language].action}</p>
-          <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-[#DBEAFE] text-[#2563EB]">{operationPopup[language].tag}</span>
-        </div>
-      </motion.div>
+        return (
+          <motion.div
+            key={i}
+            className="absolute hidden lg:block z-10 pointer-events-none"
+            style={posStyle}
+            initial={{ opacity: 0, x: initX }}
+            animate={{ opacity: 0.5, x: 0 }}
+            transition={{ duration: 0.8, delay: p.delay, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="bg-white/70 backdrop-blur-sm rounded-lg border border-[#E4E4E7]/60 px-3 py-2 w-[150px]">
+              <div className="flex items-center gap-1.5 mb-0.5">
+                <Icon className="w-3 h-3" style={{ color }} />
+                <span className="text-[9px] font-semibold" style={{ color }}>{label}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-medium text-[#0A0A0A]/70 truncate">{p[language].action}</span>
+                {isRevenue
+                  ? <span className="text-[10px] font-bold ml-1 flex-shrink-0" style={{ color }}>{p[language].value}</span>
+                  : <span className="text-[8px] font-medium px-1 py-px rounded ml-1 flex-shrink-0 bg-[#DBEAFE]/70 text-[#2563EB]/70">{p[language].tag}</span>
+                }
+              </div>
+            </div>
+          </motion.div>
+        );
+      })}
 
       <div className="max-w-[1120px] mx-auto px-6 pt-40 md:pt-48 pb-6 relative z-10">
         <div className="max-w-[960px] mx-auto text-center">
