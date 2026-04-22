@@ -460,7 +460,7 @@ const PlatformSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-            className="text-section-title text-[#295CF0] mb-5"
+            className="text-section-title text-[#0A0A0A] mb-5"
           >
             {language === 'fr'
               ? 'Une plateforme puissante et simple, alimentée par l\'IA.'

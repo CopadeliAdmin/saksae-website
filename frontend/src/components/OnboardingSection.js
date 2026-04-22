@@ -78,7 +78,7 @@ const OnboardingSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[2rem] md:text-[2.5rem] font-bold text-[#295CF0] mb-5 leading-[1.1] tracking-[-0.03em]"
+              className="text-[2rem] md:text-[2.5rem] font-bold text-[#0A0A0A] mb-5 leading-[1.1] tracking-[-0.03em]"
             >
               {language === 'fr' 
                 ? <>Passez de vos données à vos<br />premières actions en<br />quelques clics.</>

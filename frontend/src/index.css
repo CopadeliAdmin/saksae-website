@@ -80,7 +80,7 @@ h1, h2, h3, h4, h5, h6 {
 .section-tag {
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--text-secondary);
+  color: #295CF0;
   letter-spacing: 0.04em;
   display: inline-flex;
   align-items: center;
@@ -92,7 +92,7 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-block;
   width: 1.25rem;
   height: 1.5px;
-  background-color: var(--text-secondary);
+  background-color: #295CF0;
   border-radius: 1px;
 }
 
