@@ -73,7 +73,7 @@ const PricingSection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center max-w-2xl mx-auto mb-10"
+          className="text-left max-w-2xl mb-10"
         >
           <span className="section-tag block mb-4">
             {language === 'fr' ? '[05] Tarification' : '[05] Pricing'}
