@@ -11,14 +11,12 @@ const HeroSection = () => {
 
   // Subtle floating signals - very light, ambient
   const signals = [
-    { text: '+€2.5k', delay: 0, x: '7%', y: '22%' },
-    { text: '85/100', delay: 2, x: '88%', y: '18%' },
-    { text: '+€8.5k', delay: 4, x: '4%', y: '72%' },
-    { text: 'Priority', delay: 6, x: '91%', y: '68%' },
+    { text: '+€2.5k', delay: 0, x: '7%', y: '25%' },
+    { text: '85/100', delay: 2, x: '88%', y: '20%' },
   ];
 
   return (
-    <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-[#FAFAFA]">
+    <section className="relative flex items-center overflow-hidden bg-[#FAFAFA]">
       {/* Very subtle dotted background */}
       <div className="absolute inset-0 dotted-pattern opacity-40" />
 
@@ -37,7 +35,7 @@ const HeroSection = () => {
         </motion.div>
       ))}
 
-      <div className="max-w-[1120px] mx-auto px-6 py-20 md:py-24 relative z-10">
+      <div className="max-w-[1120px] mx-auto px-6 pt-20 md:pt-24 pb-6 relative z-10">
         <div className="max-w-[720px] mx-auto text-center">
           {/* Headline */}
           <motion.h1
@@ -86,8 +84,8 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#FAFAFA] to-transparent" />
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#FAFAFA] to-transparent" />
     </section>
   );
 };
