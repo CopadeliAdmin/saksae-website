@@ -78,11 +78,11 @@ const OnboardingSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="text-section-title text-[#0A0A0A] mb-5"
+              className="text-[2rem] md:text-[2.5rem] font-bold text-[#0A0A0A] mb-5 leading-[1.1] tracking-[-0.03em]"
             >
               {language === 'fr' 
-                ? <>Passez de vos données<br />à vos premières actions<br />en quelques clics.</>
-                : <>Go from your data<br />to your first actions<br />in a few clicks.</>}
+                ? <>Passez de vos données à vos<br />premières actions en<br />quelques clics.</>
+                : <>Go from your data to your<br />first actions in just<br />a few clicks.</>}
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 16 }}
