@@ -18,10 +18,10 @@ const Header = () => {
       className="fixed top-0 w-full z-50 bg-[#FAFAFA]/85 backdrop-blur-xl border-b border-[#E4E4E7]/60"
     >
       <div className="max-w-[1120px] mx-auto px-6">
-        <div className="flex items-center justify-between h-[56px]">
+        <div className="flex items-center justify-between h-[64px]">
           {/* Logo */}
           <a href="/" className="flex items-center group">
-            <img src="/logo-saksae.png" alt="SAKSAE" className="h-12 object-contain" />
+            <img src="/logo-saksae.png" alt="SAKSAE" className="h-[60px] object-contain" style={{ imageRendering: 'auto' }} />
           </a>
 
           {/* Desktop Nav */}
