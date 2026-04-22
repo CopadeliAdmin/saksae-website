@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, TrendingUp, Settings } from 'lucide-react';
 
 const HeroSection = () => {
   const { language } = useLanguage();
@@ -14,6 +14,15 @@ const HeroSection = () => {
     { text: '+€2.5k', delay: 0, x: '7%', y: '25%' },
     { text: '85/100', delay: 2, x: '88%', y: '20%' },
   ];
+
+  const revenuePopup = {
+    fr: { label: 'Revenu', action: 'Relance client envoyée', value: '+€2,500' },
+    en: { label: 'Revenue', action: 'Client follow-up sent', value: '+€2,500' },
+  };
+  const operationPopup = {
+    fr: { label: 'Opération', action: 'Playbook déclenché', tag: 'Management' },
+    en: { label: 'Operation', action: 'Playbook triggered', tag: 'Management' },
+  };
 
   return (
     <section className="relative flex items-center overflow-hidden bg-[#FAFAFA]">
@@ -35,7 +44,45 @@ const HeroSection = () => {
         </motion.div>
       ))}
 
-      <div className="max-w-[1120px] mx-auto px-6 pt-28 md:pt-32 pb-6 relative z-10">
+      {/* Revenue popup - left side */}
+      <motion.div
+        className="absolute hidden lg:block z-20"
+        style={{ left: '4%', top: '55%' }}
+        initial={{ opacity: 0, x: -30, y: 10 }}
+        animate={{ opacity: 1, x: 0, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <div className="bg-white rounded-xl border border-[#E4E4E7] p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)] w-[220px]">
+          <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#059669] rounded-l-xl" />
+          <div className="flex items-center gap-2 mb-2">
+            <TrendingUp className="w-3.5 h-3.5 text-[#059669]" />
+            <span className="text-[11px] font-semibold text-[#059669]">{revenuePopup[language].label}</span>
+          </div>
+          <p className="text-xs font-medium text-[#0A0A0A] mb-1">{revenuePopup[language].action}</p>
+          <span className="text-sm font-bold text-[#059669]">{revenuePopup[language].value}</span>
+        </div>
+      </motion.div>
+
+      {/* Operation popup - right side */}
+      <motion.div
+        className="absolute hidden lg:block z-20"
+        style={{ right: '4%', top: '50%' }}
+        initial={{ opacity: 0, x: 30, y: 10 }}
+        animate={{ opacity: 1, x: 0, y: 0 }}
+        transition={{ duration: 0.7, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <div className="bg-white rounded-xl border border-[#E4E4E7] p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)] w-[220px]">
+          <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#3B82F6] rounded-l-xl" />
+          <div className="flex items-center gap-2 mb-2">
+            <Settings className="w-3.5 h-3.5 text-[#3B82F6]" />
+            <span className="text-[11px] font-semibold text-[#3B82F6]">{operationPopup[language].label}</span>
+          </div>
+          <p className="text-xs font-medium text-[#0A0A0A] mb-1">{operationPopup[language].action}</p>
+          <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-[#DBEAFE] text-[#2563EB]">{operationPopup[language].tag}</span>
+        </div>
+      </motion.div>
+
+      <div className="max-w-[1120px] mx-auto px-6 pt-40 md:pt-48 pb-6 relative z-10">
         <div className="max-w-[960px] mx-auto text-center">
           {/* Headline */}
           <motion.h1
