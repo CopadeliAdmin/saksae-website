@@ -32,7 +32,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="col-span-2 md:col-span-2">
             <div className="flex items-center mb-4">
-              <img src="/logo-saksae.png" alt="SAKSAE" className="h-10 object-contain" style={{ imageRendering: 'auto' }} />
+              <img src="/logo-saksae.png" alt="SAKSAE" className="h-20 object-contain" style={{ imageRendering: 'auto' }} />
             </div>
             <p className="text-[13px] text-[#A1A1AA] leading-[1.7] max-w-xs">
               {language === 'fr'
