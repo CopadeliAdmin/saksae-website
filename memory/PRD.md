@@ -46,6 +46,7 @@ Redesign complet style Attio : minimaliste, noir/blanc/gris, icônes ligne fine.
 - ✅ [03] Outils IA - Tabbed layout right-aligned header (2026-04-10)
 - ✅ [03] Lead Magnet "Calculez vos économies" - Interactive calculator modal (2026-04-10)
 - ✅ [04] Intelligence artificielle - Typing animation, 3+3 actions Revenu/Opération, expandable cards with email preview (2026-04-10)
+- ✅ [04] Intelligence artificielle - Refactored to 2-column layout matching [02] Onboarding (title/stats left, interactive feed right) (2026-04-22)
 - ✅ [05] Tarification - Toggle Mensuel/Annuel, features par plan (2026-04-10)
 - ✅ **Premium design overhaul** - Refonte complète direction artistique premium (2026-04-22)
   - Système de design: Inter optimisé, easing premium, transitions 180-240ms, zinc palette
