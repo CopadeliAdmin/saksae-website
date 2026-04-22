@@ -89,13 +89,14 @@ const AISection = () => {
   return (
     <section id="ai" className="py-24 md:py-32 bg-white" data-testid="ai-section">
       <div className="max-w-[1120px] mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 items-stretch">
           {/* Left - Content */}
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col"
           >
             <motion.span
               initial={{ opacity: 0, x: -8 }}
@@ -122,7 +123,7 @@ const AISection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.6, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
-              className="text-base text-[#52525B] leading-[1.7] mb-10"
+              className="text-base text-[#52525B] leading-[1.7]"
             >
               {language === 'fr'
                 ? "Chaque jour, SAKSAE analyse vos revenus, vos clients, vos projets, vos finances et vos opérations pour identifier les actions à fort impact. L'IA vous propose des actions concrètes, priorisées et reliées à un impact business."
@@ -135,6 +136,7 @@ const AISection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
               data-testid="ai-section-greeting"
+              className="mt-auto"
             >
               <div className="inline-flex items-start gap-3 bg-[#0A0A0A] text-white rounded-xl px-5 py-3.5">
                 <div className="flex items-center gap-2 flex-shrink-0 mt-0.5">
