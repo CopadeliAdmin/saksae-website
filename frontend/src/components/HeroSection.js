@@ -36,7 +36,7 @@ const HeroSection = () => {
       ))}
 
       <div className="max-w-[1120px] mx-auto px-6 pt-28 md:pt-32 pb-6 relative z-10">
-        <div className="max-w-[720px] mx-auto text-center">
+        <div className="max-w-[960px] mx-auto text-center">
           {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
@@ -55,11 +55,22 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            className="text-base md:text-lg text-[#52525B] leading-[1.7] mb-5 max-w-[680px] mx-auto"
+          >
+            {language === 'fr'
+              ? <>SAKSAE est une plateforme d'Exécution Business, qui centralise vos outils,<br className="hidden md:block" />analyse vos données d'opérations et de revenus et les transforme en actions.</>
+              : <>SAKSAE is a Business Execution platform that centralizes your tools,<br className="hidden md:block" />analyzes your operations and revenue data, and turns them into actions.</>}
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
             className="text-base md:text-lg text-[#52525B] leading-[1.7] mb-12 max-w-[680px] mx-auto"
           >
             {language === 'fr'
-              ? <>SAKSAE est une plateforme d'Exécution Business, qui centralise vos outils,<br className="hidden md:block" />analyse vos données d'opérations et de revenus et les transforme en actions.<br />Pilotez votre activité, détectez vos priorités, passez à l'action avec SAKSAE.</>
-              : <>SAKSAE is a Business Execution platform that centralizes your tools,<br className="hidden md:block" />analyzes your operations and revenue data, and turns them into actions.<br />Drive your business, detect priorities, take action with SAKSAE.</>}
+              ? 'Pilotez votre activité, détectez vos priorités, passez à l\'action avec SAKSAE.'
+              : 'Drive your business, detect priorities, take action with SAKSAE.'}
           </motion.p>
 
           {/* CTAs */}
@@ -76,7 +87,7 @@ const HeroSection = () => {
               data-testid="cta-primary"
             >
               <span className="flex items-center justify-center gap-2">
-                {language === 'fr' ? 'Commencer gratuitement' : 'Start for free'}
+                {language === 'fr' ? 'Commencez votre essai gratuit pro de 14 jours' : 'Start your 14-day pro free trial'}
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" style={{ transitionDuration: '240ms' }} />
               </span>
             </button>
