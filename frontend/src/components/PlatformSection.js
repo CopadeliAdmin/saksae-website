@@ -4,10 +4,11 @@ import { useLanguage } from '../contexts/LanguageContext';
 import {
   LayoutGrid, Users, Target, ClipboardList, BookOpen,
   Calendar, PenTool, Receipt, FileText, UserCheck,
-  CalendarOff, GraduationCap, BarChart3, Sparkles,
-  ChevronDown, Info, Settings, Download, Filter,
-  Plus, MoreHorizontal, MessageSquare, Eye, Shield,
-  DollarSign, TrendingUp, FileCheck
+  Briefcase, FileCheck, Clock, Package, ShoppingCart,
+  Layers, BarChart3, Sparkles, Activity,
+  ChevronDown, Settings, Shield,
+  DollarSign, TrendingUp, Plus, Filter, Eye,
+  MoreHorizontal
 } from 'lucide-react';
 
 const PlatformSection = () => {
@@ -16,11 +17,11 @@ const PlatformSection = () => {
 
   const tabs = [
     { key: 'crm', name: { fr: 'CRM', en: 'CRM' } },
+    { key: 'services', name: { fr: 'Services', en: 'Services' } },
+    { key: 'produits', name: { fr: 'Produits', en: 'Products' } },
     { key: 'management', name: { fr: 'Management', en: 'Management' } },
-    { key: 'hr', name: { fr: 'RH', en: 'HR' } },
-    { key: 'finance', name: { fr: 'Finances', en: 'Finance' } },
-    { key: 'products', name: { fr: 'Produits', en: 'Products' } },
-    { key: 'supply', name: { fr: 'Approvisionnements', en: 'Supply Chain' } },
+    { key: 'finance', name: { fr: 'Admin & Finances', en: 'Admin & Finance' } },
+    { key: 'equipe', name: { fr: 'Équipe', en: 'Team' } },
   ];
 
   /* ── Sidebar sections matching real SAKSAE ── */
@@ -38,38 +39,67 @@ const PlatformSection = () => {
       ],
     },
     {
+      id: 'services',
+      header: 'SERVICES',
+      items: [
+        { key: 'missions', icon: Briefcase, label: 'Missions' },
+        { key: 'livrables', icon: FileCheck, label: 'Livrables' },
+        { key: 'temps', icon: Clock, label: 'Temps & Rentabilité' },
+      ],
+    },
+    {
+      id: 'produits',
+      header: 'PRODUITS',
+      items: [
+        { key: 'catalogue', icon: Package, label: 'Catalogue' },
+        { key: 'commandes', icon: ShoppingCart, label: 'Commandes' },
+        { key: 'stock', icon: Layers, label: 'Stock' },
+      ],
+    },
+    {
       id: 'management',
       header: 'MANAGEMENT',
       items: [
         { key: 'projets', icon: ClipboardList, label: 'Projets' },
-        { key: 'playbooks', icon: BookOpen, label: 'Playbooks' },
         { key: 'calendrier', icon: Calendar, label: 'Calendrier' },
-        { key: 'signatures', icon: PenTool, label: 'Signatures' },
+        { key: 'playbooks', icon: BookOpen, label: 'Playbooks' },
       ],
     },
     {
       id: 'finance',
-      header: 'FINANCES',
+      header: 'ADMIN & FINANCES',
       items: [
         { key: 'facturation', icon: Receipt, label: 'Facturation' },
         { key: 'contrats', icon: FileText, label: 'Contrats' },
       ],
     },
     {
-      id: 'hr',
-      header: 'RH',
+      id: 'equipe',
+      header: 'ÉQUIPE',
       items: [
         { key: 'collaborateurs', icon: UserCheck, label: 'Collaborateurs' },
-        { key: 'conges', icon: CalendarOff, label: 'Gestion Congés' },
-        { key: 'operations', icon: GraduationCap, label: 'Opérations RH' },
+        { key: 'operations_rh', icon: Settings, label: 'Opérations RH' },
       ],
     },
     {
-      id: 'intelligence',
-      header: 'INTELLIGENCE',
+      id: 'ia',
+      header: 'IA & ACTIONS',
       items: [
-        { key: 'revops', icon: BarChart3, label: 'RevOps Center' },
-        { key: 'agent', icon: Sparkles, label: 'AI Agent' },
+        { key: 'ops_center', icon: Activity, label: 'Opérations Center' },
+        { key: 'rev_center', icon: BarChart3, label: 'Revenus Center' },
+        { key: 'actions_center', icon: Sparkles, label: 'Actions Center' },
+      ],
+    },
+    {
+      id: 'admin',
+      items: [
+        { key: 'super_admin', icon: Shield, label: 'Super Admin' },
+      ],
+    },
+    {
+      id: 'settings',
+      items: [
+        { key: 'parametres', icon: Settings, label: 'Paramètres' },
       ],
     },
   ];
@@ -77,11 +107,11 @@ const PlatformSection = () => {
   // Map tab → active sidebar item
   const activeItemByTab = {
     crm: 'clients',
+    services: 'missions',
+    produits: 'catalogue',
     management: 'projets',
-    hr: 'collaborateurs',
     finance: 'facturation',
-    products: 'aujourdhui',
-    supply: 'aujourdhui',
+    equipe: 'collaborateurs',
   };
 
   const Sidebar = () => (
@@ -231,63 +261,6 @@ const PlatformSection = () => {
     </div>
   );
 
-  const HRContent = () => (
-    <div className="h-full flex flex-col">
-      <div className="flex items-center justify-between px-5 py-3 border-b border-[#E5E7EB]">
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-[#0A0A0A]">Collaborateurs</span>
-          <span className="text-xs text-[#9CA3AF]">24 actifs</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 text-xs text-[#6B7280] bg-[#F9FAFB] px-2 py-1 rounded">
-            <Filter className="w-3 h-3" />
-            <span>Département</span>
-          </div>
-          <Plus className="w-3.5 h-3.5 text-[#9CA3AF]" />
-        </div>
-      </div>
-      <div className="flex-1 overflow-auto">
-        <table className="w-full text-xs">
-          <thead>
-            <tr className="border-b border-[#E5E7EB] bg-[#FAFAFA]">
-              <th className="text-left px-5 py-2 font-medium text-[#6B7280]">Collaborateur</th>
-              <th className="text-left px-3 py-2 font-medium text-[#6B7280]">Poste</th>
-              <th className="text-left px-3 py-2 font-medium text-[#6B7280]">Département</th>
-              <th className="text-left px-3 py-2 font-medium text-[#6B7280]">Statut</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[
-              { name: 'Marie Dupont', role: 'Directrice Marketing', dept: 'Marketing', status: 'Bureau', color: 'bg-violet-400', statusColor: 'bg-[#D1FAE5] text-[#059669]' },
-              { name: 'Thomas Martin', role: 'Développeur Senior', dept: 'Tech', status: 'Télétravail', color: 'bg-blue-400', statusColor: 'bg-[#DBEAFE] text-[#2563EB]' },
-              { name: 'Sophie Bernard', role: 'Product Manager', dept: 'Produit', status: 'Bureau', color: 'bg-emerald-400', statusColor: 'bg-[#D1FAE5] text-[#059669]' },
-              { name: 'Lucas Petit', role: 'Designer UX', dept: 'Design', status: 'Congé', color: 'bg-orange-400', statusColor: 'bg-[#FEF3C7] text-[#92400E]' },
-              { name: 'Emma Richard', role: 'Account Executive', dept: 'Sales', status: 'Bureau', color: 'bg-pink-400', statusColor: 'bg-[#D1FAE5] text-[#059669]' },
-              { name: 'Hugo Moreau', role: 'Data Analyst', dept: 'Data', status: 'Télétravail', color: 'bg-cyan-400', statusColor: 'bg-[#DBEAFE] text-[#2563EB]' },
-              { name: 'Léa Dubois', role: 'RH Manager', dept: 'RH', status: 'Bureau', color: 'bg-amber-400', statusColor: 'bg-[#D1FAE5] text-[#059669]' },
-            ].map((emp, i) => (
-              <tr key={i} className="border-b border-[#F3F4F6] hover:bg-[#F9FAFB] transition-colors">
-                <td className="px-5 py-2.5">
-                  <div className="flex items-center gap-2">
-                    <div className={`w-6 h-6 rounded-full ${emp.color} flex items-center justify-center`}>
-                      <span className="text-white text-[8px] font-bold">{emp.name.split(' ').map(n => n[0]).join('')}</span>
-                    </div>
-                    <span className="font-medium text-[#0A0A0A]">{emp.name}</span>
-                  </div>
-                </td>
-                <td className="px-3 py-2.5 text-[#6B7280]">{emp.role}</td>
-                <td className="px-3 py-2.5 text-[#6B7280]">{emp.dept}</td>
-                <td className="px-3 py-2.5">
-                  <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${emp.statusColor}`}>{emp.status}</span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-
   const FinanceContent = () => (
     <div className="h-full flex flex-col">
       <div className="flex items-center justify-between px-5 py-3 border-b border-[#E5E7EB]">
@@ -347,11 +320,45 @@ const PlatformSection = () => {
     </div>
   );
 
+  const ServicesContent = () => (
+    <div className="h-full flex flex-col">
+      <div className="flex items-center justify-between px-5 py-3 border-b border-[#E5E7EB]">
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium text-[#0A0A0A]">Missions</span>
+          <span className="text-xs text-[#9CA3AF]">12 actives</span>
+        </div>
+        <button className="flex items-center gap-1 px-2 py-1 text-[10px] bg-[#0A0A0A] text-white rounded">
+          <Plus className="w-3 h-3" /> Nouvelle mission
+        </button>
+      </div>
+      <div className="flex-1 overflow-auto p-5 space-y-2">
+        {[
+          { name: 'Audit UX site e-commerce', client: 'TechVision', status: 'En cours', date: '10-24 Avr', statusColor: 'bg-[#DBEAFE] text-[#2563EB]' },
+          { name: 'Refonte identité visuelle', client: 'CloudNine', status: 'En cours', date: '01-30 Avr', statusColor: 'bg-[#DBEAFE] text-[#2563EB]' },
+          { name: 'Développement API v3', client: 'DataFlow', status: 'Livré', date: '01-15 Avr', statusColor: 'bg-[#D1FAE5] text-[#059669]' },
+          { name: 'Stratégie acquisition', client: 'NexGen', status: 'Planifié', date: '25 Avr - 15 Mai', statusColor: 'bg-[#FEF3C7] text-[#92400E]' },
+          { name: 'Migration infrastructure', client: 'Acme Corp', status: 'En cours', date: '05-20 Avr', statusColor: 'bg-[#DBEAFE] text-[#2563EB]' },
+        ].map((m, i) => (
+          <div key={i} className="flex items-center justify-between p-3 rounded-lg border border-[#F3F4F6] hover:border-[#E5E7EB] bg-white transition-colors">
+            <div>
+              <p className="text-xs font-medium text-[#0A0A0A]">{m.name}</p>
+              <p className="text-[10px] text-[#9CA3AF] mt-0.5">{m.client}</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-[10px] text-[#9CA3AF]">{m.date}</span>
+              <span className={`px-1.5 py-0.5 rounded text-[9px] font-medium ${m.statusColor}`}>{m.status}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
   const ProductsContent = () => (
     <div className="h-full flex flex-col">
       <div className="flex items-center justify-between px-5 py-3 border-b border-[#E5E7EB]">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-[#0A0A0A]">Catalogue produits</span>
+          <span className="text-sm font-medium text-[#0A0A0A]">Catalogue</span>
           <span className="text-xs text-[#9CA3AF]">6 produits</span>
         </div>
         <Plus className="w-3.5 h-3.5 text-[#9CA3AF]" />
@@ -362,26 +369,24 @@ const PlatformSection = () => {
             <tr className="border-b border-[#E5E7EB] bg-[#FAFAFA]">
               <th className="text-left px-5 py-2 font-medium text-[#6B7280]">Produit</th>
               <th className="text-left px-3 py-2 font-medium text-[#6B7280]">Type</th>
-              <th className="text-left px-3 py-2 font-medium text-[#6B7280]">Statut</th>
-              <th className="text-left px-3 py-2 font-medium text-[#6B7280]">MRR</th>
+              <th className="text-left px-3 py-2 font-medium text-[#6B7280]">Stock</th>
+              <th className="text-left px-3 py-2 font-medium text-[#6B7280]">Prix</th>
             </tr>
           </thead>
           <tbody>
             {[
-              { name: 'Module CRM Pro', type: 'SaaS', status: 'Actif', mrr: '€45/mois', statusColor: 'bg-[#D1FAE5] text-[#059669]' },
-              { name: 'Module Management', type: 'SaaS', status: 'Actif', mrr: '€35/mois', statusColor: 'bg-[#D1FAE5] text-[#059669]' },
-              { name: 'Module RH', type: 'SaaS', status: 'Actif', mrr: '€30/mois', statusColor: 'bg-[#D1FAE5] text-[#059669]' },
-              { name: 'Module Finance', type: 'SaaS', status: 'Actif', mrr: '€25/mois', statusColor: 'bg-[#D1FAE5] text-[#059669]' },
-              { name: 'Pack Enterprise', type: 'Bundle', status: 'Actif', mrr: '€199/mois', statusColor: 'bg-[#D1FAE5] text-[#059669]' },
-              { name: 'IA Agent Add-on', type: 'Add-on', status: 'Beta', mrr: '€25/mois', statusColor: 'bg-[#EDE9FE] text-[#7C3AED]' },
+              { name: 'Pack Starter', type: 'Service', stock: '—', price: '€490', statusColor: 'bg-[#D1FAE5] text-[#059669]' },
+              { name: 'Pack Business', type: 'Service', stock: '—', price: '€990', statusColor: 'bg-[#D1FAE5] text-[#059669]' },
+              { name: 'Formation IA', type: 'Formation', stock: '5 places', price: '€1,200', statusColor: 'bg-[#DBEAFE] text-[#2563EB]' },
+              { name: 'Audit Process', type: 'Service', stock: '—', price: '€2,500', statusColor: 'bg-[#D1FAE5] text-[#059669]' },
+              { name: 'Licence Enterprise', type: 'Licence', stock: 'Illimité', price: '€199/mois', statusColor: 'bg-[#EDE9FE] text-[#7C3AED]' },
+              { name: 'Module IA Add-on', type: 'Add-on', stock: 'Illimité', price: '€25/mois', statusColor: 'bg-[#EDE9FE] text-[#7C3AED]' },
             ].map((p, i) => (
               <tr key={i} className="border-b border-[#F3F4F6] hover:bg-[#F9FAFB] transition-colors">
                 <td className="px-5 py-2.5 font-medium text-[#0A0A0A]">{p.name}</td>
                 <td className="px-3 py-2.5 text-[#6B7280]">{p.type}</td>
-                <td className="px-3 py-2.5">
-                  <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${p.statusColor}`}>{p.status}</span>
-                </td>
-                <td className="px-3 py-2.5 font-medium text-[#0A0A0A]">{p.mrr}</td>
+                <td className="px-3 py-2.5 text-[#6B7280]">{p.stock}</td>
+                <td className="px-3 py-2.5 font-medium text-[#0A0A0A]">{p.price}</td>
               </tr>
             ))}
           </tbody>
@@ -390,35 +395,59 @@ const PlatformSection = () => {
     </div>
   );
 
-  const SupplyContent = () => (
+  const EquipeContent = () => (
     <div className="h-full flex flex-col">
       <div className="flex items-center justify-between px-5 py-3 border-b border-[#E5E7EB]">
-        <span className="text-sm font-medium text-[#0A0A0A]">Commandes fournisseurs</span>
         <div className="flex items-center gap-2">
+          <span className="text-sm font-medium text-[#0A0A0A]">Collaborateurs</span>
+          <span className="text-xs text-[#9CA3AF]">24 actifs</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 text-xs text-[#6B7280] bg-[#F9FAFB] px-2 py-1 rounded">
+            <Filter className="w-3 h-3" />
+            <span>Département</span>
+          </div>
           <Plus className="w-3.5 h-3.5 text-[#9CA3AF]" />
-          <MoreHorizontal className="w-3.5 h-3.5 text-[#9CA3AF]" />
         </div>
       </div>
-      <div className="flex-1 overflow-auto p-5 space-y-2">
-        {[
-          { id: 'CMD-089', supplier: 'TechParts SA', items: 12, status: 'Livré', date: '08 Avr', color: 'bg-[#D1FAE5] text-[#059669]' },
-          { id: 'CMD-090', supplier: 'CloudServices', items: 3, status: 'En transit', date: '09 Avr', color: 'bg-[#DBEAFE] text-[#2563EB]' },
-          { id: 'CMD-091', supplier: 'DataInfra Pro', items: 8, status: 'En transit', date: '09 Avr', color: 'bg-[#DBEAFE] text-[#2563EB]' },
-          { id: 'CMD-092', supplier: 'SecureNet', items: 5, status: 'Commandé', date: '10 Avr', color: 'bg-[#FEF3C7] text-[#92400E]' },
-          { id: 'CMD-093', supplier: 'InnoLabs', items: 15, status: 'En préparation', date: '10 Avr', color: 'bg-[#EDE9FE] text-[#7C3AED]' },
-        ].map((order, i) => (
-          <div key={i} className="flex items-center justify-between p-3 rounded-lg border border-[#F3F4F6] hover:border-[#E5E7EB] bg-white transition-colors">
-            <div>
-              <span className="text-[10px] font-mono text-[#9CA3AF]">{order.id}</span>
-              <p className="text-xs font-medium text-[#0A0A0A]">{order.supplier}</p>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="text-[10px] text-[#9CA3AF]">{order.items} articles</span>
-              <span className={`px-1.5 py-0.5 rounded text-[9px] font-medium ${order.color}`}>{order.status}</span>
-              <span className="text-[10px] text-[#9CA3AF]">{order.date}</span>
-            </div>
-          </div>
-        ))}
+      <div className="flex-1 overflow-auto">
+        <table className="w-full text-xs">
+          <thead>
+            <tr className="border-b border-[#E5E7EB] bg-[#FAFAFA]">
+              <th className="text-left px-5 py-2 font-medium text-[#6B7280]">Collaborateur</th>
+              <th className="text-left px-3 py-2 font-medium text-[#6B7280]">Poste</th>
+              <th className="text-left px-3 py-2 font-medium text-[#6B7280]">Département</th>
+              <th className="text-left px-3 py-2 font-medium text-[#6B7280]">Statut</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              { name: 'Marie Dupont', role: 'Directrice Marketing', dept: 'Marketing', status: 'Bureau', color: 'bg-violet-400', statusColor: 'bg-[#D1FAE5] text-[#059669]' },
+              { name: 'Thomas Martin', role: 'Développeur Senior', dept: 'Tech', status: 'Télétravail', color: 'bg-blue-400', statusColor: 'bg-[#DBEAFE] text-[#2563EB]' },
+              { name: 'Sophie Bernard', role: 'Product Manager', dept: 'Produit', status: 'Bureau', color: 'bg-emerald-400', statusColor: 'bg-[#D1FAE5] text-[#059669]' },
+              { name: 'Lucas Petit', role: 'Designer UX', dept: 'Design', status: 'Congé', color: 'bg-orange-400', statusColor: 'bg-[#FEF3C7] text-[#92400E]' },
+              { name: 'Emma Richard', role: 'Account Executive', dept: 'Sales', status: 'Bureau', color: 'bg-pink-400', statusColor: 'bg-[#D1FAE5] text-[#059669]' },
+              { name: 'Hugo Moreau', role: 'Data Analyst', dept: 'Data', status: 'Télétravail', color: 'bg-cyan-400', statusColor: 'bg-[#DBEAFE] text-[#2563EB]' },
+              { name: 'Léa Dubois', role: 'RH Manager', dept: 'RH', status: 'Bureau', color: 'bg-amber-400', statusColor: 'bg-[#D1FAE5] text-[#059669]' },
+            ].map((emp, i) => (
+              <tr key={i} className="border-b border-[#F3F4F6] hover:bg-[#F9FAFB] transition-colors">
+                <td className="px-5 py-2.5">
+                  <div className="flex items-center gap-2">
+                    <div className={`w-6 h-6 rounded-full ${emp.color} flex items-center justify-center`}>
+                      <span className="text-white text-[8px] font-bold">{emp.name.split(' ').map(n => n[0]).join('')}</span>
+                    </div>
+                    <span className="font-medium text-[#0A0A0A]">{emp.name}</span>
+                  </div>
+                </td>
+                <td className="px-3 py-2.5 text-[#6B7280]">{emp.role}</td>
+                <td className="px-3 py-2.5 text-[#6B7280]">{emp.dept}</td>
+                <td className="px-3 py-2.5">
+                  <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${emp.statusColor}`}>{emp.status}</span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
@@ -426,11 +455,11 @@ const PlatformSection = () => {
   const TabContent = ({ tabKey }) => {
     switch (tabKey) {
       case 'crm': return <CRMContent />;
+      case 'services': return <ServicesContent />;
+      case 'produits': return <ProductsContent />;
       case 'management': return <ManagementContent />;
-      case 'hr': return <HRContent />;
       case 'finance': return <FinanceContent />;
-      case 'products': return <ProductsContent />;
-      case 'supply': return <SupplyContent />;
+      case 'equipe': return <EquipeContent />;
       default: return null;
     }
   };
