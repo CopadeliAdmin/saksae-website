@@ -9,7 +9,6 @@ import RegisterPage from "./pages/RegisterPage";
 function App() {
   return (
     <LanguageProvider>
-      <AuthProvider>
         <div className="App">
           <BrowserRouter>
             <Routes>
@@ -19,7 +18,6 @@ function App() {
             </Routes>
           </BrowserRouter>
         </div>
-      </AuthProvider>
     </LanguageProvider>
   );
 }
