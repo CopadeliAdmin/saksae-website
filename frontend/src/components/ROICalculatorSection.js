@@ -5,9 +5,6 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { Slider } from '../components/ui/slider';
 import { Input } from '../components/ui/input';
 import { Button } from '../components/ui/button';
-import axios from 'axios';
-
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const ROICalculatorSection = () => {
   const { t } = useLanguage();
@@ -46,24 +43,13 @@ const ROICalculatorSection = () => {
   const handleSubmit = async () => {
     if (!email) return;
     setLoading(true);
-    try {
-      await axios.post(`${API}/roi-calculations`, {
-        team_size: values.employees,
-        actions_per_day: values.actionsPerDay,
-        time_per_action: values.timePerAction,
-        value_per_action: values.valuePerAction,
-        conversion_rate: values.conversionRate,
-        monthly_revenue: results.monthlyRevenue,
-        annual_revenue: results.annualRevenue,
-        email: email,
-      });
+    // Simulation d'envoi pour un site statique
+    setTimeout(() => {
       setSubmitted(true);
-    } catch (e) {
-      console.error('Error saving ROI calculation:', e);
-    } finally {
       setLoading(false);
-    }
+    }, 800);
   };
+
 
   return (
     <section id="roi-calculator" className="py-20 lg:py-32 bg-white">

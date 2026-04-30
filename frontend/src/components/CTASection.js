@@ -19,15 +19,15 @@ const CTASection = () => {
           <h2 className="text-2xl md:text-[1.875rem] font-semibold text-white mb-10 tracking-[-0.025em] leading-[1.2]">
             {t('cta.title')}
           </h2>
-          <a
-            href="/register"
+          <button
+            onClick={() => window.open('https://calendly.com/saksae-sales', '_blank')}
             className="group inline-flex items-center gap-2.5 px-7 py-3 text-[14px] font-medium bg-white text-[#0A0A0A] rounded-lg hover:bg-[#F4F4F5] transition-all active:scale-[0.98]"
             style={{ transitionDuration: '240ms', transitionTimingFunction: 'cubic-bezier(0.33, 1, 0.68, 1)' }}
             data-testid="final-cta-primary"
           >
-            {t('cta.button')}
+            {t('language') === 'fr' ? 'Planifier une démo' : 'Schedule a demo'}
             <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" style={{ transitionDuration: '240ms' }} />
-          </a>
+          </button>
         </motion.div>
       </div>
     </section>

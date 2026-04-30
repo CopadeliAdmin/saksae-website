@@ -9,10 +9,6 @@ const PricingSection = () => {
   const [tpeUsers, setTpeUsers] = useState(3);
   const [pmeUsers, setPmeUsers] = useState(15);
 
-  const handleTrialClick = () => {
-    window.location.href = '/register';
-  };
-
   const handleContactClick = () => {
     window.open('https://calendly.com/saksae-sales', '_blank');
   };
@@ -244,7 +240,7 @@ const PricingSection = () => {
 
               {/* CTA */}
               <button
-                onClick={handleTrialClick}
+                onClick={handleContactClick}
                 className={`w-full py-2.5 text-sm font-medium rounded-lg transition-colors ${
                   plan.highlighted
                     ? 'bg-white text-[#0A0A0A] hover:bg-[#F3F4F6]'
@@ -252,7 +248,7 @@ const PricingSection = () => {
                 }`}
                 data-testid={`pricing-cta-${plan.key}`}
               >
-                {language === 'fr' ? '15 jours d\'essai gratuit' : '15-day free trial'}
+                {language === 'fr' ? 'Planifier une démo' : 'Schedule a demo'}
               </button>
             </motion.div>
           ))}

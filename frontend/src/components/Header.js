@@ -7,9 +7,6 @@ const Header = () => {
   const { language, toggleLanguage, t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleTrialClick = () => { window.location.href = '/register'; };
-  const handleLoginClick = () => { window.location.href = '/login'; };
-
   return (
     <motion.header
       initial={{ y: -10, opacity: 0 }}
@@ -52,22 +49,6 @@ const Header = () => {
             >
               {language}
             </button>
-            <button
-              onClick={handleLoginClick}
-              className="px-3.5 py-2 text-[13px] text-[#71717A] hover:text-[#0A0A0A] transition-colors"
-              style={{ transitionDuration: '180ms' }}
-              data-testid="nav-login"
-            >
-              {t('nav.login')}
-            </button>
-            <button
-              onClick={handleTrialClick}
-              className="px-4 py-[7px] text-[13px] font-medium bg-[#0A0A0A] text-white rounded-lg hover:bg-[#171717] transition-all active:scale-[0.97]"
-              style={{ transitionDuration: '200ms', transitionTimingFunction: 'cubic-bezier(0.33, 1, 0.68, 1)' }}
-              data-testid="nav-trial"
-            >
-              {t('nav.startFree')}
-            </button>
           </div>
 
           {/* Mobile menu button */}
@@ -95,14 +76,6 @@ const Header = () => {
               <div className="flex items-center gap-4 pt-4 mt-2 border-t border-[#E4E4E7]/60">
                 <button onClick={toggleLanguage} className="text-[11px] text-[#A1A1AA] uppercase tracking-wider font-medium">
                   {language}
-                </button>
-              </div>
-              <div className="flex flex-col gap-2 pt-3">
-                <button onClick={handleLoginClick} className="w-full py-2.5 text-[14px] border border-[#E4E4E7] rounded-lg text-[#52525B]">
-                  {t('nav.login')}
-                </button>
-                <button onClick={handleTrialClick} className="w-full py-2.5 text-[14px] bg-[#0A0A0A] text-white rounded-lg font-medium">
-                  {t('nav.startFree')}
                 </button>
               </div>
             </div>

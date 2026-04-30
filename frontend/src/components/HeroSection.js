@@ -6,7 +6,6 @@ import { ArrowRight, TrendingUp, Settings } from 'lucide-react';
 const HeroSection = () => {
   const { language } = useLanguage();
 
-  const handleTrialClick = () => { window.location.href = '/register'; };
   const handleDemoClick = () => { window.open('https://calendly.com/saksae-sales', '_blank'); };
 
   // Each popup cycles through its positions
@@ -167,13 +166,13 @@ const HeroSection = () => {
             className="flex justify-center"
           >
             <button
-              onClick={handleTrialClick}
+              onClick={handleDemoClick}
               className="group px-7 py-3 text-sm font-medium bg-[#0A0A0A] text-white rounded-lg transition-all hover:bg-[#171717] active:scale-[0.98]"
               style={{ transitionDuration: '240ms', transitionTimingFunction: 'cubic-bezier(0.33, 1, 0.68, 1)' }}
               data-testid="cta-primary"
             >
               <span className="flex items-center justify-center gap-2">
-                {language === 'fr' ? 'Commencez votre essai gratuit pro de 14 jours' : 'Start your 14-day pro free trial'}
+                {language === 'fr' ? 'Planifier une démo' : 'Schedule a demo'}
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" style={{ transitionDuration: '240ms' }} />
               </span>
             </button>

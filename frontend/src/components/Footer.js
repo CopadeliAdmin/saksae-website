@@ -19,8 +19,6 @@ const Footer = () => {
       title: language === 'fr' ? 'Entreprise' : 'Company',
       links: [
         { label: language === 'fr' ? 'Tarification' : 'Pricing', href: '#pricing' },
-        { label: language === 'fr' ? 'Connexion' : 'Login', href: '/login' },
-        { label: language === 'fr' ? 'Inscription' : 'Register', href: '/register' },
       ],
     },
   };
