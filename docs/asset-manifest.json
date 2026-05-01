@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/www.saksae.com/static/css/main.a9a6714c.css",
-    "main.js": "/www.saksae.com/static/js/main.8b9c2fea.js",
-    "index.html": "/www.saksae.com/index.html",
-    "main.a9a6714c.css.map": "/www.saksae.com/static/css/main.a9a6714c.css.map",
-    "main.8b9c2fea.js.map": "/www.saksae.com/static/js/main.8b9c2fea.js.map"
+    "main.css": "/static/css/main.a9a6714c.css",
+    "main.js": "/static/js/main.c2916829.js",
+    "index.html": "/index.html",
+    "main.a9a6714c.css.map": "/static/css/main.a9a6714c.css.map",
+    "main.c2916829.js.map": "/static/js/main.c2916829.js.map"
   },
   "entrypoints": [
     "static/css/main.a9a6714c.css",
-    "static/js/main.8b9c2fea.js"
+    "static/js/main.c2916829.js"
   ]
 }
