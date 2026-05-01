@@ -17,8 +17,8 @@ const Header = () => {
       <div className="max-w-[1120px] mx-auto px-6">
         <div className="flex items-center justify-between h-[64px]">
           {/* Logo */}
-          <a href="/" className="flex items-center group">
-            <img src="/logo-saksae.png" alt="SAKSAE" className="h-[60px] object-contain" style={{ imageRendering: 'auto' }} />
+          <a href={process.env.PUBLIC_URL || "/"} className="flex items-center group">
+            <img src={`${process.env.PUBLIC_URL}/logo-saksae.png`} alt="SAKSAE" className="h-[60px] object-contain" style={{ imageRendering: 'auto' }} />
           </a>
 
           {/* Desktop Nav */}
