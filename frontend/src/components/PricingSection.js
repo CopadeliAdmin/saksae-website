@@ -1,69 +1,87 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
-import { ArrowRight, Minus, Plus, Check } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 
 const PricingSection = () => {
   const { language } = useLanguage();
   const [isAnnual, setIsAnnual] = useState(true);
-  const [tpeUsers, setTpeUsers] = useState(3);
-  const [pmeUsers, setPmeUsers] = useState(15);
 
-  const handleContactClick = () => {
+  const handleDemoClick = () => {
     window.open('https://calendly.com/saksae-sales', '_blank');
   };
-
-  const monthlyPrices = { independant: 79, tpe: 59, pme: 49 };
-
-  const getPrice = (base) => isAnnual ? Math.round(base * 0.8) : base;
 
   const plans = [
     {
       key: 'independant',
       name: language === 'fr' ? 'Indépendant' : 'Freelancer',
-      desc: language === 'fr' ? '1 utilisateur' : '1 user',
-      price: getPrice(monthlyPrices.independant),
-      fullPrice: monthlyPrices.independant,
-      total: null,
-      perUser: null,
+      target: language === 'fr' ? '1 utilisateur' : '1 user',
+      desc: language === 'fr'
+        ? 'Pour piloter seul vos clients, missions et revenus.'
+        : 'To manage your clients, missions and revenue solo.',
+      monthlyPrice: '99',
+      annualPrice: '79',
       highlighted: false,
+      cta: language === 'fr' ? 'Planifier une démo' : 'Schedule a demo',
+      ctaAction: handleDemoClick,
       features: language === 'fr'
-        ? ['CRM', 'Management', 'Services ou Produits', 'Admin et Finances', 'RH', 'Actions IA']
-        : ['CRM', 'Management', 'Services or Products', 'Admin & Finance', 'HR', 'AI Actions'],
+        ? ['CRM', 'Missions, produits & rentabilité', 'Admin & Finance', 'RH essentiel', 'Actions IA & alertes business', 'Dashboards essentiels']
+        : ['CRM', 'Missions, products & profitability', 'Admin & Finance', 'Essential HR', 'AI Actions & business alerts', 'Essential dashboards'],
     },
     {
-      key: 'tpe',
-      name: 'TPE',
-      desc: language === 'fr' ? `${tpeUsers} utilisateurs` : `${tpeUsers} users`,
-      price: getPrice(monthlyPrices.tpe) * tpeUsers,
-      fullPrice: monthlyPrices.tpe * tpeUsers,
-      perUser: getPrice(monthlyPrices.tpe),
-      perUserFull: monthlyPrices.tpe,
+      key: 'equipe',
+      name: language === 'fr' ? 'Équipe' : 'Team',
+      target: language === 'fr' ? '2 à 9 utilisateurs' : '2 to 9 users',
+      desc: language === 'fr'
+        ? "Pour structurer l'exécution commerciale, opérationnelle et financière d'une TPE."
+        : 'To structure the commercial, operational and financial execution of a small business.',
+      monthlyPrice: '349',
+      annualPrice: '279',
       highlighted: true,
-      userControl: { value: tpeUsers, set: setTpeUsers, min: 1, max: 9 },
+      badge: language === 'fr' ? 'Populaire' : 'Popular',
+      cta: language === 'fr' ? 'Planifier une démo' : 'Schedule a demo',
+      ctaAction: handleDemoClick,
       features: language === 'fr'
-        ? ['CRM', 'Management', 'Services ou Produits', 'Admin et Finances', 'RH', 'Revenus Center', 'Opérations Center', 'Actions IA']
-        : ['CRM', 'Management', 'Services or Products', 'Admin & Finance', 'HR', 'Revenue Center', 'Operations Center', 'AI Actions'],
+        ? ['Tout le plan Indépendant', 'CRM clients & prospects', 'Missions, livrables, temps & rentabilité', 'Réunions IA', 'Revenue Center', 'Operations Center', 'Playbooks', 'Support prioritaire']
+        : ['Everything in Freelancer', 'CRM clients & prospects', 'Missions, deliverables, time & profitability', 'AI Meetings', 'Revenue Center', 'Operations Center', 'Playbooks', 'Priority support'],
     },
     {
-      key: 'pme',
-      name: 'PME',
-      desc: language === 'fr' ? `${pmeUsers} utilisateurs` : `${pmeUsers} users`,
-      price: getPrice(monthlyPrices.pme) * pmeUsers,
-      fullPrice: monthlyPrices.pme * pmeUsers,
-      perUser: getPrice(monthlyPrices.pme),
-      perUserFull: monthlyPrices.pme,
+      key: 'croissance',
+      name: language === 'fr' ? 'Croissance' : 'Growth',
+      target: language === 'fr' ? '10 à 20 utilisateurs' : '10 to 20 users',
+      desc: language === 'fr'
+        ? 'Pour piloter une PME de services avec visibilité sur revenus, rentabilité, équipe et cash.'
+        : 'To manage a services SME with visibility on revenue, profitability, team and cash.',
+      monthlyPrice: '749',
+      annualPrice: '599',
       highlighted: false,
-      userControl: { value: pmeUsers, set: setPmeUsers, min: 10, max: 49 },
+      cta: language === 'fr' ? 'Planifier une démo' : 'Schedule a demo',
+      ctaAction: handleDemoClick,
       features: language === 'fr'
-        ? ['CRM', 'Management', 'Services ou Produits', 'Admin et Finances', 'RH', 'Revenus Center', 'Opérations Center', 'Actions IA']
-        : ['CRM', 'Management', 'Services or Products', 'Admin & Finance', 'HR', 'Revenue Center', 'Operations Center', 'AI Actions'],
+        ? ['Tout le plan Équipe', 'Dashboards avancés', 'Rentabilité par client, mission et collaborateur', 'Workflows internes', 'Contrats & e-signature', 'Objectifs commerciaux', 'Pilotage cash, facturation & relances', 'Permissions avancées']
+        : ['Everything in Team', 'Advanced dashboards', 'Profitability per client, mission & collaborator', 'Internal workflows', 'Contracts & e-signature', 'Sales objectives', 'Cash management, invoicing & follow-ups', 'Advanced permissions'],
+    },
+    {
+      key: 'entreprise',
+      name: language === 'fr' ? 'Entreprise' : 'Enterprise',
+      target: '20+ ' + (language === 'fr' ? 'utilisateurs' : 'users'),
+      desc: language === 'fr'
+        ? "Pour connecter vos équipes, vos données et vos décisions à l'échelle de l'organisation."
+        : 'To connect your teams, data and decisions at organizational scale.',
+      monthlyPrice: language === 'fr' ? 'dès 1 200' : 'from 1,200',
+      annualPrice: language === 'fr' ? 'Sur devis' : 'Custom',
+      highlighted: false,
+      cta: language === 'fr' ? "Contacter l'équipe" : 'Contact team',
+      ctaAction: handleDemoClick,
+      features: language === 'fr'
+        ? ['Tout le plan Croissance', 'Multi-entités', 'Intégrations avancées', 'Automatisations sur mesure', 'Reporting dirigeant', 'Gouvernance des données', 'SLA', 'Accompagnement dédié']
+        : ['Everything in Growth', 'Multi-entity', 'Advanced integrations', 'Custom automations', 'Executive reporting', 'Data governance', 'SLA', 'Dedicated support'],
     },
   ];
 
   return (
     <section id="pricing" className="py-24 md:py-32 bg-[#FAFAFA]">
-      <div className="max-w-[1120px] mx-auto px-6">
+      <div className="max-w-[1200px] mx-auto px-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 28 }}
@@ -98,8 +116,8 @@ const PricingSection = () => {
             className="text-base text-[#52525B] leading-[1.7] mb-10"
           >
             {language === 'fr'
-              ? 'Tous les outils inclus. Abonnements par utilisateurs.'
-              : 'All tools included. Per-user subscriptions.'}
+              ? 'Tous les outils inclus. Pas de frais cachés.'
+              : 'All tools included. No hidden fees.'}
           </motion.p>
 
           {/* Toggle Mensuel / Annuel */}
@@ -132,10 +150,16 @@ const PricingSection = () => {
               </span>
             </button>
           </div>
+
+          {isAnnual && (
+            <p className="text-xs text-[#059669] mt-3 font-medium">
+              {language === 'fr' ? 'Économisez 20 % avec l\'annuel' : 'Save 20% with annual billing'}
+            </p>
+          )}
         </motion.div>
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-4 mb-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           {plans.map((plan, pi) => (
             <motion.div
               key={plan.key}
@@ -143,94 +167,74 @@ const PricingSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ delay: pi * 0.08, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              className={`relative rounded-xl p-7 flex flex-col ${
+              className={`relative rounded-xl p-6 flex flex-col ${
                 plan.highlighted
                   ? 'border-2 border-[#0A0A0A] bg-[#0A0A0A] text-white'
                   : 'border border-[#E4E4E7] bg-white'
               }`}
               data-testid={`pricing-${plan.key}`}
             >
-              {plan.highlighted && (
-                <span className="absolute -top-3 left-6 px-3 py-1 text-xs font-medium bg-white text-[#0A0A0A] rounded-full">
-                  Popular
+              {plan.badge && (
+                <span className="absolute -top-3 left-5 px-3 py-1 text-xs font-medium bg-white text-[#0A0A0A] rounded-full shadow-sm">
+                  {plan.badge}
                 </span>
               )}
 
-              {/* Plan name */}
-              <h3 className={`text-lg font-semibold mb-1 ${plan.highlighted ? 'text-white' : 'text-[#0A0A0A]'}`}>
+              {/* Plan name & target */}
+              <h3 className={`text-lg font-semibold mb-0.5 ${plan.highlighted ? 'text-white' : 'text-[#0A0A0A]'}`}>
                 {plan.name}
               </h3>
-              <p className={`text-sm mb-5 ${plan.highlighted ? 'text-white/60' : 'text-[#6B7280]'}`}>
-                {plan.desc}
+              <p className={`text-xs font-medium mb-3 ${plan.highlighted ? 'text-white/50' : 'text-[#9CA3AF]'}`}>
+                {plan.target}
               </p>
-
-              {/* User selector */}
-              {plan.userControl && (
-                <div className={`flex items-center justify-between mb-4 rounded-lg p-2 ${
-                  plan.highlighted ? 'bg-white/10' : 'bg-[#F3F4F6]'
-                }`}>
-                  <button
-                    onClick={() => plan.userControl.set(Math.max(plan.userControl.min, plan.userControl.value - 1))}
-                    className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
-                      plan.highlighted ? 'bg-white/10 hover:bg-white/20' : 'bg-white hover:bg-[#E5E7EB]'
-                    }`}
-                  >
-                    <Minus className={`w-4 h-4 ${plan.highlighted ? 'text-white' : 'text-[#6B7280]'}`} />
-                  </button>
-                  <div className="text-center">
-                    <span className={`text-xl font-semibold ${plan.highlighted ? 'text-white' : 'text-[#0A0A0A]'}`}>
-                      {plan.userControl.value}
-                    </span>
-                    <span className={`text-xs ml-1 ${plan.highlighted ? 'text-white/60' : 'text-[#6B7280]'}`}>
-                      {language === 'fr' ? 'utilisateurs' : 'users'}
-                    </span>
-                  </div>
-                  <button
-                    onClick={() => plan.userControl.set(Math.min(plan.userControl.max, plan.userControl.value + 1))}
-                    className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
-                      plan.highlighted ? 'bg-white/10 hover:bg-white/20' : 'bg-white hover:bg-[#E5E7EB]'
-                    }`}
-                  >
-                    <Plus className={`w-4 h-4 ${plan.highlighted ? 'text-white' : 'text-[#6B7280]'}`} />
-                  </button>
-                </div>
-              )}
 
               {/* Price */}
               <div className="mb-1">
-                <span className={`text-4xl font-semibold ${plan.highlighted ? 'text-white' : 'text-[#0A0A0A]'}`}>
-                  €{plan.price}
-                </span>
-                <span className={`text-sm ${plan.highlighted ? 'text-white/60' : 'text-[#6B7280]'}`}>
-                  /{language === 'fr' ? 'mois' : 'mo'}
-                </span>
+                {plan.key === 'entreprise' ? (
+                  <div>
+                    <span className={`text-2xl font-semibold ${plan.highlighted ? 'text-white' : 'text-[#0A0A0A]'}`}>
+                      {isAnnual ? plan.annualPrice : `€${plan.monthlyPrice}`}
+                    </span>
+                    {!isAnnual && (
+                      <span className={`text-sm ${plan.highlighted ? 'text-white/60' : 'text-[#6B7280]'}`}>
+                        /{language === 'fr' ? 'mois' : 'mo'}
+                      </span>
+                    )}
+                  </div>
+                ) : (
+                  <div>
+                    <span className={`text-3xl font-semibold ${plan.highlighted ? 'text-white' : 'text-[#0A0A0A]'}`}>
+                      €{isAnnual ? plan.annualPrice : plan.monthlyPrice}
+                    </span>
+                    <span className={`text-sm ${plan.highlighted ? 'text-white/60' : 'text-[#6B7280]'}`}>
+                      /{language === 'fr' ? 'mois' : 'mo'}
+                    </span>
+                  </div>
+                )}
               </div>
 
-              {/* Price details */}
-              <div className="mb-5">
-                {isAnnual && plan.price !== plan.fullPrice && (
-                  <p className={`text-xs ${plan.highlighted ? 'text-[#4ADE80]' : 'text-[#059669]'}`}>
-                    {language === 'fr' ? `Au lieu de €${plan.fullPrice}/mois` : `Instead of €${plan.fullPrice}/mo`}
-                  </p>
-                )}
-                {plan.perUser && (
-                  <p className={`text-xs mt-0.5 ${plan.highlighted ? 'text-white/50' : 'text-[#9CA3AF]'}`}>
-                    {language === 'fr'
-                      ? `soit €${plan.perUser}/utilisateur/mois`
-                      : `i.e. €${plan.perUser}/user/mo`}
-                  </p>
-                )}
-              </div>
+              {/* Savings hint */}
+              {isAnnual && plan.key !== 'entreprise' && (
+                <p className={`text-[11px] mb-4 ${plan.highlighted ? 'text-[#4ADE80]' : 'text-[#059669]'}`}>
+                  {language === 'fr' ? `Au lieu de €${plan.monthlyPrice}/mois` : `Instead of €${plan.monthlyPrice}/mo`}
+                </p>
+              )}
+              {(!isAnnual || plan.key === 'entreprise') && <div className="mb-4" />}
+
+              {/* Description */}
+              <p className={`text-xs leading-relaxed mb-5 ${plan.highlighted ? 'text-white/70' : 'text-[#6B7280]'}`}>
+                {plan.desc}
+              </p>
 
               {/* Features list */}
               <div className="flex-1 mb-6">
-                <ul className="space-y-2.5">
+                <ul className="space-y-2">
                   {plan.features.map((f, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <Check className={`w-4 h-4 flex-shrink-0 ${
+                    <li key={i} className="flex items-start gap-2">
+                      <Check className={`w-3.5 h-3.5 flex-shrink-0 mt-0.5 ${
                         plan.highlighted ? 'text-[#4ADE80]' : 'text-[#059669]'
-                      }`} strokeWidth={2} />
-                      <span className={`text-sm ${
+                      }`} strokeWidth={2.5} />
+                      <span className={`text-[13px] leading-tight ${
                         plan.highlighted ? 'text-white/80' : 'text-[#4B5563]'
                       }`}>{f}</span>
                     </li>
@@ -240,48 +244,20 @@ const PricingSection = () => {
 
               {/* CTA */}
               <button
-                onClick={handleContactClick}
-                className={`w-full py-2.5 text-sm font-medium rounded-lg transition-colors ${
+                onClick={plan.ctaAction}
+                className={`w-full py-2.5 text-sm font-medium rounded-lg transition-colors flex items-center justify-center gap-2 ${
                   plan.highlighted
                     ? 'bg-white text-[#0A0A0A] hover:bg-[#F3F4F6]'
                     : 'bg-[#0A0A0A] text-white hover:bg-[#1F2937]'
                 }`}
                 data-testid={`pricing-cta-${plan.key}`}
               >
-                {language === 'fr' ? 'Planifier une démo' : 'Schedule a demo'}
+                {plan.cta}
+                <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </motion.div>
           ))}
         </div>
-
-        {/* Enterprise */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="p-6 rounded-xl border border-[#E5E7EB] bg-[#F9FAFB]"
-        >
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-              <h3 className="text-lg font-semibold text-[#0A0A0A] mb-1">
-                {language === 'fr' ? 'Entreprise' : 'Enterprise'}
-              </h3>
-              <p className="text-sm text-[#6B7280]">
-                {language === 'fr'
-                  ? '50+ utilisateurs — Solution sur mesure, déploiement dédié et accompagnement personnalisé.'
-                  : '50+ users — Custom solution, dedicated deployment and personalized support.'}
-              </p>
-            </div>
-            <button
-              onClick={handleContactClick}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium bg-[#0A0A0A] text-white rounded-lg hover:bg-[#1F2937] transition-colors whitespace-nowrap"
-              data-testid="pricing-cta-enterprise"
-            >
-              {language === 'fr' ? 'Nous contacter' : 'Contact us'}
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
